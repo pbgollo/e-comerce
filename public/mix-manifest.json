@@ -1,0 +1,16 @@
+{
+    "/assets/site/js/main.js": "/assets/site/js/main.js",
+    "/assets/site/js/pages/home.js": "/assets/site/js/pages/home.js",
+    "/assets/admin/css/all.css": "/assets/admin/css/all.css",
+    "/assets/site/css/main.css": "/assets/site/css/main.css",
+    "/assets/site/css/vendor.css": "/assets/site/css/vendor.css",
+    "/assets/site/js/vendor.js": "/assets/site/js/vendor.js",
+    "/assets/site/images/logo.png": "/assets/site/images/logo.png",
+    "/assets/admin/css/vendor.css": "/assets/admin/css/vendor.css",
+    "/assets/admin/js/vendor.js": "/assets/admin/js/vendor.js",
+    "/assets/admin/js/all.js": "/assets/admin/js/all.js",
+    "/assets/admin/images/banner.jpg": "/assets/admin/images/banner.jpg",
+    "/assets/admin/images/favicon.png": "/assets/admin/images/favicon.png",
+    "/assets/admin/images/logo-nomad.png": "/assets/admin/images/logo-nomad.png",
+    "/assets/admin/images/logo.png": "/assets/admin/images/logo.png"
+}

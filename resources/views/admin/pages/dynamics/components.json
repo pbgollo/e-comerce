@@ -1,0 +1,162 @@
+[
+
+    {
+        "title" : "Banners",
+        "icon" : "list",
+        "components" : [
+            {
+                "type" : "header",
+                "title" : "Header",
+                "icon" : "list",
+                "items" : [
+                    {
+                        "type" : "thumbs",
+                        "name" : "attributes",
+                        "items" : [
+                            {
+                                "thumb" : "header-v1.png",
+                                "attributes" : "blue center"
+                            },
+                            {
+                                "thumb" : "header-v2.png",
+                                "attributes" : "green center"
+                            },
+                            {
+                                "thumb" : "header-v3.png",
+                                "attributes" : "red center"
+                            },
+                            {
+                                "thumb" : "header-v4.png",
+                                "attributes" : "bottom center"
+                            },
+                            {
+                                "thumb" : "header-v5.png",
+                                "attributes" : "another center"
+                            },
+                            {
+                                "thumb" : "header-v6.png",
+                                "attributes" : "other center"
+                            }
+                        ]
+                    },
+                    {
+                        "type" : "image",
+                        "name" : "image",
+                        "label" : "Background"
+                    },
+                    {
+                        "name" : "title",
+                        "label" : "Titulo",
+                        "size" : 6
+                    },
+                    {
+                        "name" : "description",
+                        "label" : "Descrição",
+                        "type" : "textarea",
+                        "inline" : true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title" : "Bocos de Texto",
+        "icon" : "description",
+        "components" : [
+            {
+                "type" : "block",
+                "title" : "Bloco de Texto",
+                "icon" : "description",
+                "items" : [
+                    {
+                        "type" : "thumbs",
+                        "name" : "attributes",
+                        "items" : [
+                            {
+                                "thumb" : "bloco-de-texto-v1.png",
+                                "attributes" : "blue center"
+                            },
+                            {
+                                "thumb" : "bloco-de-texto-v2.png",
+                                "attributes" : "green center"
+                            },
+                            {
+                                "thumb" : "bloco-de-texto-v3.png",
+                                "attributes" : "red center"
+                            }
+                        ]
+                    },
+                    {
+                        "name" : "title",
+                        "label" : "Titulo"
+                    },
+                    {
+                        "name" : "description",
+                        "label" : "Descrição",
+                        "type" : "textarea",
+                        "inline" : true
+                    },
+                    {
+                        "name" : "buttonLabel",
+                        "label" : "Texto do botão",
+                        "size" : 4
+                    },
+                    {
+                        "name" : "buttonLink",
+                        "label" : "Link do botão",
+                        "size" : 4
+                    },
+                    {
+                        "name" : "newTab",
+                        "label" : "Abrir em nova aba",
+                        "type" : "checkbox",
+                        "size" : 4
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Galerias",
+        "icon": "image",
+        "components": [
+            {
+                "type" : "gallery",
+                "title" : "Galeria",
+                "icon" : "image",
+                "items" : [
+                    {
+                        "name" : "title",
+                        "label" : "Titulo"
+                    },
+                    {
+                        "name" : "description",
+                        "label" : "Descrição"
+                    },
+                    {
+                        "type" : "items",
+                        "name" : "items",
+                        "sortable" : true,
+                        "orientation" : "horizontal",
+                        "components" : [
+                            {
+                                "type" : "image",
+                                "name" : "image",
+                                "label" : "Imagem"
+                            },
+                            {
+                                "name" : "title",
+                                "label" : "Titulo"
+                            },
+                            {
+                                "name" : "description",
+                                "label" : "Descrição"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+
+]

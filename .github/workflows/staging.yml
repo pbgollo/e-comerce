@@ -1,0 +1,170 @@
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy_job:
+    runs-on: ubuntu-latest
+    name: Deploy
+    env:
+      DEPLOY_STAGE: all
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SFTP Download server .env
+        run: |
+          sudo apt-get install -y expect
+          expect -c "
+            spawn sftp -P ${{ vars.STAGING_FTP_PORT }} ${{ vars.STAGING_FTP_USER }}@${{ vars.STAGING_FTP_HOST }}
+            expect {
+              \"Are you sure you want to continue connecting\" {
+                send \"yes\r\"
+                exp_continue
+              }
+              \"password:\" {
+                send \"${{ secrets.STAGING_FTP_PASSWORD }}\r\"
+                exp_continue
+              }
+              \"sftp>\" {
+                send \"cd ${{vars.STAGING_APP_DIR}}\r\"
+              }
+            }
+            expect \"sftp>\"
+            send \"get .env ${GITHUB_WORKSPACE}/.env\r\"
+            expect \"sftp>\"
+            send \"quit\r\"
+          "
+        if: ${{ vars.STAGING_CONNECTION_PROTOCOL == 'SFTP' }}
+
+      - name: FTP Download server .env
+        run: |
+          sudo apt-get install -y expect
+          expect -c "
+            spawn ftp -n ${GITHUB_WORKSPACE}/.env
+            expect {
+              \"Name (\"*\"):\" {
+                send \"${{ vars.STAGING_FTP_USER }}\r\"
+                exp_continue
+              }
+              \"Password:\" {
+                send \"${{ secrets.STAGING_FTP_PASSWORD }}\r\"
+                exp_continue
+              }
+              \"ftp>\" {
+                send \"cd ${{vars.STAGING_APP_DIR}}\r\"
+              }
+            }
+            expect \"ftp>\"
+            send \"get .env\r\"
+            expect \"ftp>\"
+            send \"quit\r\"
+          "
+        if: ${{ vars.STAGING_CONNECTION_PROTOCOL == 'FTP' }}
+
+      - name: Read .env last commit
+        run: |
+          if [ -f .env ]; then
+            if [[ $(grep '^COMMIT=' .env | cut -d'=' -f2) != "" ]]; then
+              echo "DEPLOY_STAGE=$(grep '^COMMIT=' .env | cut -d'=' -f2)" >> $GITHUB_ENV
+            fi
+          fi
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+        if: ${{ env.DEPLOY_STAGE == 'all'}}
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+        if: ${{ env.DEPLOY_STAGE == 'all'}}
+
+      - name: Php deploy
+        uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: '8.2'
+        if: ${{ env.DEPLOY_STAGE == 'all'}}
+
+      - name: Update dependencies
+        run: composer update --prefer-dist --no-progress
+        if: ${{ env.DEPLOY_STAGE == 'all'}}
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        if: ${{ env.DEPLOY_STAGE == 'all'}}
+
+      - name: Install npm
+        run: npm install
+
+      - name: Run npm production
+        run: npm run production
+
+      - name: Configure .env
+        run: |
+          if [ ! -f .env ]; then
+              cp .env.example .env
+              php artisan key:generate
+          fi
+          sed -i "s|^DB_HOST=.*$|DB_HOST=${{ vars.STAGING_DB_HOST }}|" .env
+          sed -i "s|^DB_DATABASE=.*$|DB_DATABASE=${{ vars.STAGING_DB_DATABASE }}|" .env
+          sed -i "s|^DB_USERNAME=.*$|DB_USERNAME=${{ vars.STAGING_DB_USERNAME }}|" .env
+          sed -i "s|^DB_PASSWORD=.*$|DB_PASSWORD=${{ secrets.STAGING_DB_PASSWORD }}|" .env
+          sed -i "s|^COMMIT=.*$|COMMIT=$(git rev-parse HEAD~1)|" .env
+
+      - name: Zip all project files (excluding node_modules)
+        run: |
+          zip -r project.zip ./ -x "node_modules/*"
+          mkdir zip
+          mv unzipper.php zip/
+          mv project.zip zip/
+        shell: bash
+        if: ${{ env.DEPLOY_STAGE == 'all' }}
+
+      - name: Zip with only changed files
+        run: |
+          git diff --name-only ${{ env.DEPLOY_STAGE }}..HEAD | zip -r project.zip -@
+          git status --porcelain | awk '{print $2}' | xargs zip -r project.zip
+          zip -r project.zip public/assets/
+          zip -g project.zip .env
+          mkdir zip
+          mv unzipper.php zip/
+          mv project.zip zip/
+        shell: bash
+        if: ${{ env.DEPLOY_STAGE != 'all' }}
+
+      - name: Sftp deploy project
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ${{ vars.STAGING_FTP_USER }}
+          server: ${{ vars.STAGING_FTP_HOST }}
+          port: ${{ vars.STAGING_FTP_PORT }}
+          local_path: './zip/*'
+          remote_path: ${{ vars.STAGING_APP_DIR }}
+          sftp_only: true
+          password: ${{ secrets.STAGING_FTP_PASSWORD }}
+        if: ${{ vars.STAGING_CONNECTION_PROTOCOL == 'SFTP' }}
+
+      - name: FTP Deploy project
+        run: |
+          sudo apt install lftp
+          c=0
+          until lftp -e "open -u ${{ secrets.STAGING_FTP_USER }},${{ secrets.STAGING_FTP_PASSWORD }} ${{ vars.STAGING_FTP_HOST }} -p ${{ vars.STAGING_FTP_PORT }}; cd ${{ vars.STAGING_APP_DIR }}; put project.zip; put unzipper.php; quit"; do
+            ((c++))
+            if [[ $c -eq 3 ]]; then
+              echo "error"
+              break
+            fi
+          done
+        if: ${{ vars.STAGING_CONNECTION_PROTOCOL == 'FTP' }}
+
+      - name: Unzip project
+        run:
+          curl -s ${{ vars.STAGING_APP_URL }}/unzipper.php

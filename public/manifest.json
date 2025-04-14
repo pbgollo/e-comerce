@@ -1,0 +1,18 @@
+{
+    "name": "laravel base",
+    "short_name": "LB",
+    "start_url": "/gerenciador/",
+    "background_color": "#f00",
+    "description": "Tutorial of Laravel Package",
+    "scope" : "/gerenciador/",
+    "display": "standalone",
+    "theme_color": "#f00",
+    "icons": [
+        {
+            "src": "logo.PNG",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
