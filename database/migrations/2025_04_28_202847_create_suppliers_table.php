@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('test', function (Blueprint $table) {
-            $table->string('not_translatable')->nullable();
-            $table->json('image')->nullable();
+        Schema::create('suppliers', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->integer('active')->default(1);
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('test', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('suppliers');
     }
 };
