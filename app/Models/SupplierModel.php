@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-class AppUserModel extends BaseModel
+class SupplierModel extends BaseModel
 {
-    protected $table = 'app_users';
+    protected $table = 'suppliers';
 
     public function address()
     {
         return $this->morphOne(AddressModel::class, 'addressable');
     }
+
 
 }

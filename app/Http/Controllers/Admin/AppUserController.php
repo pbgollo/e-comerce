@@ -60,6 +60,18 @@ class AppUserController extends GenericController
                         'validators' => 'required'
                     ],
                     [
+                        'label' => 'Telefone',
+                        'name' => 'phone',
+                        'size' => 7,
+                        'validators' => 'required'
+                    ],
+                    [
+                        'label' => 'Cartão de Crédito',
+                        'name' => 'credit_card',
+                        'size' => 7,
+                        'validators' => 'required'
+                    ],
+                    [
                         'label' => 'Admin?',
                         'name' => 'role',
                         'input' => 'checkbox',
