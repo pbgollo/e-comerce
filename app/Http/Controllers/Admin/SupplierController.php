@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\AppUserModel;
-use App\Models\SuppliersProductsModel;
+use App\Models\SupplierModel;
 
-class SuppliersProductsController extends GenericController
+class SupplierController extends GenericController
 {
     function __construct()
     {
 
         parent::__construct();
 
-        $this->model = SuppliersProductsModel::class;
+        $this->model = SupplierModel::class;
 
-        $this->title = 'Produtos';
-
-        $this->fk = 'supplier_id';
+        $this->title = 'Fornecedores';
 
         $this->table = [
             [
@@ -33,18 +30,19 @@ class SuppliersProductsController extends GenericController
             [
                 'label' => 'Nome',
                 'name' => 'name',
-            ],
+            ]
         ];
 
         $this->form = [
             [
-                'title' => 'Produto',
-                'icon' => 'sell',
+                'title' => 'Fornecedor',
+                'icon' => 'group',
                 'inputs' => [
                     [
                         'label' => 'Imagem',
                         'name' => 'image',
                         'input' => 'image',
+                        'size' => 7,
                         'validators' => 'required'
                     ],
                     [
@@ -59,6 +57,11 @@ class SuppliersProductsController extends GenericController
                         'input' => 'checkbox',
                         'default' => true,
                         'size' => 7,
+                    ],
+                    [
+                        'input' => 'link',
+                        'label' => 'Produtos',
+                        'link' => 'admin.supplier-products',
                     ],
                 ],
             ],

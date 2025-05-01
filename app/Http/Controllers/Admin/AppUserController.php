@@ -22,6 +22,12 @@ class AppUserController extends GenericController
                 'size' => 50
             ],
             [
+                'label' => 'Imagem',
+                'name' => 'image',
+                'type' => 'image',
+                'size' => 50
+            ],
+            [
                 'label' => 'Nome',
                 'name' => 'name',
             ],
@@ -40,6 +46,13 @@ class AppUserController extends GenericController
                 'title' => 'Usuário',
                 'icon' => 'person',
                 'inputs' => [
+                    [
+                        'label' => 'Imagem',
+                        'name' => 'image',
+                        'input' => 'image',
+                        'size' => 7,
+                        'validators' => 'required'
+                    ],
                     [
                         'label' => 'Nome',
                         'name' => 'name',

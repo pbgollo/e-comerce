@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\AppUserModel;
-use App\Models\Suppliers;
-use App\Models\SuppliersModel;
+use App\Models\ProductModel;
 
-class SuppliersController extends GenericController
+class ProductController extends GenericController
 {
     function __construct()
     {
 
         parent::__construct();
 
-        $this->model = SuppliersModel::class;
+        $this->model = ProductModel::class;
 
-        $this->title = 'Fornecedores';
+        $this->title = 'Produtos';
+
+        $this->fk = 'supplier_id';
 
         $this->table = [
             [
@@ -24,16 +25,35 @@ class SuppliersController extends GenericController
                 'size' => 50
             ],
             [
+                'label' => 'Imagem',
+                'name' => 'image',
+                'type' => 'image',
+                'size' => 50
+            ],
+            [
                 'label' => 'Nome',
                 'name' => 'name',
-            ]
+            ],
         ];
 
         $this->form = [
             [
-                'title' => 'Fornecedor',
-                'icon' => 'group',
+                'title' => 'Produto',
+                'icon' => 'sell',
                 'inputs' => [
+                    [
+                        'label' => 'Imagem',
+                        'name' => 'image',
+                        'input' => 'image',
+                        'size' => 7,
+                        'validators' => 'required'
+                    ],
+                    [
+                        'label' => 'Imagem',
+                        'name' => 'image',
+                        'input' => 'image',
+                        'validators' => 'required'
+                    ],
                     [
                         'label' => 'Nome',
                         'name' => 'name',
@@ -46,11 +66,6 @@ class SuppliersController extends GenericController
                         'input' => 'checkbox',
                         'default' => true,
                         'size' => 7,
-                    ],
-                    [
-                        'input' => 'link',
-                        'label' => 'Produtos',
-                        'link' => 'admin.supplier-products',
                     ],
                 ],
             ],
