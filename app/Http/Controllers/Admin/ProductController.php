@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\AppUserModel;
+use App\Models\CategoryModel;
 use App\Models\ProductModel;
 
 class ProductController extends GenericController
@@ -16,7 +17,19 @@ class ProductController extends GenericController
 
         $this->title = 'Produtos';
 
+        $this->search = ['name'];
+
+        $this->sortable = 'position';
+
         $this->fk = 'supplier_id';
+
+        $categories = CategoryModel::get()->toArray();
+        $categories = array_map(function ($value) {
+            return [
+                'value' => $value['id'],
+                'description' => $value['name'],
+            ];
+        }, $categories);
 
         $this->table = [
             [
@@ -42,6 +55,13 @@ class ProductController extends GenericController
                 'icon' => 'sell',
                 'inputs' => [
                     [
+                        'input' => 'select',
+                        'label' => 'Gestor',
+                        'name' => 'boss_id',
+                        'data' => $categories,
+                        'size' => 7,
+                    ],
+                    [
                         'label' => 'Imagem',
                         'name' => 'image',
                         'input' => 'image',
@@ -49,14 +69,16 @@ class ProductController extends GenericController
                         'validators' => 'required'
                     ],
                     [
-                        'label' => 'Imagem',
-                        'name' => 'image',
-                        'input' => 'image',
+                        'label' => 'Nome',
+                        'name' => 'name',
+                        'size' => 7,
                         'validators' => 'required'
                     ],
                     [
-                        'label' => 'Nome',
-                        'name' => 'name',
+                        'label' => 'Descrição',
+                        'name' => 'description',
+                        'input' => 'textarea',
+                        'inline' => true,
                         'size' => 7,
                         'validators' => 'required'
                     ],

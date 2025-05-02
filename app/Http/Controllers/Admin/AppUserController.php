@@ -13,7 +13,9 @@ class AppUserController extends GenericController
 
         $this->model = AppUserModel::class;
 
-        $this->title = 'Usuários do App';
+        $this->title = 'Usuários do Sistema';
+
+        $this->search = ['name'];
 
         $this->table = [
             [

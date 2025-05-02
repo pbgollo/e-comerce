@@ -16,9 +16,10 @@ return new class extends Migration
             $table->image('image');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->integer('active')->default(1);
+            $table->integer('position')->nullable();
             $table->timestamps();
         });
     }

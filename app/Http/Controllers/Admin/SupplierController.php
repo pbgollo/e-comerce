@@ -15,6 +15,10 @@ class SupplierController extends GenericController
 
         $this->title = 'Fornecedores';
 
+        $this->search = ['name'];
+
+        $this->sortable = 'position';
+
         $this->table = [
             [
                 'label' => '#',
@@ -52,6 +56,26 @@ class SupplierController extends GenericController
                         'validators' => 'required'
                     ],
                     [
+                        'label' => 'Descrição',
+                        'name' => 'description',
+                        'input' => 'textarea',
+                        'inline' => true,
+                        'size' => 7,
+                        'validators' => 'required'
+                    ],
+                    [
+                        'label' => 'E-mail',
+                        'name' => 'email',
+                        'size' => 7,
+                        'validators' => 'required'
+                    ],
+                    [
+                        'label' => 'Telefone',
+                        'name' => 'phone',
+                        'size' => 7,
+                        'validators' => 'required'
+                    ],
+                    [
                         'label' => 'Ativo?',
                         'name' => 'active',
                         'input' => 'checkbox',
@@ -62,6 +86,7 @@ class SupplierController extends GenericController
                         'input' => 'link',
                         'label' => 'Produtos',
                         'link' => 'admin.supplier-products',
+                        'size' => 7
                     ],
                 ],
             ],

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('active')->default(1);
             $table->foreignId('supplier_id')->constrained('suppliers')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->integer('position')->nullable();
             $table->timestamps();
         });
     }
