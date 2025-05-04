@@ -35,6 +35,12 @@ mix.js(
     "public/assets/site/js/pages/home.js"
 );
 
+mix.js(
+    "resources/assets/site/js/pages/product.js",
+    "public/assets/site/js/pages/product.js"
+);
+
+
 mix.scripts(
     [
         "node_modules/jquery/dist/jquery.js",

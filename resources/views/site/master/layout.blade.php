@@ -72,6 +72,8 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="assets/site/js/vendor.js?v=<?= filemtime('assets/site/js/vendor.js') ?>"></script>
     <script src="assets/site/js/main.js?v=<?= filemtime('assets/site/js/main.js') ?>" type="module"></script>
+    <script src="assets/site/js/pages/home.js?v=<?= filemtime('assets/site/js/pages/home.js') ?>" type="module"></script>
+    <script src="assets/site/js/pages/product.js?v=<?= filemtime('assets/site/js/pages/product.js') ?>" type="module"></script>
 
     @yield('js')
 

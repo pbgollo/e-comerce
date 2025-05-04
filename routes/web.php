@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Admin\CKEditorController;
+use App\Http\Controllers\Site\ProductDetailController;
 use App\Http\Controllers\Site\TranslateController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,10 @@ Route::middleware('localization')->group(function(){
 
     Route::get('', [HomeController::class, 'index'])->name("home");
     Route::post('ck/upload', [CKEditorController::class,'ckUpload'])->name('ck.upload');
+
+    Route::get('', [HomeController::class, 'index'])->name("home");
+
+    Route::get('/product', [ProductDetailController::class, 'index'])->name("product");
+
 
 });

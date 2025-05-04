@@ -1,0 +1,345 @@
+.details-wrapper {
+    width: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    .details {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        &__caption {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 4px;
+            border-bottom: 1px solid rgb(222, 224, 228);
+            h1 {
+                font-size: 0.875rem;
+                line-height: 1.125rem;
+                font-weight: 700;
+            }
+            p {
+                font-size: 0.8rem;
+                color: inherit;
+                text-decoration: none;
+                margin-left: 0.25rem;
+                line-height: inherit;
+            }
+            span {
+                text-align: center;
+            }
+            h2 {
+                font-size: 0.875rem;
+                line-height: 2rem;
+                font-weight: 700;
+                color: rgb(255, 101, 0);
+                margin-left: 0.25rem;
+            }
+        }
+        h1 {
+            font-size: 1.5rem;
+            line-height: 2.125rem;
+            font-weight: 700;
+            color: black;
+            margin: 0.75rem 0px;
+            margin-top: 0px;
+        }
+        &__item {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            &__left {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                &__top {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    &__logo {
+                        width: 33%;
+                        img {
+                        }
+                    }
+                    &__rating {
+                        width: 33%;
+
+                        &__stars {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            svg {
+                            }
+                            &__value {
+                                p {
+                                }
+                            }
+                        }
+                    }
+                    &__actions {
+                        width: 33%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        a {
+                            &.details__item__left__top__actions__item {
+                                svg {
+                                }
+                            }
+                        }
+                    }
+                }
+                &__middle {
+                    position: relative;
+                    width: 100%;
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    &__left {
+                        position: relative;
+                        overflow: hidden;
+                        &__up-arrow {
+                            position: absolute;
+                            top: 0;
+                            svg {
+                            }
+                        }
+                        &__down-arrow {
+                            position: absolute;
+                            bottom: 0;
+
+                            svg {
+                            }
+                        }
+
+                        &__carousel {
+                            height: 100%;
+                            display: flex;
+                            overflow: hidden;
+
+                            &__drag {
+                                height: auto;
+                                display: flex;
+                                flex-direction: column;
+                                gap: 20px;
+                                &__item {
+                                    height: 50px;
+                                    width: 50px;
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                        vertical-align: center;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &__right {
+                        position: relative;
+
+                        img {
+                        }
+                        &__sale-tag {
+                            position: absolute;
+                            p {
+                            }
+                        }
+                    }
+                }
+                &__bottom {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    gap: 20px;
+
+                    &__title {
+                        h1 {
+                        }
+                    }
+                    &__address {
+                        input {
+                        }
+                        a {
+                        }
+                        p {
+                        }
+                    }
+                    &__warning {
+                        span {
+                            svg {
+                            }
+                        }
+                        p {
+                        }
+                    }
+                }
+            }
+            &__right {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                &__sale-banner {
+                    width: 100%;
+                    height: 200px;
+                    background: darkblue;
+                    img {
+                    }
+                    &__left {
+                        span {
+                        }
+                        p {
+                        }
+                    }
+                    &__right {
+                        span {
+                        }
+                        p {
+                        }
+                    }
+                }
+                &__actions {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    &__caption {
+                        width: 100%;
+                        display: flex;
+                        p {
+                            strong {
+                            }
+                            span {
+                            }
+                        }
+                        a {
+                        }
+                    }
+                    &__texts {
+                        display: flex;
+                        width: 100%;
+                        &__left {
+                            width: 50%;
+                            display: flex;
+                            flex-direction: column;
+
+                            p {
+                            }
+                            h1 {
+                            }
+                            a {
+                            }
+                        }
+                        &__right {
+                            width: 50%;
+                            display: flex;
+                            flex-direction: column;
+
+                            a {
+                                &.details__item__right__actions__right__buy {
+                                    h1 {
+                                    }
+                                }
+                                &.details__item__right__actions__right__cart {
+                                }
+                            }
+                        }
+                    }
+                }
+                &__related-products {
+                    position: relative;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                    &__caption {
+                        display: flex;
+                        width: 100%;
+                        p {
+                        }
+                    }
+
+                    .related_pics-embla-prev {
+                        position: absolute;
+                        top: 50%;
+                        left: 0;
+                        transform: rotate(270deg);
+
+                    }
+                    .related_pics-embla-next {
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        transform: rotate(90deg);
+                    }
+
+                    span {
+                        svg {
+                        }
+                    }
+
+                    &__carousel {
+                        width: 100%;
+                        display: flex;
+                        overflow: hidden;
+                        &__drag {
+                            width: 100%;
+                            display: flex;
+                            gap: 50px;
+                            &__item {
+                                width: 100px;
+                                height: 150px;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 20px;
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    vertical-align: center;
+                                    object-fit: cover;
+                                }
+                                h1 {
+                                }
+                                p {
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &__desc {
+            &__item {
+                &__up {
+                    h1 {
+                    }
+                }
+                &__down {
+                    &__title {
+                        h1 {
+                        }
+                    }
+                    &__desc {
+                        p {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
