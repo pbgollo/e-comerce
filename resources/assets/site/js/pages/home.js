@@ -85,7 +85,6 @@ function homeBanner() {
     }
 }
 
-
 $(function () {
     init();
 });

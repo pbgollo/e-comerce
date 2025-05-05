@@ -137,9 +137,10 @@
             </div>
         </div>
 
+        <!-- Cadastro -->
         <div id="registerModal" class="modal off registerModal">
-            <div class = "modal__item">
-                <div class = "modal__item__close">
+            <div class="modal__item">
+                <div class="modal__item__close">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                         fill="none">
                         <path
@@ -147,33 +148,38 @@
                             fill="white" />
                     </svg>
                 </div>
-                <div class = "modal__item__form">
+                <div class="modal__item__form">
                     <form class="user-form">
                         <h2>Cadastro</h2>
                         <div class="form-group">
-                            <label for="name">Nome</label>
-                            <input type="text" id="name" name="name" required placeholder="Digite seu nome">
+                            <label for="register-name">Nome</label>
+                            <input type="text" id="register-name" name="name" required placeholder="Digite seu nome">
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required placeholder="Digite seu email">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" name="email" required
+                                placeholder="Digite seu email">
                         </div>
                         <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+                            <label for="register-password">Senha</label>
+                            <input type="password" id="register-password" name="password" required
+                                placeholder="Digite sua senha">
                         </div>
                         <div class="form-group">
-                            <label for="confirm-password">Confirmação de Senha</label>
-                            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirme sua senha">
+                            <label for="register-confirm-password">Confirmação de Senha</label>
+                            <input type="password" id="register-confirm-password" name="confirm-password" required
+                                placeholder="Confirme sua senha">
                         </div>
                         <button type="submit" class="submit-btn">Cadastrar</button>
                     </form>
                 </div>
             </div>
         </div>
+
+        <!-- Login -->
         <div id="loginModal" class="modal off loginModal">
-            <div class = "modal__item">
-                <div class = "modal__item__close">
+            <div class="modal__item">
+                <div class="modal__item__close">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
                         fill="none">
                         <path
@@ -181,21 +187,67 @@
                             fill="white" />
                     </svg>
                 </div>
-                <div class = "modal__item__form">
-                    <form class="user-form">
+                <div class="modal__item__form">
+                    <form id="loginForm" class="user-form">
+                        @csrf
                         <h2>Login</h2>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required placeholder="Digite seu email">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" name="email" required placeholder="Digite seu email">
                         </div>
                         <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+                            <label for="login-password">Senha</label>
+                            <input type="password" id="login-password" name="password" required
+                                placeholder="Digite sua senha">
                         </div>
                         <button type="submit" class="submit-btn">Entrar</button>
                     </form>
+                    <div id="loginError"
+                        style="color: red; display: none; font-size: 14px; text-align: center; margin-top: 1rem;"></div>
+
                 </div>
             </div>
         </div>
+
     </section>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const loginError = document.getElementById('loginError');
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // sucesso: redireciona ou fecha o modal
+                    loginError.style.display = 'none';
+                    alert('Login realizado com sucesso!');
+                    // Ex: window.location.href = '/painel';
+                } else {
+                    loginError.textContent = result.message || 'Erro ao fazer login.';
+                    loginError.style.display = 'block';
+                }
+            } catch (error) {
+                loginError.textContent = 'Erro na conexão com o servidor.';
+                loginError.style.display = 'block';
+            }
+        });
+    </script>
 @endsection
