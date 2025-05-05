@@ -18,10 +18,6 @@ class AddressController extends GenericController
 
         $this->title = 'Endereço';
 
-        $this->search = ['name'];
-
-        $this->sortable = 'position';
-
         $this->unique = true;
 
         $this->fk = 'addressable';

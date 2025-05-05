@@ -56,8 +56,8 @@ class ProductController extends GenericController
                 'inputs' => [
                     [
                         'input' => 'select',
-                        'label' => 'Gestor',
-                        'name' => 'boss_id',
+                        'label' => 'Categoria',
+                        'name' => 'category_id',
                         'data' => $categories,
                         'size' => 7,
                     ],
@@ -88,6 +88,12 @@ class ProductController extends GenericController
                         'input' => 'checkbox',
                         'default' => true,
                         'size' => 7,
+                    ],
+                    [
+                        'input' => 'link',
+                        'label' => 'Estoque',
+                        'link' => 'admin.stocks',
+                        'size' => 7
                     ],
                 ],
             ],

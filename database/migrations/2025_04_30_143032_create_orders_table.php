@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->date('data_pedido');
+            $table->date('data_pedido')->nullable();
             $table->date('data_entrega')->nullable();
-            $table->enum('situacao', ['NOVO', 'ENTREGUE', 'CANCELADO']);
+            $table->enum('situacao', ['NOVO', 'ENTREGUE', 'CANCELADO'])->nullable();
             $table->foreignId('app_user_id')->constrained('app_users')->onDelete('cascade');
             $table->timestamps();
         });

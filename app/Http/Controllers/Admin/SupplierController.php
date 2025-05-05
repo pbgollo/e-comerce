@@ -85,7 +85,7 @@ class SupplierController extends GenericController
                     [
                         'input' => 'link',
                         'label' => 'Produtos',
-                        'link' => 'admin.supplier-products',
+                        'link' => 'admin.products',
                         'size' => 7
                     ],
                 ],
