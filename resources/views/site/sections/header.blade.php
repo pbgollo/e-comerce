@@ -170,7 +170,8 @@
                 </svg>
             </div>
             <div class = "header__top__signin__text">
-                <p><a href="https://www.google.com" target="_blank">ENTRE</a> ou<br><a href="https://www.youtube.com" target="_blank">CADASTRE-SE</a></p>
+                <p><a href="https://www.google.com" target="_blank">ENTRE</a> ou<br><a href="https://www.youtube.com"
+                        target="_blank">CADASTRE-SE</a></p>
             </div>
         </div>
         <div class = "header__top__navbar">

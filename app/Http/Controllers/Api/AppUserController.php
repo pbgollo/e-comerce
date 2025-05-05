@@ -86,19 +86,19 @@ class AppUserController extends Controller {
                 } else {
                     return [
                         'success' => false,
-                        'message' => 'Usuário ou senha inválido'
+                        'message' => 'Credenciais inválidas'
                     ];
                 }
             } else {
                 return [
                     'success' => false,
-                    'message' => 'Usuário inativo'
+                    'message' => 'Falha ao autenticar-se'
                 ];
             }
         } else {
             return [
                 'success' => false,
-                'message' => 'E-mail ou senha inválido'
+                'message' => 'Credenciais inválidas'
             ];
         }
     }

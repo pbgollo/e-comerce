@@ -22,11 +22,8 @@ Route::get('translate/{language}', [TranslateController::class, 'index'])->name(
 Route::middleware('localization')->group(function(){
 
     Route::get('', [HomeController::class, 'index'])->name("home");
+    Route::get('product/{slug}', [ProductDetailController::class, 'show'])->name("product-detail");
+
     Route::post('ck/upload', [CKEditorController::class,'ckUpload'])->name('ck.upload');
-
-    Route::get('', [HomeController::class, 'index'])->name("home");
-
-    Route::get('/product', [ProductDetailController::class, 'index'])->name("product");
-
 
 });

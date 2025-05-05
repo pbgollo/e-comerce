@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\ProductModel;
 use App\Models\TranslateModel;
 
 class HomeController extends Controller
@@ -9,6 +10,8 @@ class HomeController extends Controller
 
     public function index()
     {
+        $this->vm['products'] = ProductModel::get()->toArray();
+
         return view("site.home", $this->vm);
     }
 }

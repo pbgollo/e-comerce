@@ -1,6 +1,5 @@
-
 @foreach ($products as $product)
-    <div class = "product">
+    <a href="product/{{ $product['id'] }}" class = "product">
         <div class = "product__top">
             @if ($product['promotion_label'] != '')
                 <div class = "product__top__promo-label">
@@ -27,7 +26,7 @@
         </div>
         <div class = "product__middle">
             <div class = "product__middle__image">
-                <img src="{{ $product['card_image'] }}" alt="">
+                <img src="{{ resize($product['image']) }}" alt="">
             </div>
             <div class = "product__middle__sale-label">
                 @if ($product['discount_label'] != '')
@@ -43,7 +42,7 @@
                 @endif
             </div>
             <div class = "product__middle__name">
-                <h1>{{ $product['product_name'] }}</h1>
+                <h1>{{ $product['name'] }}</h1>
             </div>
         </div>
 
@@ -60,7 +59,7 @@
                     <h1>{{ $product['original_price'] }}</h1>
                 @endif
                 <div class = "product__bottom__current-price__discount"
-                style="{{ $product['on_sale'] == '0' ? 'display: none;' : '' }}">
+                    style="{{ $product['on_sale'] == '0' ? 'display: none;' : '' }}">
                     <p>{{ $product['sale_percentage'] }}</p>
                 </div>
             </div>
@@ -81,5 +80,5 @@
             </div>
         </div>
 
-    </div>
+    </a>
 @endforeach

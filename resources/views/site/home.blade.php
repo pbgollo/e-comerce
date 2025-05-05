@@ -8,285 +8,109 @@
     <!-- CSS -->
 @endsection
 
+{{-- @dd($products) --}}
+
 @section('content')
-    <div class = "data">
-        @php
-            $products = [
-                [
-                    'promotion_label' => 'MEGA MAIO',
-                    'review_amount' => '500',
-                    'review_stars_average' => '4',
-                    'reviews' => [
-                        [
-                            'id' => '0',
-                            'author' => 'jhon',
-                            'rating' => '4',
-                            'date' => '30/04/2025',
-                            'title' => 'perfeito',
-                            'comment' => 'Excelentes cores, brilho e imagem...',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_1.webp',
-                    'discount_label' => 'Frete Grátis',
-                    'product_name' => 'Monitor Gamer LG UltraGear 27" FHD, IPS, 180Hz, 1ms GTG, HDR10, DisplayPort e HDMI, G-Sync, FreeSync, Preto -
-        27GS60F-B',
-                    'on_sale' => '0',
-                    'original_price' => '1.627,00',
-                    'sale_price' => '999,99',
-                    'sale_percentage' => '-31%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 111,10</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '0',
-                        'timestamp' => '5 dias',
+    @php
+        foreach ($products as &$product) {
+            $product = array_merge([
+                'promotion_label' => 'MEGA MAIO',
+                'review_amount' => '254',
+                'review_stars_average' => '4',
+                'reviews' => [
+                    [
+                        'id' => '0',
+                        'author' => 'jhon',
+                        'rating' => '4',
+                        'date' => '30/04/2025',
+                        'title' => 'perfeito',
+                        'comment' => 'Excelentes cores, brilho e imagem...',
                     ],
                 ],
-                [
-                    'promotion_label' => 'DESCONTO RELÂMPAGO',
-                    'review_amount' => '312',
-                    'review_stars_average' => '4.5',
-                    'reviews' => [
-                        [
-                            'id' => '1',
-                            'author' => 'ana',
-                            'rating' => '5',
-                            'date' => '25/04/2025',
-                            'title' => 'Qualidade incrível!',
-                            'comment' => 'Muito leve, silencioso e rápido.',
-                        ],
+                'discount_label' => 'Frete Grátis',
+                'on_sale' => '0',
+                'original_price' => '1.627,00',
+                'sale_price' => '999,99',
+                'sale_percentage' => '-31%',
+                'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 111,10</strong>',
+                'sale_countdown' => [
+                    'boolean' => '0',
+                    'timestamp' => '5 dias',
+                ],
+                'product_pictures' => [
+                    'assets/site/images/product_image_1.webp',
+                    'assets/site/images/product_image_2.webp',
+                    'assets/site/images/product_image_3.webp',
+                    'assets/site/images/product_image_4.webp',
+                    'assets/site/images/product_image_5.webp',
+                    'assets/site/images/product_image_6.jpg',
+                    'assets/site/images/product_image_1.webp',
+                    'assets/site/images/product_image_2.webp',
+                    'assets/site/images/product_image_3.webp',
+                    'assets/site/images/product_image_4.webp',
+                    'assets/site/images/product_image_5.webp',
+                    'assets/site/images/product_image_6.jpg',
+
+                ],
+                'related_pictures' => [
+                    [
+                        'path' => 'assets/site/images/other_products_1.webp',
+                        'price' => 'R$ 3.999,00'
                     ],
-                    'card_image' => 'assets/site/images/web_product_2.webp',
-                    'discount_label' => '10% no PIX',
-                    'product_name' => 'Notebook Lenovo Ideapad 3i Intel Core i5 8GB 256GB SSD Windows 11 15.6” FHD',
-                    'on_sale' => '1',
-                    'original_price' => '3.299,00',
-                    'sale_price' => '2.799,00',
-                    'sale_percentage' => '-15%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>12x de 233,25</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '1',
-                        'timestamp' => '2 dias',
+                    [
+                        'path' => 'assets/site/images/other_products_2.jpg',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_3.jpg',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_4.jpg',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_5.webp',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_6.webp',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_7.jpg',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_8.jpg',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_9.webp',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_10.webp',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_11.webp',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_12.webp',
+                        'price' => 'R$ 3.999,00'
+                    ],
+                    [
+                        'path' => 'assets/site/images/other_products_13.webp',
+                        'price' => 'R$ 3.999,00'
                     ],
                 ],
-                [
-                    'promotion_label' => 'SUPER TECH',
-                    'review_amount' => '189',
-                    'review_stars_average' => '3.8',
-                    'reviews' => [
-                        [
-                            'id' => '2',
-                            'author' => 'carlos',
-                            'rating' => '4',
-                            'date' => '28/04/2025',
-                            'title' => 'Bom custo-benefício',
-                            'comment' => 'Atende bem pro dia a dia.',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_3.webp',
-                    'discount_label' => 'Oferta Exclusiva',
-                    'product_name' => 'Smartphone Samsung Galaxy M14 5G 128GB Azul 6GB RAM Câm. Tripla 50MP',
-                    'on_sale' => '0',
-                    'original_price' => '1.499,00',
-                    'sale_price' => '1.099,00',
-                    'sale_percentage' => '-26%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 109,90</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '0',
-                        'timestamp' => '',
-                    ],
-                ],
-                [
-                    'promotion_label' => 'MEGA MAIO',
-                    'review_amount' => '89',
-                    'review_stars_average' => '4.2',
-                    'reviews' => [
-                        [
-                            'id' => '3',
-                            'author' => 'lucas',
-                            'rating' => '4',
-                            'date' => '29/04/2025',
-                            'title' => 'Recomendo',
-                            'comment' => 'Som potente e bateria ótima.',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_4.webp',
-                    'discount_label' => 'Envio Expresso',
-                    'product_name' => 'Fone de Ouvido Bluetooth JBL Tune 510BT Preto',
-                    'on_sale' => '1',
-                    'original_price' => '299,00',
-                    'sale_price' => '199,90',
-                    'sale_percentage' => '-33%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>6x de 33,32</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '1',
-                        'timestamp' => '12h restantes',
-                    ],
-                ],
-                [
-                    'promotion_label' => 'OFERTA DA SEMANA',
-                    'review_amount' => '45',
-                    'review_stars_average' => '4.7',
-                    'reviews' => [
-                        [
-                            'id' => '4',
-                            'author' => 'mariana',
-                            'rating' => '5',
-                            'date' => '27/04/2025',
-                            'title' => 'Muito útil',
-                            'comment' => 'Facilitou demais meu trabalho!',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_5.webp',
-                    'discount_label' => 'Desconto Exclusivo',
-                    'product_name' => 'Echo Dot 5ª geração com Relógio - Smart Speaker com Alexa',
-                    'on_sale' => '1',
-                    'original_price' => '449,00',
-                    'sale_price' => '349,00',
-                    'sale_percentage' => '-22%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 34,90</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '0',
-                        'timestamp' => '',
-                    ],
-                ],
-                [
-                    'promotion_label' => 'MEGA MAIO',
-                    'review_amount' => '231',
-                    'review_stars_average' => '4.4',
-                    'reviews' => [
-                        [
-                            'id' => '5',
-                            'author' => 'joão',
-                            'rating' => '4',
-                            'date' => '20/04/2025',
-                            'title' => 'Imagem top!',
-                            'comment' => 'Ideal pra jogos e filmes.',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_6.webp',
-                    'discount_label' => '10% OFF',
-                    'product_name' => 'Smart TV 50” 4K UHD LG ThinQ AI, Alexa, webOS 23, HDR10, Wi-Fi, HDMI e USB',
-                    'on_sale' => '1',
-                    'original_price' => '2.899,00',
-                    'sale_price' => '2.599,00',
-                    'sale_percentage' => '-10%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>12x de 216,58</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '1',
-                        'timestamp' => '3 dias',
-                    ],
-                ],
-                [
-                    'promotion_label' => 'QUINTA TECH',
-                    'review_amount' => '122',
-                    'review_stars_average' => '4.0',
-                    'reviews' => [
-                        [
-                            'id' => '6',
-                            'author' => 'sara',
-                            'rating' => '4',
-                            'date' => '22/04/2025',
-                            'title' => 'Compacto e veloz',
-                            'comment' => 'Bom pra quem precisa de armazenamento rápido.',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_7.webp',
-                    'discount_label' => 'Oferta do Dia',
-                    'product_name' => 'SSD Kingston NV2 1TB NVMe M.2 2280 PCIe 4.0',
-                    'on_sale' => '1',
-                    'original_price' => '499,00',
-                    'sale_price' => '369,90',
-                    'sale_percentage' => '-26%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>6x de 61,65</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '1',
-                        'timestamp' => '1 dia',
-                    ],
-                ],
-                [
-                    'promotion_label' => 'SUPER DESCONTO',
-                    'review_amount' => '340',
-                    'review_stars_average' => '4.5',
-                    'reviews' => [
-                        [
-                            'id' => '1',
-                            'author' => 'maria',
-                            'rating' => '5',
-                            'date' => '28/04/2025',
-                            'title' => 'Muito bom',
-                            'comment' => 'Ótima qualidade de imagem e entrega rápida.',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_2.webp',
-                    'discount_label' => 'Desconto Exclusivo',
-                    'product_name' => 'Monitor Samsung 24" Full HD, IPS, 75Hz, HDMI e VGA, Preto - LF24T350FHLXZD',
-                    'on_sale' => '1',
-                    'original_price' => '899,00',
-                    'sale_price' => '749,90',
-                    'sale_percentage' => '-17%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 74,99</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '0',
-                        'timestamp' => '2 dias',
-                    ],
-                ],
-                [
-                    'promotion_label' => 'OFERTA RELÂMPAGO',
-                    'review_amount' => '128',
-                    'review_stars_average' => '3.8',
-                    'reviews' => [
-                        [
-                            'id' => '2',
-                            'author' => 'carlos',
-                            'rating' => '4',
-                            'date' => '25/04/2025',
-                            'title' => 'Bom custo-benefício',
-                            'comment' =>
-                                'Funciona bem para o dia a dia. Nada extraordinário, mas entrega o que promete.',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_3.webp',
-                    'discount_label' => 'Frete Grátis',
-                    'product_name' => 'Monitor Acer 21.5" Full HD, HDMI e VGA, 60Hz, Preto - SA220Q',
-                    'on_sale' => '1',
-                    'original_price' => '699,00',
-                    'sale_price' => '599,90',
-                    'sale_percentage' => '-14%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 59,99</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '1',
-                        'timestamp' => '12 horas',
-                    ],
-                ],
-                [
-                    'promotion_label' => 'DIA DAS MÃES',
-                    'review_amount' => '210',
-                    'review_stars_average' => '4.7',
-                    'reviews' => [
-                        [
-                            'id' => '3',
-                            'author' => 'aline',
-                            'rating' => '5',
-                            'date' => '29/04/2025',
-                            'title' => 'Excelente qualidade',
-                            'comment' => 'Muito elegante e cores vivas. Ótimo para home office.',
-                        ],
-                    ],
-                    'card_image' => 'assets/site/images/web_product_4.webp',
-                    'discount_label' => '10% OFF no PIX',
-                    'product_name' => 'Monitor Dell 23.8" Full HD, IPS, HDMI, VGA, Ajuste de altura - SE2422HX',
-                    'on_sale' => '1',
-                    'original_price' => '1.199,00',
-                    'sale_price' => '999,00',
-                    'sale_percentage' => '-17%',
-                    'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 99,90</strong>',
-                    'sale_countdown' => [
-                        'boolean' => '0',
-                        'timestamp' => '3 dias',
-                    ],
-                ],
-            ];
-        @endphp
-    </div>
+                'brand_logo' => 'assets/site/images/logo_lg.jpg',
+            ], $product);
+        }
+    @endphp
+
     <section id="home" class="home">
         <div class = "home__topcarousel">
             @include ('site.components.homebanner')
