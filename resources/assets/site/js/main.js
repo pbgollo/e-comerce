@@ -2,6 +2,7 @@ function init(){
     console.log('INIT');
     // toggleMobileMenu();
     toggleHeaderNav();
+    authModal();
 }
 
 // function toggleMobileMenu(){
@@ -43,6 +44,57 @@ function toggleHeaderNav(){
         $(this).addClass('nav-off');
     })
 
+}
+
+function authModal() {
+    const $events = $('.open_modal');
+    const $modals = $('.modal');
+    const $closeButtons = $('.modal__item__close');
+
+
+    // Open modal on event click
+    $events.on('click', function(e) {
+        console.log("clicouuuuuu");
+        if($(this).attr('id')=='register'){
+            console.log("register");
+            e.preventDefault();
+            const $modal = $(".registerModal");
+            $modal.removeClass('off').focus();
+            $modal.find('.modal__item').toggleClass('animated')
+        }else{
+            console.log("login");
+            e.preventDefault();
+            const $modal = $(".loginModal");
+            $modal.removeClass('off').focus();
+            $modal.find('.modal__item').toggleClass('animated')
+        }
+    });
+
+    // Close modal on close button click
+    $closeButtons.on('click', function(e) {
+        e.stopPropagation();
+        $(this).closest('.modal').addClass('off');
+        $(this).closest('.modal').find('.modal__item').toggleClass('animated');
+
+    });
+
+    // Close modal on outside click
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.modal__item').length && !$(e.target).closest('.open_modal').length) {
+            $modals.addClass('off');
+            $modals.find('.modal__item').removeClass('animated');
+
+        }
+    });
+
+    // Close modal on Esc key
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape') {
+            $modals.addClass('off');
+            $modals.find('.modal__item').removeClass('animated');
+
+        }
+    });
 }
 
 $(function() {
