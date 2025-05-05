@@ -63,8 +63,8 @@
                         </div>
                     </div>
                     <div class = "details__item__left__middle">
-                        <div class = "details__item__left__middle__left">
 
+                        <div class = "details__item__left__middle__left">
                             <div class = "details__item__left__middle__left__carousel products_pics-embla">
                                 <div class = "details__item__left__middle__left__carousel__drag">
                                     @foreach ($product['product_pictures'] as $picture)
@@ -74,39 +74,41 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class = "details__item__left__middle__left__up-arrow products_pics-embla-next">
-                                <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
-                                    xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
-                                        fill="#565C69"></path>
-                                </svg>
-                            </div>
-                            <div class = "details__item__left__middle__left__down-arrow products_pics-embla-prev">
-                                <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
-                                    xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
-                                        fill="#565C69"></path>
-                                </svg>
-                            </div>
-
                         </div>
+
                         <div class = "details__item__left__middle__right">
                             <img src="{{ $product['product_pictures'][0] }}" alt="">
                             <div class = "details__item__left__middle__right__sale-tag">
                                 <p>mega maio</p>
                             </div>
                         </div>
+
+                        <div class = "products_pics-embla-next">
+                            <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
+                                xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
+                                    fill="#565C69"></path>
+                            </svg>
+                        </div>
+                        <div class = "products_pics-embla-prev">
+                            <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
+                                xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
+                                    fill="#565C69"></path>
+                            </svg>
+                        </div>
+
                     </div>
                     <div class = "details__item__left__bottom">
                         <div class = "details__item__left__bottom__title">
-                            <h1></h1>
+                            <h1>Consultar Frete e prazo de entrega</h1>
                         </div>
                         <div class = "details__item__left__bottom__address">
                             <input type="text">
-                            <a href=""></a>
-                            <p></p>
+                            <a href="javascript:void(0)">OK</a>
+                            <a>Não lembro meu cep</a>
                         </div>
                         <div class = "details__item__left__bottom__warning">
                             <span>
@@ -117,23 +119,38 @@
                                         fill="#FF6500"></path>
                                 </svg>
                             </span>
-                            <p></p>
+                            <p>Os prazos de entrega começam a contar a partir da confirmação de pagamento
+                            </p>
                         </div>
 
                     </div>
                 </div>
                 <div class = "details__item__right">
                     <div class = "details__item__right__sale-banner">
-                        <img src="" alt="">
+                        {{-- <img src="" alt=""> --}}
                         <div class = "details__item__right__sale-banner__left">
-                            <span></span>
+                            <span>
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M13.7559 0.93144L11.3455 3.33976C11.1508 3.53448 10.887 3.64416 10.6117 3.6448H6.81893C5.06548 3.6448 3.6448 5.06548 3.6448 6.81893V10.6117C3.6448 10.889 3.53388 11.1514 3.33976 11.3476L0.929307 13.7559C0.334271 14.3512 0 15.1584 0 16C0 16.8416 0.334271 17.6488 0.929307 18.2441L3.33976 20.6545C3.53448 20.8492 3.64416 21.113 3.6448 21.3883V25.1811C3.6448 26.9345 5.06548 28.3552 6.81893 28.3552H10.6117C10.889 28.3552 11.1514 28.4661 11.3476 28.6602L13.7559 31.0707C14.3512 31.6657 15.1584 32 16 32C16.8416 32 17.6488 31.6657 18.2441 31.0707L20.6545 28.6602C20.8492 28.4655 21.113 28.3558 21.3883 28.3552H25.1811C26.9345 28.3552 28.3552 26.9345 28.3552 25.1811V21.3883C28.3552 21.111 28.4661 20.8486 28.6602 20.6524L31.0707 18.2441C31.6657 17.6488 32 16.8416 32 16C32 15.1584 31.6657 14.3512 31.0707 13.7559L28.6602 11.3455C28.4655 11.1508 28.3558 10.887 28.3552 10.6117V6.81893C28.3552 5.06548 26.9345 3.6448 25.1811 3.6448H21.3883C21.1123 3.64473 20.8476 3.535 20.6524 3.33976L18.2441 0.929307C17.6488 0.334271 16.8416 0 16 0C15.1584 0 14.3512 0.334271 13.7559 0.929307V0.93144ZM9.91199 20.5777L20.5777 9.91199L22.088 11.4223L11.4223 22.088L9.91199 20.5777ZM10.6671 10.6671V12.8003H12.8003V10.6671H10.6671ZM19.1997 21.3329H21.3329V19.1997H19.1997V21.3329Z"
+                                        fill="#fff"></path>
+                                </svg>
+                            </span>
                             <p>Desconto:
                             </p>
-                            <p>20%
+                            <p><strong>20%</strong>
                             </p>
                         </div>
                         <div class = "details__item__right__sale-banner__right">
-                            <span></span>
+                            <span>
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg">
+                                    <path
+                                        d="M31.1111 17.4211H26.6667V22.9474L24.8889 21.7212L23.1111 22.9474V17.4211H18.6667C18.1778 17.4211 17.7778 17.8355 17.7778 18.3421V31.0789C17.7778 31.5855 18.1778 32 18.6667 32H31.1111C31.6 32 32 31.5855 32 31.0789V18.3421C32 17.8355 31.6 17.4211 31.1111 17.4211ZM9.77778 14.5789H22.2222C22.7111 14.5789 23.1111 14.1645 23.1111 13.6579V0.921053C23.1111 0.414474 22.7111 0 22.2222 0H17.7778V5.52632L16 4.30016L14.2222 5.52632V0H9.77778C9.28889 0 8.88889 0.414474 8.88889 0.921053V13.6579C8.88889 14.1645 9.28889 14.5789 9.77778 14.5789ZM13.3333 17.4211H8.88889V22.9474L7.11111 21.7212L5.33333 22.9474V17.4211H0.888889C0.4 17.4211 0 17.8355 0 18.3421V31.0789C0 31.5855 0.4 32 0.888889 32H13.3333C13.8222 32 14.2222 31.5855 14.2222 31.0789V18.3421C14.2222 17.8355 13.8222 17.4211 13.3333 17.4211Z"
+                                        fill="#fff"></path>
+                                </svg>
+                            </span>
                             <p>Em estoque</p>
                         </div>
                     </div>
@@ -145,19 +162,39 @@
 
                         <div class = "details__item__right__actions__texts">
                             <div class = "details__item__right__actions__texts__left">
-                                <p></p>
-                                <h1></h1>
-                                <p></p>
-                                <p></p>
-                                <p></p>
+                                <p>{{ $product['sale_price'] }}</p>
+                                <h1>{{ $product['original_price'] }}</h1>
+                                <p>{!! $product['payment_methods'] !!}</p>
                                 <a href="">Ver mais opções de pagamento</a>
                             </div>
 
                             <div class = "details__item__right__actions__texts__right">
                                 <a class = "details__item__right__actions__texts__right__buy">
+                                    <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
+                                        xmlns="https://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.09977 17.6C5.88981 17.6 4.91085 18.59 4.91085 19.8C4.91085 21.01 5.88981 22 7.09977 22C8.30973 22 9.2997 21.01 9.2997 19.8C9.2997 18.59 8.30973 17.6 7.09977 17.6ZM0.5 0V2.2H2.69992L6.65979 10.549L5.17484 13.244C4.99885 13.552 4.89985 13.915 4.89985 14.3C4.89985 15.51 5.88981 16.5 7.09977 16.5H20.2993V14.3H7.56176C7.40776 14.3 7.28677 14.179 7.28677 14.025L7.31977 13.893L8.30973 12.1H16.5044C17.3294 12.1 18.0554 11.649 18.4294 10.967L22.3672 3.828C22.458 3.66013 22.5037 3.47158 22.4998 3.28078C22.4959 3.08998 22.4426 2.90346 22.345 2.73943C22.2475 2.5754 22.1091 2.43947 21.9433 2.34492C21.7776 2.25037 21.5901 2.20044 21.3993 2.2H5.13084L4.09688 0H0.5ZM18.0994 17.6C16.8894 17.6 15.9105 18.59 15.9105 19.8C15.9105 21.01 16.8894 22 18.0994 22C19.3094 22 20.2993 21.01 20.2993 19.8C20.2993 18.59 19.3094 17.6 18.0994 17.6Z"
+                                            fill="#ffffffff"></path>
+                                    </svg>
                                     <h1>comprar</h1>
                                 </a>
-                                <a class = "details__item__right__actions__texts__right__cart"></a>
+                                <a class = "details__item__right__actions__texts__right__cart">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="https://www.w3.org/2000/svg" class="IconAddToCart">
+                                        <path
+                                            d="M17.5 18.78V17.04H6.2C6.06 17 5.96 16.89 5.96 16.75L5.99 16.63L6.87 14.43H14.85C15.56 14.43 16.18 14.03 16.5 13.43L17.38 11.8C14.53 11.12 12.35 8.71 12.03 5.73H4.12L3.2 4H0V5.74H1.94L5.44 13.36L4.13 15.82C3.9 16.23 3.82 16.75 3.95 17.28C4.17 18.19 5.03 18.79 5.94 18.79H17.5V18.78Z"
+                                            fill="#42464D"></path>
+                                        <path
+                                            d="M16.18 20C15.1 20 14.23 20.9 14.23 22C14.23 23.1 15.1 24 16.18 24C17.26 24 18.14 23.1 18.14 22C18.13 20.9 17.25 20 16.18 20Z"
+                                            fill="#42464D"></path>
+                                        <path
+                                            d="M6.40001 20C5.32001 20 4.45001 20.9 4.45001 22C4.45001 23.1 5.32001 24 6.40001 24C7.48001 24 8.36001 23.1 8.36001 22C8.35001 20.9 7.47001 20 6.40001 20Z"
+                                            fill="#42464D"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M19 0C16.238 0 14 2.23858 14 5C14 7.76203 16.2386 10 19 10C21.762 10 24 7.76142 24 5C24 2.23797 21.7614 0 19 0ZM18.4444 2.36249V4.44444H16.2236C15.9199 4.44444 15.6667 4.69318 15.6667 5C15.6667 5.30896 15.916 5.55556 16.2236 5.55556H18.4444V7.91529C18.4444 8.21902 18.6932 8.47222 19 8.47222C19.309 8.47222 19.5556 8.22288 19.5556 7.91529V5.55556H21.7764C22.0801 5.55556 22.3333 5.30682 22.3333 5C22.3333 4.69104 22.084 4.44444 21.7764 4.44444H19.5556V2.36249C19.5556 2.05876 19.3068 1.80556 19 1.80556C18.691 1.80556 18.4444 2.0549 18.4444 2.36249Z"
+                                            fill="#42464D"></path>
+                                    </svg>
+                                </a>
                             </div>
 
 
@@ -167,6 +204,12 @@
                     </div>
                     <div class = "details__item__right__related-products">
                         <div class = "details__item__right__related-products__caption">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="https://www.w3.org/2000/svg" class="IconTag" aria-hidden="true">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M2 1C1.73478 1 1.48043 1.10536 1.29289 1.29289C1.10536 1.48043 1 1.73478 1 2V6.586C1.00006 6.8512 1.10545 7.10551 1.293 7.293L8.293 14.293C8.48053 14.4805 8.73484 14.5858 9 14.5858C9.26517 14.5858 9.51947 14.4805 9.707 14.293L14.293 9.707C14.4805 9.51947 14.5858 9.26517 14.5858 9C14.5858 8.73484 14.4805 8.48053 14.293 8.293L7.293 1.293C7.10551 1.10545 6.8512 1.00006 6.586 1H2ZM6 4.5C6 4.89783 5.84197 5.27936 5.56066 5.56066C5.27936 5.84197 4.89783 6 4.5 6C4.10218 6 3.72064 5.84197 3.43934 5.56066C3.15804 5.27936 3 4.89783 3 4.5C3 4.10218 3.15804 3.72064 3.43934 3.43934C3.72064 3.15804 4.10218 3 4.5 3C4.89783 3 5.27936 3.15804 5.56066 3.43934C5.84197 3.72064 6 4.10218 6 4.5Z"
+                                    fill="#FF6500"></path>
+                            </svg>
                             <p>produtos relacionados</p>
                         </div>
                         <div class = "details__item__right__related-products__carousel related_pics-embla">
@@ -202,27 +245,45 @@
             <div class = "details__desc">
                 <div class = "details__desc__item">
                     <div class = "details__desc__item__up">
-                        <h1>descrição do produto</h1>
+
+                        <h1><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="https://www.w3.org/2000/svg" class="IconDescription">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M1.59961 2.4C1.59961 1.76348 1.85247 1.15303 2.30255 0.702944C2.75264 0.252856 3.36309 0 3.99961 0L17.1308 0L22.3996 5.2688V21.6C22.3996 22.2365 22.1468 22.847 21.6967 23.2971C21.2466 23.7471 20.6361 24 19.9996 24H3.99961C3.36309 24 2.75264 23.7471 2.30255 23.2971C1.85247 22.847 1.59961 22.2365 1.59961 21.6V2.4ZM6.39961 6.3952H17.5996V7.9952H6.39961V6.3952ZM17.5996 11.192H6.39961V12.792H17.5996V11.192ZM17.5996 16H6.39961V17.6H17.5996V16Z"
+                                    fill="#FF6500"></path>
+                            </svg>descrição do produto</h1>
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none"
+                            xmlns="https://www.w3.org/2000/svg" class="arrow-icon" aria-hidden="true">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.0459 1.54599L10.955 0.455078L6.0459 5.36417L1.13681 0.455078L0.0458984 1.54599L6.0459 7.54599L12.0459 1.54599Z"
+                                fill="#ff6500" aria-hidden="true"></path>
+                        </svg>
                     </div>
-                    <div class = "details__desc__item__down">
-                        <div class = "details__desc__item__down__title">
-                            <h1></h1>
-                        </div>
+                    <div class = "details__desc__item__down off">
                         <div class = "details__desc__item__down__desc">
-                            <p></p>
+                            <p>{!!$product['product_description'] !!}</p>
                         </div>
                     </div>
                 </div>
                 <div class = "details__desc__item">
                     <div class = "details__desc__item__up">
-                        <h1>informações técnicas</h1>
+
+                        <h1><svg width="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"
+                                class="IconAlert">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM11.9183 19.3859C10.8643 19.3859 10.0283 18.5943 10.0283 17.6134C10.0283 16.6326 10.8643 15.841 11.9183 15.841C12.9722 15.841 13.8082 16.6326 13.8082 17.6134C13.8082 18.5943 12.9722 19.3859 11.9183 19.3859ZM10.5464 12.7859C10.6133 13.4935 11.2074 14.0342 11.9183 14.0342C12.6291 14.0342 13.2233 13.4935 13.2902 12.7859L13.8278 7.09862C13.9342 5.97299 13.0489 5 11.9183 5C10.7876 5 9.90227 5.97299 10.0087 7.09862L10.5464 12.7859Z"
+                                    fill="#FF6500"></path>
+                            </svg>informações técnicas</h1>
+                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none"
+                            xmlns="https://www.w3.org/2000/svg" class="arrow-icon" aria-hidden="true">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.0459 1.54599L10.955 0.455078L6.0459 5.36417L1.13681 0.455078L0.0458984 1.54599L6.0459 7.54599L12.0459 1.54599Z"
+                                fill="#ff6500" aria-hidden="true"></path>
+                        </svg>
                     </div>
-                    <div class = "details__desc__item__down">
-                        <div class = "details__desc__item__down__title">
-                            <h1></h1>
-                        </div>
+                    <div class = "details__desc__item__down off">
                         <div class = "details__desc__item__down__desc">
-                            <p></p>
+                            <p>{!!$product['product_technicals'] !!}</p>
                         </div>
                     </div>
                 </div>
