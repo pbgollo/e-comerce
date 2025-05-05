@@ -17,7 +17,7 @@ Antes de começar, você precisará ter os seguintes programas instalados:
 Clone o repositório do projeto para sua máquina local utilizando o comando:
 
 ```bash
-git clone https://github.com/wearenomad/laravel-base
+git clone https://github.com/pbgollo/e-comerce
 ```
 
 ### 2. Instalar as dependências do Composer
@@ -25,7 +25,7 @@ git clone https://github.com/wearenomad/laravel-base
 Navegue até o diretório do projeto e execute o comando abaixo para instalar as dependências do **Composer**:
 
 ```bash
-cd laravel-base
+cd e-comerce
 composer install
 ```
 
@@ -86,7 +86,6 @@ npm run watch
 
 -   Certifique-se de que o **WampServer** está rodando para que o Apache e o MySQL funcionem corretamente.
 -   Se você encontrar algum erro relacionado à configuração do banco de dados, verifique as configurações no arquivo `.env`.
--   Para rodar em ambiente de produção, lembre-se de configurar corretamente o ambiente de produção no `.env` e executar os comandos de **migrate** e **optimize**.
 
 Se você tiver alguma dúvida ou encontrar algum problema, sinta-se à vontade para abrir uma **issue** no repositório.
 
