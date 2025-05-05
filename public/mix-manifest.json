@@ -43,5 +43,6 @@
     "/assets/admin/images/banner.jpg": "/assets/admin/images/banner.jpg",
     "/assets/admin/images/favicon.png": "/assets/admin/images/favicon.png",
     "/assets/admin/images/logo-nomad.png": "/assets/admin/images/logo-nomad.png",
-    "/assets/admin/images/logo.png": "/assets/admin/images/logo.png"
+    "/assets/admin/images/logo.png": "/assets/admin/images/logo.png",
+    "/assets/site/images/logo_lg.png": "/assets/site/images/logo_lg.png"
 }

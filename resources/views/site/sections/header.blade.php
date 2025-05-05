@@ -8,23 +8,23 @@
 
                 'subcat' => [
                     [
-                        'title' => 'hardware',
+                        'title' => 'Hardware',
                         'link' => '',
                     ],
                     [
-                        'title' => 'periféricos',
+                        'title' => 'Periféricos',
                         'link' => '',
                     ],
                     [
-                        'title' => 'computadores',
+                        'title' => 'Computadores',
                         'link' => '',
                     ],
                     [
-                        'title' => 'games',
+                        'title' => 'Games',
                         'link' => '',
                     ],
                     [
-                        'title' => 'celular & smartphone',
+                        'title' => 'Celular & smartphone',
                         'link' => '',
                     ],
                     [
@@ -32,39 +32,39 @@
                         'link' => '',
                     ],
                     [
-                        'title' => 'áudio',
+                        'title' => 'Áudio',
                         'link' => '',
                     ],
                     [
-                        'title' => 'projetores',
+                        'title' => 'Projetores',
                         'link' => '',
                     ],
                     [
-                        'title' => 'espaço gamer',
+                        'title' => 'Espaço Gamer',
                         'link' => '',
                     ],
                     [
-                        'title' => 'escritório',
+                        'title' => 'Escritório',
                         'link' => '',
                     ],
                     [
-                        'title' => 'casa inteligente',
+                        'title' => 'Casa Inteligente',
                         'link' => '',
                     ],
                     [
-                        'title' => 'tablets, ipads e e-readers',
+                        'title' => 'Tablets, Ipads e E-readers',
                         'link' => '',
                     ],
                     [
-                        'title' => 'cameras e drones',
+                        'title' => 'Cameras e Drones',
                         'link' => '',
                     ],
                     [
-                        'title' => 'energia',
+                        'title' => 'Energia',
                         'link' => '',
                     ],
                     [
-                        'title' => 'conectividade',
+                        'title' => 'Conectividade',
                         'link' => '',
                     ],
                 ],
@@ -129,7 +129,7 @@
         </div>
         <div class = "header__top__searchbar">
             <form action="">
-                <input type="text">
+                <input type="text" placeholder="Busque no KaBuM!">
                 <button><svg width="64" height="47" viewBox="0 0 64 47" fill="none"
                         xmlns="https://www.w3.org/2000/svg" class="IconHeaderSearch" aria-hidden="true">
                         <g>

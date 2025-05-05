@@ -27,8 +27,8 @@
                 ],
                 'discount_label' => 'Frete Grátis',
                 'on_sale' => '0',
-                'original_price' => '1.627,00',
-                'sale_price' => '999,99',
+                'original_price' => '1.627,87',
+                'sale_price' => '1.269,90',
                 'sale_percentage' => '-31%',
                 'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 111,10</strong>',
                 'sale_countdown' => [
@@ -103,7 +103,7 @@
                         'price' => 'R$ 3.999,00',
                     ],
                 ],
-                'brand_logo' => 'assets/site/images/logo_lg.jpg',
+                'brand_logo' => 'assets/site/images/logo_lg.png',
                 'product_technicals' => '<strong>Características:</strong><br>
 - Marca: LG<br>
 - Modelo: 24GS60F-B<br>
@@ -148,7 +148,7 @@
                 <span>></span>
                 <h2>Código: 688564</h2>
             </div>
-            <h1>{{ $product['name'] }}</h1>
+            <h1 class="name">{{ $product['name'] }}</h1>
             <div class = "details__item">
                 <div class = "details__item__left">
                     <div class = "details__item__left__top">
@@ -289,10 +289,9 @@
 
                         <div class = "details__item__right__actions__texts">
                             <div class = "details__item__right__actions__texts__left">
-                                <p>{{ $product['sale_price'] }}</p>
-                                <h1>{{ $product['original_price'] }}</h1>
+                                <p>{{ $product['original_price'] }}</p>
+                                <h1>{{ $product['sale_price'] }}</h1>
                                 <p>{!! $product['payment_methods'] !!}</p>
-                                <a href="">Ver mais opções de pagamento</a>
                             </div>
 
                             <div class = "details__item__right__actions__texts__right">
