@@ -1,5 +1,5 @@
 @foreach ($products as $product)
-    <a href="product/{{ $product['id'] }}" class = "product">
+    <a href="product/{{ $product['slug'] }}" class = "product">
         <div class = "product__top">
             @if ($product['promotion_label'] != '')
                 <div class = "product__top__promo-label">
@@ -56,7 +56,7 @@
                 @if ($product['on_sale'] == '1')
                     <h1>{{ $product['sale_price'] }}</h1>
                 @else
-                    <h1>{{ $product['stock']['price'] }}</h1>
+                    <h1>{{ number_format($product['stock']['price'], 2, ',', '.') }}</h1>
                 @endif
                 <div class = "product__bottom__current-price__discount"
                     style="{{ $product['on_sale'] == '0' ? 'display: none;' : '' }}">

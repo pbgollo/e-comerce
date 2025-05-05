@@ -1,19 +1,13 @@
-import { Slider } from "./../components/slider";
-
 import EmblaCarousel from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 
 function init() {
-    // home_slider();
     homeBanner();
+    login();
+    register();
 }
 
-function home_slider() {
-    new Slider("js-test", {
-        autoplay: true,
-        autoplaySpeed: 5000,
-    });
-}
+
 
 function homeBanner() {
     const emblaNode = $(".home-embla");
@@ -83,6 +77,93 @@ function homeBanner() {
     } else {
         console.warn('Dots container not found or Embla not initialized.');
     }
+}
+
+
+function login(){
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        const loginError = document.getElementById('loginError');
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        'content')
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // sucesso: redireciona ou fecha o modal
+                loginError.style.display = 'none';
+                alert('Login realizado com sucesso!');
+                // Ex: window.location.href = '/painel';
+            } else {
+                loginError.textContent = result.message || 'Erro ao fazer login.';
+                loginError.style.display = 'block';
+            }
+        } catch (error) {
+            loginError.textContent = 'Erro na conexão com o servidor.';
+            loginError.style.display = 'block';
+        }
+    });
+}
+
+function register() {
+    document.getElementById('registerForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById('register-name').value.trim();
+        const email = document.getElementById('register-email').value.trim();
+        const password = document.getElementById('register-password').value;
+        const confirmPassword = document.getElementById('register-confirm-password').value;
+
+        // Exiba erro se as senhas não coincidirem
+        if (password !== confirmPassword) {
+            alert('As senhas não coincidem.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Cadastro realizado com sucesso!');
+                // Ex: redirecionar ou fechar modal
+                // window.location.href = '/login';
+            } else {
+                alert(result.message || 'Erro ao realizar cadastro.');
+                console.error(result.errors); // opcional: exibir detalhes no console
+            }
+        } catch (error) {
+            alert('Erro na conexão com o servidor.');
+            console.error(error);
+        }
+    });
 }
 
 $(function () {

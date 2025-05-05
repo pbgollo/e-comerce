@@ -309,7 +309,7 @@
                                     <h1>{{ $product['sale_price'] }}</h1>
                                     <p>{!! $product['payment_methods'] !!}</p>
                                 @else
-                                    <h1>{{ $product['stock']['price'] }}</h1>
+                                    <h1>{{ number_format($product['stock']['price'], 2, ',', '.') }}</h1>
                                     <p>{!! $product['payment_methods'] !!}</p>
                                 @endif
                             </div>
@@ -407,6 +407,7 @@
                     </div>
                     <div class = "details__desc__item__down off">
                         <div class = "details__desc__item__down__desc">
+                            {{-- @dd($product['description']) --}}
                             <p>{!! $product['description'] !!}</p>
                         </div>
                     </div>

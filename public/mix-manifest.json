@@ -8,6 +8,7 @@
     "/assets/site/js/vendor.js": "/assets/site/js/vendor.js",
     "/assets/site/images/logo.png": "/assets/site/images/logo.png",
     "/assets/site/images/logo_lg.jpg": "/assets/site/images/logo_lg.jpg",
+    "/assets/site/images/logo_lg.png": "/assets/site/images/logo_lg.png",
     "/assets/site/images/offer_1.webp": "/assets/site/images/offer_1.webp",
     "/assets/site/images/offer_2.gif": "/assets/site/images/offer_2.gif",
     "/assets/site/images/offer_3.webp": "/assets/site/images/offer_3.webp",
@@ -43,6 +44,5 @@
     "/assets/admin/images/banner.jpg": "/assets/admin/images/banner.jpg",
     "/assets/admin/images/favicon.png": "/assets/admin/images/favicon.png",
     "/assets/admin/images/logo-nomad.png": "/assets/admin/images/logo-nomad.png",
-    "/assets/admin/images/logo.png": "/assets/admin/images/logo.png",
-    "/assets/site/images/logo_lg.png": "/assets/site/images/logo_lg.png"
+    "/assets/admin/images/logo.png": "/assets/admin/images/logo.png"
 }

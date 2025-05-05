@@ -10,7 +10,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $this->vm['products'] = ProductModel::with(['supplier', 'stock'])->get()->toArray();
+        $this->vm['products'] = ProductModel::with(['supplier', 'stock'])->where('active', '1')->orderBy('position')->get()->toArray();
 
         return view("site.home", $this->vm);
     }

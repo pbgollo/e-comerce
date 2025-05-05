@@ -149,7 +149,7 @@
                     </svg>
                 </div>
                 <div class="modal__item__form">
-                    <form class="user-form">
+                    <form class="user-form"  id="registerForm">
                         <h2>Cadastro</h2>
                         <div class="form-group">
                             <label for="register-name">Nome</label>
@@ -211,43 +211,4 @@
 
     </section>
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const loginError = document.getElementById('loginError');
-
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    },
-                    body: JSON.stringify({
-                        email,
-                        password
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    // sucesso: redireciona ou fecha o modal
-                    loginError.style.display = 'none';
-                    alert('Login realizado com sucesso!');
-                    // Ex: window.location.href = '/painel';
-                } else {
-                    loginError.textContent = result.message || 'Erro ao fazer login.';
-                    loginError.style.display = 'block';
-                }
-            } catch (error) {
-                loginError.textContent = 'Erro na conexão com o servidor.';
-                loginError.style.display = 'block';
-            }
-        });
-    </script>
 @endsection
