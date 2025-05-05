@@ -6,6 +6,7 @@ import Autoplay from "embla-carousel-autoplay";
 function init() {
     productSlider_01();
     productSlider_02();
+    detailsAccordion ();
 }
 
 function productSlider_01() {
@@ -26,9 +27,7 @@ function productSlider_01() {
         draggable: true,
         // containScroll: "trimSnaps",
         slidesToScroll: 1,
-        // slidesToShow: 4,
         speed: 10,
-        axis: 'y'
     };
     // const plugins = [Autoplay({ delay: 4000, stopOnInteraction: false })];
     // const emblaApi = EmblaCarousel(emblaNode[0], options, plugins);
@@ -67,7 +66,6 @@ function productSlider_02() {
         draggable: true,
         // containScroll: "trimSnaps",
         slidesToScroll: 1,
-        slidesToScroll: 1,
         speed: 10,
     };
     // const plugins = [Autoplay({ delay: 4000, stopOnInteraction: false })];
@@ -82,6 +80,18 @@ function productSlider_02() {
         console.log("Embla re-initialized");
     }, 1000);
 }
+
+
+function detailsAccordion() {
+    var item = $('.details__desc__item');
+    var title = item.find('.details__desc__item__up');
+
+    title.on('click', function () {
+        console.log('clicou');
+        $(this).siblings('.details__desc__item__down').toggleClass('off');
+    });
+}
+
 
 $(function () {
     init();
