@@ -17,4 +17,14 @@ class ProductModel extends BaseModel
             ->saveSlugsTo('slug');
     }
 
+    public function supplier()
+    {
+        return $this->belongsTo(SupplierModel::class);
+    }
+
+    public function stock()
+    {
+        return $this->hasOne(StockModel::class, 'product_id');
+    }
+
 }

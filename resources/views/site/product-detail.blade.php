@@ -8,6 +8,8 @@
     <!-- CSS -->
 @endsection
 
+{{-- @dd($product) --}}
+
 @section('content')
     @php
         $product = array_merge(
@@ -153,7 +155,7 @@
                 <div class = "details__item__left">
                     <div class = "details__item__left__top">
                         <div class = "details__item__left__top__logo">
-                            <img src="{{ $product['brand_logo'] }}" alt="">
+                            <img src="{{ resize($product['supplier']['image']) }}" alt="">
                         </div>
                         <div class = "details__item__left__top__rating">
                             <div class = "details__item__left__top__rating__stars">
@@ -204,7 +206,7 @@
                         </div>
 
                         <div class = "details__item__left__middle__right">
-                            <img src="{{ $product['product_pictures'][0] }}" alt="">
+                            <img src="{{ resize($product['image']) }}" alt="">
                             <div class = "details__item__left__middle__right__sale-tag">
                                 <p>mega maio</p>
                             </div>
@@ -278,20 +280,38 @@
                                         fill="#fff"></path>
                                 </svg>
                             </span>
-                            <p>Em estoque</p>
+
+                            @if ($product['stock']['quantity'] > 0)
+                                <p>Em estoque</p>
+                            @else
+                                <p>Esgotado</p>
+                            @endif
                         </div>
                     </div>
                     <div class = "details__item__right__actions">
                         <div class = "details__item__right__actions__caption">
-                            <p>Vendido e entregue por: <strong>KaBuM!</strong> | <span>Em estoque</span></p>
+                            <p>
+                                Vendido e entregue por: <strong>{{ $product['supplier']['name'] }}</strong> |
+                                @if ($product['stock']['quantity'] > 0)
+                                    <span>Em estoque</span>
+                                @else
+                                    <span style="color: red;">Esgotado</span>
+                                @endif
+                            </p>
+
                             <a href="">Ver mais ofertas</a>
                         </div>
 
                         <div class = "details__item__right__actions__texts">
                             <div class = "details__item__right__actions__texts__left">
-                                <p>{{ $product['original_price'] }}</p>
-                                <h1>{{ $product['sale_price'] }}</h1>
-                                <p>{!! $product['payment_methods'] !!}</p>
+                                @if ($product['on_sale'] == '1')
+                                    <p class="sale">{{ $product['stock']['price'] }}</p>
+                                    <h1>{{ $product['sale_price'] }}</h1>
+                                    <p>{!! $product['payment_methods'] !!}</p>
+                                @else
+                                    <h1>{{ $product['stock']['price'] }}</h1>
+                                    <p>{!! $product['payment_methods'] !!}</p>
+                                @endif
                             </div>
 
                             <div class = "details__item__right__actions__texts__right">

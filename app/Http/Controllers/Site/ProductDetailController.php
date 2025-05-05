@@ -9,7 +9,10 @@ class ProductDetailController extends Controller
     public function show($slug)
     {
 
-        $this->vm['product'] = ProductModel::get()->where("slug", $slug)->first()->toArray();
+        $this->vm['product'] = ProductModel::with(['supplier', 'stock'])
+        ->where('slug', $slug)
+        ->firstOrFail()
+        ->toArray();
 
         return view("site.product-detail", $this->vm);
     }

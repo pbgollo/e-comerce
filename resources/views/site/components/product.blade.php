@@ -56,7 +56,7 @@
                 @if ($product['on_sale'] == '1')
                     <h1>{{ $product['sale_price'] }}</h1>
                 @else
-                    <h1>{{ $product['original_price'] }}</h1>
+                    <h1>{{ $product['stock']['price'] }}</h1>
                 @endif
                 <div class = "product__bottom__current-price__discount"
                     style="{{ $product['on_sale'] == '0' ? 'display: none;' : '' }}">
