@@ -193,7 +193,7 @@
                     </div>
                     <div class = "details__item__left__middle">
 
-                        <div class = "details__item__left__middle__left">
+                        {{-- <div class = "details__item__left__middle__left">
                             <div class = "details__item__left__middle__left__carousel products_pics-embla">
                                 <div class = "details__item__left__middle__left__carousel__drag">
                                     @foreach ($product['product_pictures'] as $picture)
@@ -203,7 +203,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class = "details__item__left__middle__right">
                             <img src="{{ resize($product['image']) }}" alt="">
@@ -212,7 +212,7 @@
                             </div>
                         </div>
 
-                        <div class = "products_pics-embla-next">
+                        {{-- <div class = "products_pics-embla-next">
                             <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
                                 xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -227,7 +227,7 @@
                                     d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
                                     fill="#565C69"></path>
                             </svg>
-                        </div>
+                        </div> --}}
 
                     </div>
                     <div class = "details__item__left__bottom">
@@ -348,43 +348,45 @@
 
 
                     </div>
-                    <div class = "details__item__right__related-products">
-                        <div class = "details__item__right__related-products__caption">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                xmlns="https://www.w3.org/2000/svg" class="IconTag" aria-hidden="true">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M2 1C1.73478 1 1.48043 1.10536 1.29289 1.29289C1.10536 1.48043 1 1.73478 1 2V6.586C1.00006 6.8512 1.10545 7.10551 1.293 7.293L8.293 14.293C8.48053 14.4805 8.73484 14.5858 9 14.5858C9.26517 14.5858 9.51947 14.4805 9.707 14.293L14.293 9.707C14.4805 9.51947 14.5858 9.26517 14.5858 9C14.5858 8.73484 14.4805 8.48053 14.293 8.293L7.293 1.293C7.10551 1.10545 6.8512 1.00006 6.586 1H2ZM6 4.5C6 4.89783 5.84197 5.27936 5.56066 5.56066C5.27936 5.84197 4.89783 6 4.5 6C4.10218 6 3.72064 5.84197 3.43934 5.56066C3.15804 5.27936 3 4.89783 3 4.5C3 4.10218 3.15804 3.72064 3.43934 3.43934C3.72064 3.15804 4.10218 3 4.5 3C4.89783 3 5.27936 3.15804 5.56066 3.43934C5.84197 3.72064 6 4.10218 6 4.5Z"
-                                    fill="#FF6500"></path>
-                            </svg>
-                            <p>produtos relacionados</p>
-                        </div>
-                        <div class = "details__item__right__related-products__carousel related_pics-embla">
-                            <div class = "details__item__right__related-products__carousel__drag ">
-                                @foreach ($product['related_pictures'] as $rp)
-                                    <div class = "details__item__right__related-products__carousel__drag__item">
-                                        <img src="{{ $rp['path'] }}" alt="">
-                                        <h1>{{ $rp['price'] }}</h1>
-                                    </div>
-                                @endforeach
+                    @if (count($related_products) > 0)
+                        <div class = "details__item__right__related-products">
+                            <div class = "details__item__right__related-products__caption">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg" class="IconTag" aria-hidden="true">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M2 1C1.73478 1 1.48043 1.10536 1.29289 1.29289C1.10536 1.48043 1 1.73478 1 2V6.586C1.00006 6.8512 1.10545 7.10551 1.293 7.293L8.293 14.293C8.48053 14.4805 8.73484 14.5858 9 14.5858C9.26517 14.5858 9.51947 14.4805 9.707 14.293L14.293 9.707C14.4805 9.51947 14.5858 9.26517 14.5858 9C14.5858 8.73484 14.4805 8.48053 14.293 8.293L7.293 1.293C7.10551 1.10545 6.8512 1.00006 6.586 1H2ZM6 4.5C6 4.89783 5.84197 5.27936 5.56066 5.56066C5.27936 5.84197 4.89783 6 4.5 6C4.10218 6 3.72064 5.84197 3.43934 5.56066C3.15804 5.27936 3 4.89783 3 4.5C3 4.10218 3.15804 3.72064 3.43934 3.43934C3.72064 3.15804 4.10218 3 4.5 3C4.89783 3 5.27936 3.15804 5.56066 3.43934C5.84197 3.72064 6 4.10218 6 4.5Z"
+                                        fill="#FF6500"></path>
+                                </svg>
+                                <p>produtos relacionados</p>
                             </div>
+                            <div class = "details__item__right__related-products__carousel related_pics-embla">
+                                <div class = "details__item__right__related-products__carousel__drag ">
+                                    @foreach ($related_products as $rp)
+                                        <div class = "details__item__right__related-products__carousel__drag__item">
+                                            <img src="{{ resize($rp['image']) }}" alt="">
+                                            <h1>{{ $rp['price'] }}</h1>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <span class = "related_pics-embla-prev">
+                                <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
+                                        fill="#565C69"></path>
+                                </svg>
+                            </span>
+                            <span class = "related_pics-embla-next">
+                                <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
+                                        fill="#565C69"></path>
+                                </svg>
+                            </span>
                         </div>
-                        <span class = "related_pics-embla-prev">
-                            <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
-                                xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
-                                    fill="#565C69"></path>
-                            </svg>
-                        </span>
-                        <span class = "related_pics-embla-next">
-                            <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
-                                xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
-                                    fill="#565C69"></path>
-                            </svg>
-                        </span>
-                    </div>
+                    @endif
                 </div>
 
             </div>
@@ -407,12 +409,11 @@
                     </div>
                     <div class = "details__desc__item__down off">
                         <div class = "details__desc__item__down__desc">
-                            {{-- @dd($product['description']) --}}
                             <p>{!! $product['description'] !!}</p>
                         </div>
                     </div>
                 </div>
-                {{-- <div class = "details__desc__item">
+                <div class = "details__desc__item">
                     <div class = "details__desc__item__up">
 
                         <h1><svg width="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"
@@ -433,7 +434,7 @@
                             <p>{!! $product['product_technicals'] !!}</p>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
 

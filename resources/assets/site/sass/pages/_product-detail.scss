@@ -184,7 +184,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        padding-left: 60px;
+                        // padding-left: 60px;
 
                         img {
                             height: 100%;
@@ -498,6 +498,7 @@
                         width: 100%;
                         display: flex;
                         overflow: hidden;
+                        padding: 0px 15px;
                         &__drag {
                             width: 100%;
                             display: flex;
@@ -567,6 +568,7 @@
                     }
                 }
                 &__down {
+                    width: 100%;
                     &__desc {
                         p {
                             border-radius: 3px;

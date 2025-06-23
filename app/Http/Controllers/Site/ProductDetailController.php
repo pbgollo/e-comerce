@@ -14,6 +14,13 @@ class ProductDetailController extends Controller
         ->firstOrFail()
         ->toArray();
 
+        $this->vm['related_products'] = ProductModel::with(['supplier', 'stock'])
+            ->where('category_id', $this->vm['product']['category_id'])
+            ->where('id', '!=', $this->vm['product']['id'])
+            ->where('active', 1)
+            ->orderBy('position')
+            ->get();
+
         return view("site.product-detail", $this->vm);
     }
 }
