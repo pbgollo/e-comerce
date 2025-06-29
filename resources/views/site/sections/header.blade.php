@@ -154,8 +154,8 @@
 
 
         </div>
-        <div class = "header__top__signin">
-            <div class = "header__top__signin__icon">
+        <div class="header__top__signin">
+            <div class="header__top__signin__icon">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
                     xmlns="https://www.w3.org/2000/svg" class="IconDefaultProfileLogo">
                     <mask id="mask0" maskUnits="userSpaceOnUse" x="0" y="0" width="28" height="28"
@@ -169,9 +169,17 @@
                     </g>
                 </svg>
             </div>
-            <div class = "header__top__signin__text">
-                <p><a class = "open_modal" id = "login" href="javascript:void(0)" target="_blank">ENTRE</a> ou<br><a class = "open_modal" id = "register" href="javascript:void(0)"
-                        target="_blank">CADASTRE-SE</a></p>
+            <div class="header__top__signin__text">
+                <div id="userStatusContainer" style="display: none;">
+                    <p>Olá, <span id="userNameDisplay"></span>!</p>
+                    <p><a href="javascript:void(0)" class="open_modal" id="logoutButton">Sair</a></p>
+                </div>
+
+                <div id="userGuestContainer">
+                    <p><a class="open_modal" id="login" href="javascript:void(0)" target="_blank">ENTRE</a> ou<br><a
+                            class="open_modal" id="register" href="javascript:void(0)" target="_blank">CADASTRE-SE</a>
+                    </p>
+                </div>
             </div>
         </div>
         <div class = "header__top__navbar">

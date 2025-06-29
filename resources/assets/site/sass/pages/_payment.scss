@@ -1,0 +1,253 @@
+.payment-page {
+    width: 100%;
+    height: calc(100vh - 142px);
+    background-color: $color-background-light;
+    padding: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__header {
+        width: 100%;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $color-border;
+    }
+
+    &__content {
+        display: flex;
+        width: 100%;
+        gap: 30px;
+
+    }
+}
+
+.cart-steps {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &__item {
+        color: $color-primary;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 5px 10px;
+        position: relative;
+
+        &--active {
+            border-bottom: 2px solid $color-primary;
+        }
+    }
+}
+
+.payment-main {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: $color-text-light;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid $color-primary; // Borda laranja em volta do bloco principal
+}
+
+.payment-main__title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: $color-text-dark;
+    padding-bottom: 15px;
+    border-bottom: 1px solid $color-border;
+    margin-bottom: 5px;
+}
+
+.payment-option {
+    border: 1px solid $color-border;
+    border-radius: 4px;
+    padding: 15px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    &:has(.payment-option__radio:checked) {
+        border-color: $color-primary;
+        background-color: lighten($color-primary, 45%); // Um tom mais claro para destacar
+    }
+
+    &__label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-weight: bold;
+        color: $color-text-dark;
+        gap: 10px;
+    }
+
+    &__radio {
+        appearance: none; // Remove o estilo padrão do rádio button
+        width: 18px;
+        height: 18px;
+        border: 2px solid $color-primary;
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        outline: none;
+        flex-shrink: 0;
+
+        &:checked {
+            &::before {
+                content: '';
+                display: block;
+                width: 10px;
+                height: 10px;
+                background-color: $color-primary;
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+
+    &__name {
+        flex-grow: 1;
+    }
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        flex-shrink: 0;
+
+        &--pix {
+            // Exemplo de ícone, idealmente usar SVG ou Font Awesome
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff6500"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>');
+        }
+        &--barcode {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M0 0h24v24H0z" fill="none"/><path d="M22 6h-2V4h-2V2h-2v2H8V2H6v2H4v2H2v14h20V6zm-2 12H4V8h16v10z"/></svg>');
+        }
+        &--credit-card {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10zm-12-6h12v-2H8v2z"/></svg>');
+        }
+        &--nu {
+            // Ícone simulado para NuPay
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%238A05BE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.5V9.5h2V17.5h-2zM12 7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>');
+        }
+    }
+
+    &__details {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #eee;
+        font-size: 0.9em;
+        color: #555;
+    }
+}
+
+.payment-summary {
+    flex: 1;
+    background-color: $color-text-light;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 300px;
+
+    &__title {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: $color-text-dark;
+        text-align: center;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $color-border;
+        margin-bottom: 5px;
+    }
+
+    &__total-value {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 0.95em;
+        color: $color-text-dark;
+    }
+
+    &__label {
+        margin: 0;
+    }
+
+    &__value {
+        font-weight: bold;
+    }
+
+    &__pix-info {
+        background-color: #e6ffe6; // Um verde claro para o bloco PIX
+        border: 1px solid $color-success;
+        border-radius: 4px;
+        padding: 15px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    &__pix-label {
+        font-size: 0.9em;
+        color: $color-success;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    &__pix-value {
+        font-size: 1.8em; // Maior para destaque
+        font-weight: bold;
+        color: $color-success;
+        margin: 0;
+    }
+
+    &__pix-economy {
+        font-size: 0.9em;
+        color: $color-success;
+        margin: 0;
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    &__button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: background-color 0.2s ease;
+
+        &--continue {
+            background-color: $color-primary;
+            color: $color-text-light;
+
+            &:hover {
+                background-color: darken($color-primary, 10%);
+            }
+        }
+
+        &--back {
+            background-color: #f0f0f0;
+            color: $color-text-dark;
+            border: 1px solid $color-border;
+
+            &:hover {
+                background-color: darken(#f0f0f0, 5%);
+            }
+        }
+    }
+}

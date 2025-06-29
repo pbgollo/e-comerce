@@ -7,12 +7,15 @@ function init() {
     register();
 }
 
-
-
 function homeBanner() {
     const emblaNode = $(".home-embla");
     const prevBtn = $('.home-embla-prev');
     const nextBtn = $('.home-embla-next');
+
+    if (emblaNode.length === 0) {
+        console.warn('Embla carousel node not found. Skipping homeBanner initialization.');
+        return;
+    }
 
     prevBtn.on('click', () => emblaApi.scrollPrev());
     nextBtn.on('click', () => {
@@ -22,7 +25,6 @@ function homeBanner() {
 
     const options = {
         loop: false,
-        draggable: true,
         draggable: true,
         containScroll: "trimSnaps",
         slidesToScroll: 1,
@@ -80,21 +82,30 @@ function homeBanner() {
 }
 
 
-function login(){
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+function login() {
+    const loginForm = document.getElementById('loginForm');
+    if (!loginForm) return; // Garante que o formulário existe
+
+    loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
-        const loginError = document.getElementById('loginError');
+        const loginFeedback = document.getElementById('loginFeedback');
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+
+        // Resetar feedback visual
+        loginFeedback.style.display = 'none';
+        loginFeedback.classList.remove('feedback-message--error', 'feedback-message--success');
+        loginSubmitBtn.disabled = true; // Desabilita o botão para evitar cliques múltiplos
+        loginSubmitBtn.textContent = 'Carregando...';
 
         try {
             const response = await fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                        'content')
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
                 body: JSON.stringify({
                     email,
@@ -105,33 +116,62 @@ function login(){
             const result = await response.json();
 
             if (result.success) {
-                // sucesso: redireciona ou fecha o modal
-                loginError.style.display = 'none';
-                alert('Login realizado com sucesso!');
-                // Ex: window.location.href = '/painel';
+                loginFeedback.textContent = 'Login realizado com sucesso!';
+                loginFeedback.classList.add('feedback-message--success');
+                loginFeedback.style.display = 'block';
+                // Fechar modal ou redirecionar
+                setTimeout(() => {
+                    $('.loginModal').addClass('off');
+                    $('.loginModal').find('.modal__item').removeClass('animated');
+                    // Atualizar o status do usuário no header
+                    if (typeof checkUserStatus === 'function') {
+                        checkUserStatus();
+                    }
+                }, 1500); // Dá um tempo para o usuário ver a mensagem de sucesso
             } else {
-                loginError.textContent = result.message || 'Erro ao fazer login.';
-                loginError.style.display = 'block';
+                loginFeedback.textContent = result.message || 'Erro ao fazer login.';
+                loginFeedback.classList.add('feedback-message--error');
+                loginFeedback.style.display = 'block';
             }
         } catch (error) {
-            loginError.textContent = 'Erro na conexão com o servidor.';
-            loginError.style.display = 'block';
+            console.error('Erro na requisição de login:', error);
+            loginFeedback.textContent = 'Erro na conexão com o servidor. Tente novamente.';
+            loginFeedback.classList.add('feedback-message--error');
+            loginFeedback.style.display = 'block';
+        } finally {
+            loginSubmitBtn.disabled = false; // Reabilita o botão
+            loginSubmitBtn.textContent = 'Entrar';
         }
     });
 }
 
 function register() {
-    document.getElementById('registerForm').addEventListener('submit', async function (e) {
+    const registerForm = document.getElementById('registerForm');
+    if (!registerForm) return; // Garante que o formulário existe
+
+    registerForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         const name = document.getElementById('register-name').value.trim();
         const email = document.getElementById('register-email').value.trim();
         const password = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('register-confirm-password').value;
+        const registerFeedback = document.getElementById('registerFeedback');
+        const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+
+        // Resetar feedback visual
+        registerFeedback.style.display = 'none';
+        registerFeedback.classList.remove('feedback-message--error', 'feedback-message--success');
+        registerSubmitBtn.disabled = true; // Desabilita o botão para evitar cliques múltiplos
+        registerSubmitBtn.textContent = 'Carregando...';
 
         // Exiba erro se as senhas não coincidirem
         if (password !== confirmPassword) {
-            alert('As senhas não coincidem.');
+            registerFeedback.textContent = 'As senhas não coincidem.';
+            registerFeedback.classList.add('feedback-message--error');
+            registerFeedback.style.display = 'block';
+            registerSubmitBtn.disabled = false;
+            registerSubmitBtn.textContent = 'Cadastrar';
             return;
         }
 
@@ -152,16 +192,35 @@ function register() {
             const result = await response.json();
 
             if (result.success) {
-                alert('Cadastro realizado com sucesso!');
-                // Ex: redirecionar ou fechar modal
-                // window.location.href = '/login';
+                registerFeedback.textContent = 'Cadastro realizado com sucesso! Você pode fazer login agora.';
+                registerFeedback.classList.add('feedback-message--success');
+                registerFeedback.style.display = 'block';
+                // Opcional: fechar modal de registro e abrir o de login automaticamente
+                setTimeout(() => {
+                    $('.registerModal').addClass('off');
+                    $('.registerModal').find('.modal__item').removeClass('animated');
+                    // Abrir modal de login se desejado
+                    // $('#login').trigger('click');
+                }, 2000);
             } else {
-                alert(result.message || 'Erro ao realizar cadastro.');
-                console.error(result.errors); // opcional: exibir detalhes no console
+                let errorMessage = result.message || 'Erro ao realizar cadastro.';
+                if (result.errors) {
+                    // Concatenar mensagens de erro de validação
+                    errorMessage += '<br>' + Object.values(result.errors).map(err => err.join(', ')).join('<br>');
+                }
+                registerFeedback.innerHTML = errorMessage; // Usar innerHTML para <br>
+                registerFeedback.classList.add('feedback-message--error');
+                registerFeedback.style.display = 'block';
+                console.error(result.errors);
             }
         } catch (error) {
-            alert('Erro na conexão com o servidor.');
-            console.error(error);
+            console.error('Erro na requisição de registro:', error);
+            registerFeedback.textContent = 'Erro na conexão com o servidor. Tente novamente.';
+            registerFeedback.classList.add('feedback-message--error');
+            registerFeedback.style.display = 'block';
+        } finally {
+            registerSubmitBtn.disabled = false; // Reabilita o botão
+            registerSubmitBtn.textContent = 'Cadastrar';
         }
     });
 }

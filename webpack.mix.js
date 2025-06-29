@@ -40,6 +40,16 @@ mix.js(
     "public/assets/site/js/pages/product.js"
 );
 
+mix.js(
+    "resources/assets/site/js/pages/shopping-cart.js",
+    "public/assets/site/js/pages/shopping-cart.js"
+);
+
+mix.js(
+    "resources/assets/site/js/pages/payment.js",
+    "public/assets/site/js/pages/payment.js"
+);
+
 
 mix.scripts(
     [
@@ -104,6 +114,14 @@ mix.scripts(
     ],
     "public/assets/admin/js/vendor.js"
 );
+
+mix.scripts(
+    [
+        "resources/assets/admin/js/admin-orders.js",
+    ],
+    "public/assets/admin/js/admin-orders.js"
+);
+
 
 
 mix.copyDirectory(

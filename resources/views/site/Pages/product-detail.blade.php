@@ -11,133 +11,6 @@
 {{-- @dd($product) --}}
 
 @section('content')
-    @php
-        $product = array_merge(
-            [
-                'promotion_label' => 'MEGA MAIO',
-                'review_amount' => '254',
-                'review_stars_average' => '4',
-                'reviews' => [
-                    [
-                        'id' => '0',
-                        'author' => 'jhon',
-                        'rating' => '4',
-                        'date' => '30/04/2025',
-                        'title' => 'perfeito',
-                        'comment' => 'Excelentes cores, brilho e imagem...',
-                    ],
-                ],
-                'discount_label' => 'Frete Grátis',
-                'on_sale' => '0',
-                'original_price' => '1.627,87',
-                'sale_price' => '1.269,90',
-                'sale_percentage' => '-31%',
-                'payment_methods' => 'À vista no PIX<br>ou até <strong>10x de 111,10</strong>',
-                'sale_countdown' => [
-                    'boolean' => '0',
-                    'timestamp' => '5 dias',
-                ],
-                'product_pictures' => [
-                    'assets/site/images/product_image_1.webp',
-                    'assets/site/images/product_image_2.webp',
-                    'assets/site/images/product_image_3.webp',
-                    'assets/site/images/product_image_4.webp',
-                    'assets/site/images/product_image_5.webp',
-                    'assets/site/images/product_image_6.jpg',
-                    'assets/site/images/product_image_1.webp',
-                    'assets/site/images/product_image_2.webp',
-                    'assets/site/images/product_image_3.webp',
-                    'assets/site/images/product_image_4.webp',
-                    'assets/site/images/product_image_5.webp',
-                    'assets/site/images/product_image_6.jpg',
-                ],
-                'related_pictures' => [
-                    [
-                        'path' => 'assets/site/images/other_products_1.webp',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_2.jpg',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_3.jpg',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_4.jpg',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_5.webp',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_6.webp',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_7.jpg',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_8.jpg',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_9.webp',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_10.webp',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_11.webp',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_12.webp',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                    [
-                        'path' => 'assets/site/images/other_products_13.webp',
-                        'price' => 'R$ 3.999,00',
-                    ],
-                ],
-                'brand_logo' => 'assets/site/images/logo_lg.png',
-                'product_technicals' => '<strong>Características:</strong><br>
-- Marca: LG<br>
-- Modelo: 24GS60F-B<br>
-<br>
-<br>
-<strong>Tela:</strong><br>
-- Tamanho: 24"<br>
-- Proporção: 16:9<br>
-- Tipo de painel: IPS<br>
-- Tempo de resposta: 1ms (GtG)<br>
-- Resolução: 1920x1080<br>
-- Paso de píxeles [mm]: 0.2745 x 0.2745mm<br>
-- Profundidade de cor (número de cores): 16.7M<br>
-- Ângulo de visão (CR≥10): 178º(R/L), 178º(U/D)<br>
-- Brilho (típ.) [cd/m²]: 300cd/m²<br>
-- Relação de contraste (Tipo): 1000:1<br>
-- Gama de cores (Typ.): sRGB 99%<br>
-- Taxa de atualização (máx.) [Hz]: 180hz<br>
-- Bit de cor: 8 bits<br>
-- Tratamento de Superfície: Antirreflexo<br>
-<br>
-<br>
-<strong>Conectividade:</strong><br>
-- HDMI: Sim<br>
-- DisplayPort: Sim<br>
-- Versão DP: 1.4<br>
-',
-            ],
-            $product,
-        );
-    @endphp
-
     <section class="details-wrapper">
         <div class="details">
             <div class="details__caption">
@@ -193,17 +66,17 @@
                     </div>
                     <div class = "details__item__left__middle">
 
-                        {{-- <div class = "details__item__left__middle__left">
+                        <div class = "details__item__left__middle__left">
                             <div class = "details__item__left__middle__left__carousel products_pics-embla">
                                 <div class = "details__item__left__middle__left__carousel__drag">
-                                    @foreach ($product['product_pictures'] as $picture)
+                                    @foreach ($product['images'] as $index => $picture)
                                         <div class = "details__item__left__middle__left__carousel__drag__item">
-                                            <img src="{{ $picture }}" alt="">
+                                            <img src="{{ resize($picture['image']) }}" alt="">
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class = "details__item__left__middle__right">
                             <img src="{{ resize($product['image']) }}" alt="">
@@ -212,7 +85,7 @@
                             </div>
                         </div>
 
-                        {{-- <div class = "products_pics-embla-next">
+                        <div class = "products_pics-embla-next">
                             <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
                                 xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -227,7 +100,7 @@
                                     d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
                                     fill="#565C69"></path>
                             </svg>
-                        </div> --}}
+                        </div>
 
                     </div>
                     <div class = "details__item__left__bottom">
@@ -304,13 +177,13 @@
 
                         <div class = "details__item__right__actions__texts">
                             <div class = "details__item__right__actions__texts__left">
-                                @if ($product['on_sale'] == '1')
+                                @if ($product['stock']['promotion_active'] == '1')
                                     <p class="sale">{{ $product['stock']['price'] }}</p>
-                                    <h1>{{ $product['sale_price'] }}</h1>
-                                    <p>{!! $product['payment_methods'] !!}</p>
+                                    <h1>{{ $product['stock']['promotion_price'] }}</h1>
+                                    <p>{!! $product['stock']['payment_methods'] !!}</p>
                                 @else
                                     <h1>{{ number_format($product['stock']['price'], 2, ',', '.') }}</h1>
-                                    <p>{!! $product['payment_methods'] !!}</p>
+                                    <p>{!! $product['stock']['payment_methods'] !!}</p>
                                 @endif
                             </div>
 
@@ -364,7 +237,7 @@
                                     @foreach ($related_products as $rp)
                                         <div class = "details__item__right__related-products__carousel__drag__item">
                                             <img src="{{ resize($rp['image']) }}" alt="">
-                                            <h1>{{ $rp['price'] }}</h1>
+                                            <h1>{{ $rp['stock']['price'] }}</h1>
                                         </div>
                                     @endforeach
                                 </div>
@@ -431,7 +304,7 @@
                     </div>
                     <div class = "details__desc__item__down off">
                         <div class = "details__desc__item__down__desc">
-                            <p>{!! $product['product_technicals'] !!}</p>
+                            <p>{!! $product['technical_details'] !!}</p>
                         </div>
                     </div>
                 </div>

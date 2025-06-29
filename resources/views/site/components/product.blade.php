@@ -1,9 +1,9 @@
 @foreach ($products as $product)
     <a href="product/{{ $product['slug'] }}" class = "product">
         <div class = "product__top">
-            @if ($product['promotion_label'] != '')
+            @if ($product['stock']['promotion_active'] == 1)
                 <div class = "product__top__promo-label">
-                    <p>{{ $product['promotion_label'] }}</p>
+                    <p>{{ $product['stock']['promotion_label'] }}</p>
                 </div>
             @endif
             @if ($product['review_amount'] != '' && $product['review_amount'] != '0')
@@ -29,7 +29,7 @@
                 <img src="{{ resize($product['image']) }}" alt="">
             </div>
             <div class = "product__middle__sale-label">
-                @if ($product['discount_label'] != '')
+                @if ($product['stock']['promotion_active'] == '')
                     <div class = "product__middle__sale-label__bg">
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
                             xmlns="https://www.w3.org/2000/svg" class="IconTruck">
@@ -37,7 +37,7 @@
                                 d="M20.1818 7.5H17.4545V5.25C17.4545 4.0125 16.4727 3 15.2727 3H2.18182C0.981818 3 0 4.0125 0 5.25V15.375C0 16.6125 0.981818 17.625 2.18182 17.625C2.18182 19.4925 3.64364 21 5.45455 21C7.26545 21 8.72727 19.4925 8.72727 17.625H15.2727C15.2727 19.4925 16.7345 21 18.5455 21C20.3564 21 21.8182 19.4925 21.8182 17.625H22.9091C23.5091 17.625 24 17.1187 24 16.5V12.7537C24 12.27 23.8473 11.7975 23.5636 11.4038L21.0545 7.95C20.8473 7.66875 20.52 7.5 20.1818 7.5ZM5.45455 18.75C4.85455 18.75 4.36364 18.2437 4.36364 17.625C4.36364 17.0063 4.85455 16.5 5.45455 16.5C6.05455 16.5 6.54545 17.0063 6.54545 17.625C6.54545 18.2437 6.05455 18.75 5.45455 18.75ZM20.1818 9.1875L22.32 12H17.4545V9.1875H20.1818ZM18.5455 18.75C17.9455 18.75 17.4545 18.2437 17.4545 17.625C17.4545 17.0063 17.9455 16.5 18.5455 16.5C19.1455 16.5 19.6364 17.0063 19.6364 17.625C19.6364 18.2437 19.1455 18.75 18.5455 18.75Z"
                                 fill="#ffffff"></path>
                         </svg>
-                        <p>{{ $product['discount_label'] }}</p>
+                        <p>{{ $product['stock']['promotion_label'] }}</p>
                     </div>
                 @endif
             </div>
@@ -48,23 +48,23 @@
 
         <div class = "product__bottom">
             <div class = "product__bottom__sale-price">
-                @if ($product['on_sale'] == '1')
-                    <p>{{ $product['original_price'] }}</p>
+                @if ($product['stock']['promotion_active'] == '1')
+                    <p>{{ $product['stock']['price'] }}</p>
                 @endif
             </div>
             <div class = "product__bottom__current-price">
-                @if ($product['on_sale'] == '1')
-                    <h1>{{ $product['sale_price'] }}</h1>
+                @if ($product['stock']['promotion_active'] == '1')
+                    <h1>{{ $product['stock']['promotion_price'] }}</h1>
                 @else
                     <h1>{{ number_format($product['stock']['price'], 2, ',', '.') }}</h1>
                 @endif
                 <div class = "product__bottom__current-price__discount"
-                    style="{{ $product['on_sale'] == '0' ? 'display: none;' : '' }}">
-                    <p>{{ $product['sale_percentage'] }}</p>
+                    style="{{ $product['stock']['promotion_active'] == '0' ? 'display: none;' : '' }}">
+                    <p>- {{ $product['stock']['promotion_percentage'] }}%</p>
                 </div>
             </div>
             <div class = "product__bottom__payment-methods">
-                <p>{!! $product['payment_methods'] !!}</p>
+                <p>{!! $product['stock']['payment_methods'] !!}</p>
             </div>
         </div>
 

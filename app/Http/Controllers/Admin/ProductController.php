@@ -38,7 +38,7 @@ class ProductController extends GenericController
                 'size' => 50
             ],
             [
-                'label' => 'Imagem',
+                'label' => 'Imagem principal',
                 'name' => 'image',
                 'type' => 'image',
                 'size' => 50
@@ -59,14 +59,20 @@ class ProductController extends GenericController
                         'label' => 'Categoria',
                         'name' => 'category_id',
                         'data' => $categories,
-                        'size' => 7,
                     ],
                     [
-                        'label' => 'Imagem',
+                        'label' => 'Imagem principal',
                         'name' => 'image',
                         'input' => 'image',
-                        'size' => 7,
+                        'size' => 2,
                         'validators' => 'required'
+                    ],
+                    [
+                        'label' => 'Imagens',
+                        'input' => 'link',
+                        'link' => 'admin.product-images',
+                        'size' => 10,
+
                     ],
                     [
                         'label' => 'Nome',
@@ -79,21 +85,24 @@ class ProductController extends GenericController
                         'name' => 'description',
                         'input' => 'textarea',
                         'inline' => true,
-                        'size' => 7,
                         'validators' => 'required'
+                    ],
+                    [
+                        'label' => 'Especificações técnicas',
+                        'name' => 'technical_details',
+                        'input' => 'textarea',
+                        'inline' => true,
                     ],
                     [
                         'label' => 'Ativo?',
                         'name' => 'active',
                         'input' => 'checkbox',
                         'default' => true,
-                        'size' => 7,
                     ],
                     [
                         'input' => 'link',
                         'label' => 'Estoque',
                         'link' => 'admin.stocks',
-                        'size' => 7
                     ],
                 ],
             ],

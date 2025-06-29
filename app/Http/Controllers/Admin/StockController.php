@@ -30,7 +30,7 @@ class StockController extends GenericController
                 'size' => 50
             ],
             [
-                'label' => 'Nome',
+                'label' => 'Nome do estoque',
                 'name' => 'name',
             ],
             [
@@ -40,6 +40,22 @@ class StockController extends GenericController
             [
                 'label' => 'Preço',
                 'name' => 'price',
+            ],
+            [
+                'label' => 'Promoção?',
+                'name' => 'promotion_active',
+            ],
+            [
+                'label' => 'Nome',
+                'name' => 'promotion_label',
+            ],
+            [
+                'label' => 'Percentual',
+                'name' => 'promotion_label',
+            ],
+            [
+                'label' => 'Novo preço',
+                'name' => 'promotion_price',
             ],
         ];
 
@@ -51,21 +67,72 @@ class StockController extends GenericController
                     [
                         'label' => 'Nome',
                         'name' => 'name',
-                        'size' => 7,
+                        'size' => 6,
                         'validators' => 'required'
                     ],
                     [
                         'label' => 'Quantidade',
                         'name' => 'quantity',
-                        'size' => 7,
+                        'size' => 6,
                         'validators' => 'required'
                     ],
                     [
-                        'label' => 'Preço',
+                        'label' => 'Preço original',
                         'name' => 'price',
-                        'size' => 7,
                         'validators' => 'required'
-                    ]
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Estoque | Promoção',
+                'icon' => 'database',
+                'inputs' => [
+                    [
+                        'label' => 'Item em promoção?',
+                        'name' => 'promotion_active',
+                        'input' => 'checkbox',
+                    ],
+                    [
+                        'label' => 'Nome da promoção',
+                        'name' => 'promotion_label',
+                        'size' => 6,
+                    ],
+                    [
+                        'label' => 'Percentual',
+                        'name' => 'promotion_percentage',
+                        'size' => 3,
+                        'validators' => 'integer',
+                        'hint' => 'Apenas o valor numérico'
+                    ],
+                    [
+                        'label' => 'Novo preço',
+                        'name' => 'promotion_price',
+                        'size' => 3,
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Estoque | Pagamento',
+                'icon' => 'database',
+                'inputs' => [
+                    [
+                        'label' => 'Formas de Pagamento',
+                        'name' => 'payment_methods',
+                        'input' => 'textarea',
+                        'inline' => true,
+                    ],
+                    [
+                        'label' => 'Benefícios',
+                        'name' => 'benefit_label',
+                        'size' => 10,
+                        'hint' => 'Por exemplo Frete Grátis'
+                    ],
+                    [
+                        'label' => 'Benefício ativo?',
+                        'name' => 'benefit_active',
+                        'input' => 'checkbox',
+                        'size' => 2,
+                    ],
                 ],
             ],
         ];

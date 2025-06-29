@@ -27,4 +27,9 @@ class ProductModel extends BaseModel
         return $this->hasOne(StockModel::class, 'product_id');
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImagesModel::class, 'product_id');
+    }
+
 }
