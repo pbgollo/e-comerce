@@ -1,7 +1,6 @@
 @extends('site.master.page')
 
 @section('js')
-    {{-- Certifique-se de ter o jQuery carregado no seu master.page --}}
     <script src="{{ asset(mix('/assets/admin/js/admin-orders.js')) }}"></script>
 @endsection
 

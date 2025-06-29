@@ -15,13 +15,9 @@
         <div class="details">
             <div class="details__caption">
                 <h1>Você está em:</h1>
-                <p>Hardware</p>
+                <p>{{$product_cat['name']}}</p>
                 <span>></span>
-                <p>Placa de vídeo</p>
-                <span>></span>
-                <p>Outro</p>
-                <span>></span>
-                <h2>Código: 688564</h2>
+                <h2>{{$product['name']}}</h2>
             </div>
             <h1 class="name">{{ $product['name'] }}</h1>
             <div class = "details__item">
@@ -188,7 +184,7 @@
                             </div>
 
                             <div class = "details__item__right__actions__texts__right">
-                                <a class = "details__item__right__actions__texts__right__buy">
+                                <a href = "{{'product/'.$product['slug'].'/cart'}}" class = "details__item__right__actions__texts__right__buy">
                                     <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
                                         xmlns="https://www.w3.org/2000/svg">
                                         <path

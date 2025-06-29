@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Models\ProductModel;
+use App\Models\CategoryModel;
 
 class ProductDetailController extends Controller
 {
@@ -22,6 +23,10 @@ class ProductDetailController extends Controller
             ->where('category_id', $this->vm['product']['category_id'])
             ->get()
             ->toArray();
+
+        $this->vm['product_cat'] = CategoryModel::where('id', $this->vm['product']['category_id'])
+            ->first();
+
 
         return view("site.Pages.product-detail", $this->vm);
     }

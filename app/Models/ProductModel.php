@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-
 class ProductModel extends BaseModel
 {
     protected $table = 'products';

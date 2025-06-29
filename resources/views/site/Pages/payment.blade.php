@@ -7,15 +7,7 @@
 @section('css')
 @endsection
 
-
 @section('content')
-    @php
-        // Dados fictícios para demonstração
-        $total_purchase_value = 970.16;
-        $discount_percentage_pix = 0.15;
-        $pix_discount_value = $total_purchase_value * $discount_percentage_pix;
-        $pix_final_value = $total_purchase_value - $pix_discount_value;
-    @endphp
 
     <section class="payment-page">
         <header class="payment-page__header">
@@ -63,13 +55,13 @@
                 <h2 class="payment-summary__title">VALOR DA COMPRA</h2>
                 <div class="payment-summary__total-value">
                     <p class="payment-summary__label">Total da compra</p>
-                    <p class="payment-summary__value">RS {{ number_format($total_purchase_value, 2, ',', '.') }}</p>
+                    <p class="payment-summary__value">RS {{ number_format($product['stock']['price'], 2, ',', '.') }}</p>
                 </div>
 
                 <div class="payment-summary__pix-info">
                     <p class="payment-summary__pix-label">Pagamento via Pix:</p>
-                    <p class="payment-summary__pix-value">RS {{ number_format($pix_final_value, 2, ',', '.') }}</p>
-                    <p class="payment-summary__pix-economy">(Economize RS {{ number_format($pix_discount_value, 2, ',', '.') }})</p>
+                    <p class="payment-summary__pix-value">RS {{ number_format($product['stock']['promotion_price'], 2, ',', '.') }}</p>
+                    <p class="payment-summary__pix-economy">(Economize RS {{ number_format($product['stock']['price'] - $product['stock']['promotion_price'], 2, ',', '.') }})</p>
                 </div>
 
                 <div class="payment-summary__actions">

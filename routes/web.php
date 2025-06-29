@@ -39,9 +39,8 @@ Route::middleware('localization')->group(function () {
     Route::post('/logout', [AppUserController::class, 'logout'])->name('logout');
 
 
-    //rotas de teste:
-    // Route::get('product/{slug}/cart', [ProductDetailController::class, 'cart'])->name("product-cart");
-    // Route::get('product/{slug}/cart/payment', [ProductDetailController::class, 'payment'])->name("product-payment");
+    Route::get('product/{slug}/cart', [ProductDetailController::class, 'cart'])->name("product-cart");
+    Route::get('product/{slug}/cart/payment', [ProductDetailController::class, 'payment'])->name("product-payment");
 
     Route::post('ck/upload', [CKEditorController::class, 'ckUpload'])->name('ck.upload');
 
