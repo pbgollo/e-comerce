@@ -1,8 +1,8 @@
 @extends('site.master.page')
 
-@section('js')
+{{-- @section('js')
     <script src="{{ asset(mix('/assets/admin/js/admin-orders.js')) }}"></script>
-@endsection
+@endsection --}}
 
 @section('css')
 @endsection
@@ -14,7 +14,8 @@
         </div>
 
         <div class="admin-orders__search">
-            <input type="text" id="orderSearchInput" class="admin-orders__search-input" placeholder="Buscar por Nº do Pedido ou Nome do Cliente">
+            <input type="text" id="orderSearchInput" class="admin-orders__search-input"
+                placeholder="Buscar por Nº do Pedido ou Nome do Cliente">
             <button id="searchButton" class="admin-orders__search-button button button--primary">Buscar</button>
         </div>
 
@@ -31,9 +32,11 @@
                 <p class="admin-orders__list-empty-message">Nenhum pedido encontrado. Tente uma busca.</p>
             </div>
             <div class="admin-orders__pagination">
-                <button id="prevPage" class="admin-orders__pagination-button button button--secondary" disabled>Anterior</button>
+                <button id="prevPage" class="admin-orders__pagination-button button button--secondary"
+                    disabled>Anterior</button>
                 <span id="pageInfo" class="admin-orders__pagination-info">Página 1 de 1</span>
-                <button id="nextPage" class="admin-orders__pagination-button button button--secondary" disabled>Próxima</button>
+                <button id="nextPage" class="admin-orders__pagination-button button button--secondary"
+                    disabled>Próxima</button>
             </div>
         </div>
 
@@ -43,8 +46,10 @@
             <div class="admin-orders__details-master-info">
                 <p class="admin-orders__details-info-item"><strong>Cliente:</strong> <span id="detailClientName"></span></p>
                 <p class="admin-orders__details-info-item"><strong>Data:</strong> <span id="detailOrderDate"></span></p>
-                <p class="admin-orders__details-info-item"><strong>Valor Total:</strong> <span id="detailTotalValue"></span></p>
-                <p class="admin-orders__details-info-item"><strong>Status Atual:</strong> <span id="detailOrderStatus"></span></p>
+                <p class="admin-orders__details-info-item"><strong>Valor Total:</strong> <span id="detailTotalValue"></span>
+                </p>
+                <p class="admin-orders__details-info-item"><strong>Status Atual:</strong> <span
+                        id="detailOrderStatus"></span></p>
             </div>
 
             <div class="admin-orders__status-update">
@@ -67,17 +72,18 @@
                     <label for="cancellationDate" class="admin-orders__form-label">Data de Cancelamento:</label>
                     <input type="date" id="cancellationDate" class="admin-orders__form-input">
                 </div>
-                <button id="updateStatusButton" class="admin-orders__status-update-button button button--primary">Atualizar Status</button>
+                <button id="updateStatusButton" class="admin-orders__status-update-button button button--primary">Atualizar
+                    Status</button>
             </div>
 
             <h3 class="admin-orders__items-title">Itens do Pedido</h3>
             <div id="orderItemsList" class="admin-orders__items-list">
-                </div>
+            </div>
 
             <h3 class="admin-orders__carousel-title">Fotos dos Produtos no Pedido</h3>
             <div class="admin-orders__carousel products_pics-embla"> {{-- Mantido 'products_pics-embla' para consistência se você usar a biblioteca --}}
                 <div class="admin-orders__carousel-drag products_pics-embla__drag" id="productImageCarousel">
-                    </div>
+                </div>
                 <button class="admin-orders__carousel-prev products_pics-embla-prev">
                     <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
                         xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">

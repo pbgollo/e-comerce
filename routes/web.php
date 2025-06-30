@@ -24,21 +24,9 @@ Route::get('translate/{language}', [TranslateController::class, 'index'])->name(
 
 Route::middleware('localization')->group(function () {
 
-    Route::post('login', [AppUserController::class, 'login'])->name('login');
-    Route::post('register', [AppUserController::class, 'register'])->name('register');
-
     Route::get('', [HomeController::class, 'index'])->name("home");
     Route::get('/admin/orders', [OrdersController::class, 'index'])->name("admin-orders");
-
-
     Route::get('product/{slug}', [ProductDetailController::class, 'show'])->name("product-detail");
-
-    // Nova rota para verificar o status do usuário logado
-    Route::get('/user-status', [AppUserController::class, 'userStatus'])->name('user-status');
-    // Nova rota para logout
-    Route::post('/logout', [AppUserController::class, 'logout'])->name('logout');
-
-
     Route::get('product/{slug}/cart', [ProductDetailController::class, 'cart'])->name("product-cart");
     Route::get('product/{slug}/cart/payment', [ProductDetailController::class, 'payment'])->name("product-payment");
 

@@ -9,10 +9,10 @@
         "/api/app-user/login": {
             "post": {
                 "tags": [
-                    "App Users"
+                    "Usuários"
                 ],
-                "summary": "Login de usuário do app",
-                "description": "Realiza o login de um usuário.",
+                "summary": "Login de usuário",
+                "description": "Realiza o login do usuário fornecendo um token de autenticação em caso de sucesso.",
                 "operationId": "d93140504b416d278b2ee775b1a780c9",
                 "requestBody": {
                     "required": true,
@@ -25,14 +25,12 @@
                                 ],
                                 "properties": {
                                     "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "usuario@email.com"
+                                        "description": "Nome de usuário",
+                                        "type": "string"
                                     },
                                     "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "123456"
+                                        "description": "Senha do usuário",
+                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -42,7 +40,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Resultado do login",
+                        "description": "Login realizado com sucesso",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -51,10 +49,69 @@
                                             "type": "boolean",
                                             "example": true
                                         },
+                                        "token": {
+                                            "description": "Token JWT gerado",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário ou senha inválido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
                                         "message": {
                                             "type": "string",
-                                            "example": "Falha ao autenticar-se",
-                                            "nullable": true
+                                            "example": "Usuário ou senha inválido"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Usuário inativo",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário inativo"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário ou senha inválido"
                                         }
                                     },
                                     "type": "object"
@@ -68,7 +125,7 @@
         "/api/app-user/register": {
             "post": {
                 "tags": [
-                    "App Users"
+                    "Usuários"
                 ],
                 "summary": "Cadastro de novo usuário",
                 "description": "Registra um novo usuário.",
@@ -154,6 +211,64 @@
                     }
                 }
             }
+        },
+        "/api/app-user/me": {
+            "get": {
+                "tags": [
+                    "Usuários"
+                ],
+                "summary": "Obter usuário logado",
+                "description": "Retorna os dados do usuário logado a partir do token JWT.",
+                "operationId": "0c35a00d27feda28848f0a56c29e11ef",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Token inválido ou não fornecido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Token inválido ou não fornecido"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -167,8 +282,15 @@
     },
     "tags": [
         {
-            "name": "App Users",
+            "name": "Usuários",
             "description": "Endpoints de autenticação e cadastro de usuários do aplicativo"
         }
-    ]
+    ],
+    "security": {
+        "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+    }
 }

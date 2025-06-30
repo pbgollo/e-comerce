@@ -3,138 +3,270 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\AppUserModel;
+use App\Models\EvaluationUserModel;
+use Exception;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth; // Importar Auth facade
-use Illuminate\Support\Facades\Session; // Importar Session facade
 
+/**
+ * @OA\Tag(
+ *     name="Usuários",
+ *     description="Endpoints de autenticação e cadastro de usuários do aplicativo"
+ * )
+ */
 class AppUserController extends Controller {
 
-    public function login(Request $request){
-        $data = $request->all();
-
-        // Validação básica para email e password
-        $validator = Validator::make($data, [
-            'email' => 'required|email',
+    /**
+     * @OA\Post(
+     *     path="/api/app-user/login",
+     *     summary="Login de usuário",
+     *     description="Realiza o login do usuário fornecendo um token de autenticação em caso de sucesso.",
+     *     tags={"Usuários"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", type="string", description="Nome de usuário"),
+     *             @OA\Property(property="password", type="string", description="Senha do usuário")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Login realizado com sucesso",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="token", type="string", description="Token JWT gerado")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Usuário ou senha inválido",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Usuário ou senha inválido")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Usuário inativo",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Usuário inativo")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Usuário não encontrado",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Usuário ou senha inválido")
+     *         )
+     *     )
+     * )
+     */
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email'    => 'required|email',
             'password' => 'required|string',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Credenciais inválidas.',
-                'errors' => $validator->errors()
-            ], 422); // Unprocessable Entity
+                'message' => 'Erro de validação',
+                'errors'  => $validator->errors(),
+            ], 422);
         }
 
-        $user = AppUserModel::where('email', $data['email'])->first();
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        if (!is_null($user)) {
-            // Apenas para comparação, não expor a senha
-            $user = $user->makeVisible('password');
+        $user = AppUserModel::where('email', $email)->first();
 
-            if ($user->active) {
-                if (Hash::check($data['password'], $user->password)) {
-                    // Login bem-sucedido: Armazenar usuário na sessão
-                    Auth::login($user); // Usa o sistema de autenticação do Laravel
-                    Session::put('user_name', $user->name); // Armazena o nome na sessão para fácil acesso
-
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Login realizado com sucesso!',
-                        'user' => [
-                            'id' => $user->id,
-                            'name' => $user->name,
-                            'email' => $user->email,
-                        ]
-                    ]);
-                } else {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Credenciais inválidas - senha incorreta'
-                    ], 401); // Unauthorized
-                }
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Falha ao autenticar-se - usuário inativo'
-                ], 403); // Forbidden
-            }
-        } else {
+        if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Credenciais inválidas - usuário não encontrado'
-            ], 404); // Not Found
+                'message' => 'Credenciais inválidas'
+            ], 401);
         }
+
+        if (!$user->active) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Usuário inativo'
+            ], 403);
+        }
+
+        if (!Hash::check($password, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Senha incorreta'
+            ], 401);
+        }
+
+        $token = $this->generateToken($user);
+
+        return response()->json([
+            'success' => true,
+            'token'   => $token
+        ]);
     }
 
+    /**
+     * Registra um novo usuário.
+     *
+     * @OA\Post(
+     *     path="/api/app-user/register",
+     *     summary="Cadastro de novo usuário",
+     *     tags={"Usuários"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","email","password"},
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string", format="email"),
+     *             @OA\Property(property="password", type="string", format="password")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Resultado do cadastro",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="Usuário cadastrado com sucesso"),
+     *             @OA\Property(property="user_id", type="integer", example=1)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Erro de validação",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Erro de validação"),
+     *             @OA\Property(property="errors", type="object")
+     *         )
+     *     )
+     * )
+     */
     public function register(Request $request)
     {
-        // Validação dos dados
         $validator = Validator::make($request->all(), [
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:app_users,email',
-            'password' => 'required|string|min:3', // Laravel já faz hash por padrão se você usar o Auth::attempt()
+            'password' => 'required|string|min:3',
         ]);
 
-        // Se houver erro de validação, retornar erro
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Erro de validação',
                 'errors'  => $validator->errors(),
-            ], 422); // Unprocessable Entity
+            ], 422);
         }
 
-        // Criação do usuário
-        $user = new AppUserModel();
-        $user->name     = $request->name;
-        $user->email    = $request->email;
-        $user->password = $request->password; // O mutator AppUserModel::setPasswordAttribute fará o hash.
-        $user->active   = true; // Ativa por padrão, ajuste conforme sua lógica
-        $user->save();
+        try {
+            $user = new AppUserModel();
+            $user->name     = $request->input('name');
+            $user->email    = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->active   = true;
+            $user->save();
 
-        // Após o registro bem-sucedido, podemos logar o usuário automaticamente
-        Auth::login($user);
-        Session::put('user_name', $user->name);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Usuário cadastrado com sucesso',
-            'user_id' => $user->id,
-            'user' => [
-                'name' => $user->name,
-                'email' => $user->email,
-            ]
-        ]);
-    }
-
-    // Nova função para verificar o status do usuário
-    public function userStatus(Request $request)
-    {
-        if (Auth::check()) {
             return response()->json([
-                'logged_in' => true,
-                'user_name' => Session::get('user_name', Auth::user()->name) // Tenta pegar da sessão, senão do objeto Auth
+                'success' => true,
+                'message' => 'Usuário cadastrado com sucesso',
+                'user_id' => $user->id
             ]);
-        } else {
+        } catch (Exception $e) {
             return response()->json([
-                'logged_in' => false
-            ]);
+                'success' => false,
+                'message' => 'Erro interno ao registrar usuário',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 
-    // Nova função para logout
-    public function logout(Request $request)
+    /**
+     * @OA\Get(
+     *     path="/api/app-user/me",
+     *     summary="Obter usuário logado",
+     *     description="Retorna os dados do usuário logado a partir do token JWT.",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Usuários"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Sucesso",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="id", type="integer"),
+     *             @OA\Property(property="name", type="string"),
+     *             @OA\Property(property="email", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Token inválido ou não fornecido",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Token inválido ou não fornecido")
+     *         )
+     *     )
+     * )
+     */
+    public function getCurrentUser(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate(); // Invalida a sessão atual
-        $request->session()->regenerateToken(); // Regenera o token CSRF
+        $token = $request->header('Authorization');
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Logout realizado com sucesso!'
-        ]);
+        if (!$token) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Token não fornecido'
+            ], 401);
+        }
+
+        $token = str_replace('Bearer ', '', $token);
+
+        try {
+            $decoded =  JWT::decode($token, new Key("5XwLWBbAHTu1JlJ0SosDt1liLBwiD8FDpL3G8DAe58YyA46AUGJpEdC5ogsAwm7c", 'HS256'));
+
+            $user = AppUserModel::find($decoded->data->id);
+
+            if ($user) {
+                return response()->json([
+                    'success' => true,
+                    'user' => $user
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Usuário não encontrado'
+                ], 404);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Token inválido ou expirado'
+            ], 401);
+        }
+    }
+
+    private function generateToken($user){
+
+        $token = array(
+            "iat" => time(),
+            "exp" => time() + (60 * 60 * 24 * 365),
+            "data" => array(
+                "id" => $user['id']
+            )
+        );
+
+        return JWT::encode($token, "5XwLWBbAHTu1JlJ0SosDt1liLBwiD8FDpL3G8DAe58YyA46AUGJpEdC5ogsAwm7c", 'HS256');
     }
 }
