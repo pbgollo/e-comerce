@@ -62,69 +62,73 @@ class StockController extends GenericController
         $this->form = [
             [
                 'title' => 'Estoque',
-                'icon' => 'database',
+                'icon' => 'list',
                 'inputs' => [
                     [
                         'label' => 'Nome',
                         'name' => 'name',
-                        'size' => 6,
+                        'size' => 7,
                         'validators' => 'required'
                     ],
                     [
                         'label' => 'Quantidade',
                         'name' => 'quantity',
-                        'size' => 6,
+                        'size' => 7,
                         'validators' => 'required'
                     ],
                     [
                         'label' => 'Preço original',
                         'name' => 'price',
-                        'validators' => 'required'
+                        'validators' => 'required',
+                        'size' => 7,
                     ],
                 ],
             ],
             [
-                'title' => 'Estoque | Promoção',
-                'icon' => 'database',
+                'title' => 'Promoção',
+                'icon' => 'sell',
                 'inputs' => [
+                    [
+                        'label' => 'Nome da promoção',
+                        'name' => 'promotion_label',
+                        'size' => 7,
+                    ],
                     [
                         'label' => 'Item em promoção?',
                         'name' => 'promotion_active',
                         'input' => 'checkbox',
-                    ],
-                    [
-                        'label' => 'Nome da promoção',
-                        'name' => 'promotion_label',
-                        'size' => 6,
+                        'size' => 5,
+                        'default' => false,
                     ],
                     [
                         'label' => 'Percentual',
                         'name' => 'promotion_percentage',
-                        'size' => 3,
+                        'size' => 7,
                         'validators' => 'integer',
                         'hint' => 'Apenas o valor numérico'
                     ],
                     [
                         'label' => 'Novo preço',
                         'name' => 'promotion_price',
-                        'size' => 3,
+                        'size' => 7,
                     ],
                 ],
             ],
             [
-                'title' => 'Estoque | Pagamento',
-                'icon' => 'database',
+                'title' => 'Pagamento',
+                'icon' => 'payments',
                 'inputs' => [
                     [
                         'label' => 'Formas de Pagamento',
                         'name' => 'payment_methods',
                         'input' => 'textarea',
                         'inline' => true,
+                        'size' => 7,
                     ],
                     [
                         'label' => 'Benefícios',
                         'name' => 'benefit_label',
-                        'size' => 10,
+                        'size' => 7,
                         'hint' => 'Por exemplo Frete Grátis'
                     ],
                     [
@@ -132,6 +136,7 @@ class StockController extends GenericController
                         'name' => 'benefit_active',
                         'input' => 'checkbox',
                         'size' => 2,
+                        'default' => false,
                     ],
                 ],
             ],

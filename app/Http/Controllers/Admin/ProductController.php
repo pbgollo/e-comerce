@@ -59,19 +59,20 @@ class ProductController extends GenericController
                         'label' => 'Categoria',
                         'name' => 'category_id',
                         'data' => $categories,
+                        'size' => 7,
                     ],
                     [
                         'label' => 'Imagem principal',
                         'name' => 'image',
                         'input' => 'image',
-                        'size' => 2,
-                        'validators' => 'required'
+                        'validators' => 'required',
+                        'size' => 7
                     ],
                     [
                         'label' => 'Imagens',
                         'input' => 'link',
                         'link' => 'admin.product-images',
-                        'size' => 10,
+                        'size' => 7,
 
                     ],
                     [
@@ -85,13 +86,15 @@ class ProductController extends GenericController
                         'name' => 'description',
                         'input' => 'textarea',
                         'inline' => true,
-                        'validators' => 'required'
+                        'validators' => 'required',
+                        'size' => 7,
                     ],
                     [
                         'label' => 'Especificações técnicas',
                         'name' => 'technical_details',
                         'input' => 'textarea',
                         'inline' => true,
+                        'size' => 7
                     ],
                     [
                         'label' => 'Ativo?',
@@ -103,6 +106,7 @@ class ProductController extends GenericController
                         'input' => 'link',
                         'label' => 'Estoque',
                         'link' => 'admin.stocks',
+                        'size' => 7,
                     ],
                 ],
             ],
