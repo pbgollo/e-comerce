@@ -15,9 +15,9 @@
         <div class="details">
             <div class="details__caption">
                 <h1>Você está em:</h1>
-                <p>{{$product_cat['name']}}</p>
+                <p>{{ $product_cat['name'] }}</p>
                 <span>></span>
-                <h2>{{$product['name']}}</h2>
+                <h2>{{ $product['name'] }}</h2>
             </div>
             <h1 class="name">{{ $product['name'] }}</h1>
             <div class = "details__item">
@@ -81,22 +81,24 @@
                             </div>
                         </div>
 
-                        <div class = "products_pics-embla-next">
-                            <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
-                                xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
-                                    fill="#565C69"></path>
-                            </svg>
-                        </div>
-                        <div class = "products_pics-embla-prev">
-                            <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
-                                xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
-                                    fill="#565C69"></path>
-                            </svg>
-                        </div>
+                        @if ($product['images'])
+                            <div class = "products_pics-embla-next">
+                                <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
+                                        fill="#565C69"></path>
+                                </svg>
+                            </div>
+                            <div class = "products_pics-embla-prev">
+                                <svg width="24" height="15" viewBox="0 0 24 15" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg" class="IconArrowCarousel">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M24 12.8182L21.8182 15L12 5.18182L2.18182 15L2.60179e-08 12.8182L12 0.818182L24 12.8182Z"
+                                        fill="#565C69"></path>
+                                </svg>
+                            </div>
+                        @endif
 
                     </div>
                     <div class = "details__item__left__bottom">
@@ -184,7 +186,8 @@
                             </div>
 
                             <div class = "details__item__right__actions__texts__right">
-                                <a href = "{{'product/'.$product['slug'].'/cart'}}" class = "details__item__right__actions__texts__right__buy">
+                                <a href = "{{ 'product/' . $product['slug'] . '/cart' }}"
+                                    class = "details__item__right__actions__texts__right__buy">
                                     <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
                                         xmlns="https://www.w3.org/2000/svg">
                                         <path
@@ -260,50 +263,53 @@
 
             </div>
             <div class = "details__desc">
-                <div class = "details__desc__item">
-                    <div class = "details__desc__item__up">
+                @if ($product['description'])
+                    <div class = "details__desc__item">
+                        <div class = "details__desc__item__up">
 
-                        <h1><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="https://www.w3.org/2000/svg" class="IconDescription">
+                            <h1><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg" class="IconDescription">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M1.59961 2.4C1.59961 1.76348 1.85247 1.15303 2.30255 0.702944C2.75264 0.252856 3.36309 0 3.99961 0L17.1308 0L22.3996 5.2688V21.6C22.3996 22.2365 22.1468 22.847 21.6967 23.2971C21.2466 23.7471 20.6361 24 19.9996 24H3.99961C3.36309 24 2.75264 23.7471 2.30255 23.2971C1.85247 22.847 1.59961 22.2365 1.59961 21.6V2.4ZM6.39961 6.3952H17.5996V7.9952H6.39961V6.3952ZM17.5996 11.192H6.39961V12.792H17.5996V11.192ZM17.5996 16H6.39961V17.6H17.5996V16Z"
+                                        fill="#FF6500"></path>
+                                </svg>descrição do produto</h1>
+                            <svg width="13" height="8" viewBox="0 0 13 8" fill="none"
+                                xmlns="https://www.w3.org/2000/svg" class="arrow-icon" aria-hidden="true">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M1.59961 2.4C1.59961 1.76348 1.85247 1.15303 2.30255 0.702944C2.75264 0.252856 3.36309 0 3.99961 0L17.1308 0L22.3996 5.2688V21.6C22.3996 22.2365 22.1468 22.847 21.6967 23.2971C21.2466 23.7471 20.6361 24 19.9996 24H3.99961C3.36309 24 2.75264 23.7471 2.30255 23.2971C1.85247 22.847 1.59961 22.2365 1.59961 21.6V2.4ZM6.39961 6.3952H17.5996V7.9952H6.39961V6.3952ZM17.5996 11.192H6.39961V12.792H17.5996V11.192ZM17.5996 16H6.39961V17.6H17.5996V16Z"
-                                    fill="#FF6500"></path>
-                            </svg>descrição do produto</h1>
-                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none"
-                            xmlns="https://www.w3.org/2000/svg" class="arrow-icon" aria-hidden="true">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M12.0459 1.54599L10.955 0.455078L6.0459 5.36417L1.13681 0.455078L0.0458984 1.54599L6.0459 7.54599L12.0459 1.54599Z"
-                                fill="#ff6500" aria-hidden="true"></path>
-                        </svg>
-                    </div>
-                    <div class = "details__desc__item__down off">
-                        <div class = "details__desc__item__down__desc">
-                            <p>{!! $product['description'] !!}</p>
+                                    d="M12.0459 1.54599L10.955 0.455078L6.0459 5.36417L1.13681 0.455078L0.0458984 1.54599L6.0459 7.54599L12.0459 1.54599Z"
+                                    fill="#ff6500" aria-hidden="true"></path>
+                            </svg>
+                        </div>
+                        <div class = "details__desc__item__down off">
+                            <div class = "details__desc__item__down__desc">
+                                <p>{!! $product['description'] !!}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class = "details__desc__item">
-                    <div class = "details__desc__item__up">
-
-                        <h1><svg width="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg"
-                                class="IconAlert">
+                @endif
+                @if ($product['technical_details'])
+                    <div class = "details__desc__item">
+                        <div class = "details__desc__item__up">
+                            <h1><svg width="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="https://www.w3.org/2000/svg" class="IconAlert">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM11.9183 19.3859C10.8643 19.3859 10.0283 18.5943 10.0283 17.6134C10.0283 16.6326 10.8643 15.841 11.9183 15.841C12.9722 15.841 13.8082 16.6326 13.8082 17.6134C13.8082 18.5943 12.9722 19.3859 11.9183 19.3859ZM10.5464 12.7859C10.6133 13.4935 11.2074 14.0342 11.9183 14.0342C12.6291 14.0342 13.2233 13.4935 13.2902 12.7859L13.8278 7.09862C13.9342 5.97299 13.0489 5 11.9183 5C10.7876 5 9.90227 5.97299 10.0087 7.09862L10.5464 12.7859Z"
+                                        fill="#FF6500"></path>
+                                </svg>informações técnicas</h1>
+                            <svg width="13" height="8" viewBox="0 0 13 8" fill="none"
+                                xmlns="https://www.w3.org/2000/svg" class="arrow-icon" aria-hidden="true">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12ZM11.9183 19.3859C10.8643 19.3859 10.0283 18.5943 10.0283 17.6134C10.0283 16.6326 10.8643 15.841 11.9183 15.841C12.9722 15.841 13.8082 16.6326 13.8082 17.6134C13.8082 18.5943 12.9722 19.3859 11.9183 19.3859ZM10.5464 12.7859C10.6133 13.4935 11.2074 14.0342 11.9183 14.0342C12.6291 14.0342 13.2233 13.4935 13.2902 12.7859L13.8278 7.09862C13.9342 5.97299 13.0489 5 11.9183 5C10.7876 5 9.90227 5.97299 10.0087 7.09862L10.5464 12.7859Z"
-                                    fill="#FF6500"></path>
-                            </svg>informações técnicas</h1>
-                        <svg width="13" height="8" viewBox="0 0 13 8" fill="none"
-                            xmlns="https://www.w3.org/2000/svg" class="arrow-icon" aria-hidden="true">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M12.0459 1.54599L10.955 0.455078L6.0459 5.36417L1.13681 0.455078L0.0458984 1.54599L6.0459 7.54599L12.0459 1.54599Z"
-                                fill="#ff6500" aria-hidden="true"></path>
-                        </svg>
-                    </div>
-                    <div class = "details__desc__item__down off">
-                        <div class = "details__desc__item__down__desc">
-                            <p>{!! $product['technical_details'] !!}</p>
+                                    d="M12.0459 1.54599L10.955 0.455078L6.0459 5.36417L1.13681 0.455078L0.0458984 1.54599L6.0459 7.54599L12.0459 1.54599Z"
+                                    fill="#ff6500" aria-hidden="true"></path>
+                            </svg>
+                        </div>
+                        <div class = "details__desc__item__down off">
+                            <div class = "details__desc__item__down__desc">
+                                <p>{!! $product['technical_details'] !!}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
 

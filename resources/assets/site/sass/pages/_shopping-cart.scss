@@ -23,12 +23,14 @@
 }
 
 .cart-steps {
+    margin-top: 0.2rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
 
     &__item {
         color: $color-primary;
+        font-size: 22px;
         text-decoration: none;
         font-weight: bold;
         padding: 5px 10px;
@@ -87,7 +89,7 @@
     }
 
     &__supplier {
-        font-size: 0.9em;
+        font-size: 0.7em;
         color: #777;
 
         span {
@@ -104,7 +106,7 @@
 
     &__price-pix,
     &__price-card {
-        font-size: 0.95em;
+        font-size: 0.8em;
         color: #555;
     }
 
@@ -141,83 +143,8 @@
         cursor: pointer;
         font-weight: bold;
         text-transform: uppercase;
-        font-size: 0.85em;
+        font-size: 0.65em;
         padding: 0;
-    }
-}
-
-.cart-coupon-area,
-.cart-delivery-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid $color-border;
-
-    @media (max-width: 576px) {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    &__input {
-        flex-grow: 1;
-        padding: 10px;
-        border: 1px solid $color-border;
-        border-radius: 4px;
-
-        @media (max-width: 576px) {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-    }
-
-    &__button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        text-transform: uppercase;
-        white-space: nowrap; // Prevents text from wrapping
-
-        @media (max-width: 576px) {
-            width: 100%;
-        }
-    }
-}
-
-.cart-coupon-area {
-    &__button {
-        background-color: $color-secondary;
-        color: $color-text-light;
-    }
-}
-
-.cart-delivery-area {
-    border-bottom: none; // Last section in cart-main
-    flex-wrap: wrap; // Allows elements to wrap on smaller screens
-
-    &__button {
-        background-color: $color-primary;
-        color: $color-text-light;
-
-        &--ok {
-             // Specific style for the OK button if needed
-        }
-    }
-
-    &__help-text {
-        color: $color-secondary;
-        text-decoration: underline;
-        cursor: pointer;
-        margin-left: 10px; // Spacing after button
-
-        @media (max-width: 576px) {
-            width: 100%;
-            text-align: center;
-            margin-left: 0;
-            margin-top: 10px;
-        }
     }
 }
 
@@ -230,10 +157,10 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    min-width: 300px; // Ensures it doesn't get too small
+    min-width: 300px;
 
     &__title {
-        font-size: 1.2em;
+        font-size: 1em;
         font-weight: bold;
         color: $color-text-dark;
         text-align: center;
@@ -246,9 +173,9 @@
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        font-size: 0.95em;
+        font-size: 0.85em;
         color: $color-text-dark;
-        flex-wrap: wrap; // Allows content to wrap
+        flex-wrap: wrap;
 
         &--total-installments,
         &--total-pix {
@@ -306,6 +233,8 @@
     }
 
     &__button {
+        font-size: 0.7em;
+        text-align: center;
         width: 100%;
         padding: 12px;
         border: none;

@@ -2,8 +2,6 @@ function init(){
     console.log('INIT');
     toggleHeaderNav();
     authModal();
-    checkUserStatus(); // Nova função para verificar status do usuário
-    setupLogout(); // Nova função para configurar o botão de logout
 }
 
 function toggleHeaderNav(){
@@ -28,7 +26,6 @@ function authModal() {
     const $events = $('.open_modal');
     const $modals = $('.modal');
     const $closeButtons = $('.modal__item__close');
-
 
     // Open modal on event click
     $events.on('click', function(e) {
@@ -77,65 +74,6 @@ function authModal() {
             $modals.addClass('off');
             $modals.find('.modal__item').removeClass('animated');
 
-        }
-    });
-}
-
-// Nova função para verificar o status do usuário
-async function checkUserStatus() {
-    try {
-        const response = await fetch('/user-status', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        });
-        const result = await response.json();
-
-        const userStatusContainer = $('#userStatusContainer');
-        const userNameDisplay = $('#userNameDisplay');
-        const userGuestContainer = $('#userGuestContainer');
-
-        if (result.logged_in) {
-            userNameDisplay.text('Olá, ' + result.user_name);
-            userStatusContainer.show();
-            userGuestContainer.hide();
-        } else {
-            userStatusContainer.hide();
-            userGuestContainer.show();
-        }
-    } catch (error) {
-        console.error('Erro ao verificar status do usuário:', error);
-        // Em caso de erro, assumir que o usuário não está logado
-        $('#userStatusContainer').hide();
-        $('#userGuestContainer').show();
-    }
-}
-
-// Nova função para configurar o botão de logout
-function setupLogout() {
-    $('#logoutButton').on('click', async function(e) {
-        e.preventDefault();
-        try {
-            const response = await fetch('/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            });
-            const result = await response.json();
-
-            if (result.success) {
-                alert('Logout realizado com sucesso!');
-                checkUserStatus(); // Atualiza o header após o logout
-            } else {
-                alert(result.message || 'Erro ao fazer logout.');
-            }
-        } catch (error) {
-            console.error('Erro ao fazer logout:', error);
-            alert('Erro na conexão com o servidor ao tentar fazer logout.');
         }
     });
 }

@@ -104,7 +104,7 @@
                 </div>
 
                 <div class="cart-summary__delivery">
-                    <p class="cart-summary__delivery-label">ENTREGA</p>
+                    <p class="cart-summary__delivery-label"></p>
                 </div>
 
                 <div class="cart-summary__actions">

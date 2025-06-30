@@ -23,6 +23,7 @@
 }
 
 .cart-steps {
+    margin-top: 0.2rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -33,6 +34,7 @@
         font-weight: bold;
         padding: 5px 10px;
         position: relative;
+        font-size: 22px;
 
         &--active {
             border-bottom: 2px solid $color-primary;
@@ -53,7 +55,7 @@
 }
 
 .payment-main__title {
-    font-size: 1.1em;
+    font-size: 22px;
     font-weight: bold;
     color: $color-text-dark;
     padding-bottom: 15px;
@@ -110,6 +112,7 @@
 
     &__name {
         flex-grow: 1;
+        font-size: 20px;
     }
 
     &__icon {
@@ -140,7 +143,7 @@
         margin-top: 10px;
         padding-top: 10px;
         border-top: 1px solid #eee;
-        font-size: 0.9em;
+        font-size: 0.7em;
         color: #555;
     }
 }
@@ -157,7 +160,7 @@
     min-width: 300px;
 
     &__title {
-        font-size: 1.2em;
+        font-size: 24px;
         font-weight: bold;
         color: $color-text-dark;
         text-align: center;
@@ -170,7 +173,7 @@
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        font-size: 0.95em;
+        font-size: 0.85em;
         color: $color-text-dark;
     }
 
@@ -183,7 +186,7 @@
     }
 
     &__pix-info {
-        background-color: #e6ffe6; // Um verde claro para o bloco PIX
+        background-color: #e6ffe6;
         border: 1px solid $color-success;
         border-radius: 4px;
         padding: 15px;
@@ -195,21 +198,22 @@
     }
 
     &__pix-label {
-        font-size: 0.9em;
+        font-size: 0.8em;
         color: $color-success;
         font-weight: bold;
         margin: 0;
     }
 
     &__pix-value {
-        font-size: 1.8em; // Maior para destaque
+        margin: 0;
+        margin: 5px 0 5px 0;
+        font-size: 1.6em;
         font-weight: bold;
         color: $color-success;
-        margin: 0;
     }
 
     &__pix-economy {
-        font-size: 0.9em;
+        font-size: 0.7em;
         color: $color-success;
         margin: 0;
     }
@@ -230,6 +234,8 @@
         font-weight: bold;
         text-transform: uppercase;
         transition: background-color 0.2s ease;
+        font-family: "Fira Sans", sans-serif;
+        font-size: 0.7em;
 
         &--continue {
             background-color: $color-primary;

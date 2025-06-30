@@ -20,10 +20,9 @@
     <section class="payment-page">
         <header class="payment-page__header">
             <nav class="cart-steps">
-                <a href="#" class="cart-steps__item">Carrinho</a>
-                <a href="#" class="cart-steps__item">Identificação</a>
-                <a href="#" class="cart-steps__item cart-steps__item--active">Pagamento</a>
-                <a href="#" class="cart-steps__item">Confirmação</a>
+                <a class="cart-steps__item">Carrinho</a>
+                <a class="cart-steps__item cart-steps__item--active">Pagamento</a>
+                <a class="cart-steps__item">Confirmação</a>
             </nav>
         </header>
 

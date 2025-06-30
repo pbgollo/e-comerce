@@ -21,7 +21,5 @@ Route::post('app-user/login', [AppUserController::class, 'login'])->name('login'
 Route::post('app-user/register', [AppUserController::class, 'register'])->name('register');
 
 Route::middleware(['jwt','jwt-auth'])->group(function () {
-    Route::get('app-user/user-status', [AppUserController::class, 'userStatus'])->name('user-status');
-    Route::post('app-user/logout', [AppUserController::class, 'logout'])->name('logout');
     Route::get('app-user/me', [AppUserController::class, 'getCurrentUser'])->name('me');
 });

@@ -5,7 +5,7 @@
 @endsection
 
 @section('css')
-    @endsection
+@endsection
 
 {{-- @dd($products) --}}
 
@@ -42,75 +42,6 @@
             </div>
             <div class = "home__listing__items">
                 @include ('site.components.product', [$products])
-            </div>
-        </div>
-
-        <div id="registerModal" class="modal off registerModal">
-            <div class="modal__item">
-                <div class="modal__item__close">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                        fill="none">
-                        <path
-                            d="M2.75272 10.628C2.71208 10.6686 2.67983 10.7169 2.65784 10.77C2.63584 10.8231 2.62451 10.88 2.62451 10.9375C2.62451 10.995 2.63584 11.0519 2.65784 11.105C2.67983 11.1581 2.71208 11.2064 2.75272 11.247C2.79337 11.2877 2.84163 11.3199 2.89474 11.3419C2.94785 11.3639 3.00477 11.3752 3.06226 11.3752C3.11974 11.3752 3.17666 11.3639 3.22977 11.3419C3.28288 11.3199 3.33114 11.2877 3.37179 11.247L6.99976 7.61851L10.6277 11.247C10.7098 11.3291 10.8212 11.3752 10.9373 11.3752C11.0534 11.3752 11.1647 11.3291 11.2468 11.247C11.3289 11.1649 11.375 11.0536 11.375 10.9375C11.375 10.8214 11.3289 10.7101 11.2468 10.628L7.61827 7L11.2468 3.37203C11.3289 3.28994 11.375 3.1786 11.375 3.0625C11.375 2.9464 11.3289 2.83506 11.2468 2.75297C11.1647 2.67088 11.0534 2.62476 10.9373 2.62476C10.8212 2.62476 10.7098 2.67088 10.6277 2.75297L6.99976 6.38148L3.37179 2.75297C3.28969 2.67088 3.17835 2.62476 3.06226 2.62476C2.94616 2.62476 2.83482 2.67088 2.75272 2.75297C2.67063 2.83506 2.62451 2.9464 2.62451 3.0625C2.62451 3.1786 2.67063 3.28994 2.75272 3.37203L6.38124 7L2.75272 10.628Z"
-                            fill="white" />
-                    </svg>
-                </div>
-                <div class="modal__item__form">
-                    <form class="user-form"  id="registerForm">
-                        <h2>Cadastro</h2>
-                        <div class="form-group">
-                            <label for="register-name">Nome</label>
-                            <input type="text" id="register-name" name="name" required placeholder="Digite seu nome">
-                        </div>
-                        <div class="form-group">
-                            <label for="register-email">Email</label>
-                            <input type="email" id="register-email" name="email" required
-                                placeholder="Digite seu email">
-                        </div>
-                        <div class="form-group">
-                            <label for="register-password">Senha</label>
-                            <input type="password" id="register-password" name="password" required
-                                placeholder="Digite sua senha">
-                        </div>
-                        <div class="form-group">
-                            <label for="register-confirm-password">Confirmação de Senha</label>
-                            <input type="password" id="register-confirm-password" name="confirm-password" required
-                                placeholder="Confirme sua senha">
-                        </div>
-                        <button type="submit" class="submit-btn" id="registerSubmitBtn">Cadastrar</button> {{-- Adicionado ID aqui --}}
-                        <div id="registerFeedback" class="feedback-message" style="display: none;"></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div id="loginModal" class="modal off loginModal">
-            <div class="modal__item">
-                <div class="modal__item__close">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
-                        fill="none">
-                        <path
-                            d="M2.75272 10.628C2.71208 10.6686 2.67983 10.7169 2.65784 10.77C2.63584 10.8231 2.62451 10.88 2.62451 10.9375C2.62451 10.995 2.63584 11.0519 2.65784 11.105C2.67983 11.1581 2.71208 11.2064 2.75272 11.247C2.79337 11.2877 2.84163 11.3199 2.89474 11.3419C2.94785 11.3639 3.00477 11.3752 3.06226 11.3752C3.11974 11.3752 3.17666 11.3639 3.22977 11.3419C3.28288 11.3199 3.33114 11.2877 3.37179 11.247L6.99976 7.61851L10.6277 11.247C10.7098 11.3291 10.8212 11.3752 10.9373 11.3752C11.0534 11.3752 11.1647 11.3291 11.2468 11.247C11.3289 11.1649 11.375 11.0536 11.375 10.9375C11.375 10.8214 11.3289 10.7101 11.2468 10.628L7.61827 7L11.2468 3.37203C11.3289 3.28994 11.375 3.1786 11.375 3.0625C11.375 2.9464 11.3289 2.83506 11.2468 2.75297C11.1647 2.67088 11.0534 2.62476 10.9373 2.62476C10.8212 2.62476 10.7098 2.67088 10.6277 2.75297L6.99976 6.38148L3.37179 2.75297C3.28969 2.67088 3.17835 2.62476 3.06226 2.62476C2.94616 2.62476 2.83482 2.67088 2.75272 2.75297C2.67063 2.83506 2.62451 2.9464 2.62451 3.0625C2.62451 3.1786 2.67063 3.28994 2.75272 3.37203L6.38124 7L2.75272 10.628Z"
-                            fill="white" />
-                    </svg>
-                </div>
-                <div class="modal__item__form">
-                    <form id="loginForm" class="user-form">
-                        @csrf
-                        <h2>Login</h2>
-                        <div class="form-group">
-                            <label for="login-email">Email</label>
-                            <input type="email" id="login-email" name="email" required placeholder="Digite seu email">
-                        </div>
-                        <div class="form-group">
-                            <label for="login-password">Senha</label>
-                            <input type="password" id="login-password" name="password" required
-                                placeholder="Digite sua senha">
-                        </div>
-                        <button type="submit" class="submit-btn" id="loginSubmitBtn">Entrar</button> {{-- Adicionado ID aqui --}}
-                        <div id="loginFeedback" class="feedback-message" style="display: none;"></div>
-                    </form>
-                </div>
             </div>
         </div>
     </section>
