@@ -2,10 +2,9 @@
     "/assets/site/js/main.js": "/assets/site/js/main.js",
     "/assets/site/js/pages/home.js": "/assets/site/js/pages/home.js",
     "/assets/site/js/pages/product.js": "/assets/site/js/pages/product.js",
-    "/assets/site/js/pages/shopping-cart.js": "/assets/site/js/pages/shopping-cart.js",
+    "/assets/site/js/services/appUserService.js": "/assets/site/js/services/appUserService.js",
     "/assets/site/js/pages/payment.js": "/assets/site/js/pages/payment.js",
     "/assets/admin/css/all.css": "/assets/admin/css/all.css",
-    "/assets/site/css/main.css": "/assets/site/css/main.css",
     "/assets/site/css/vendor.css": "/assets/site/css/vendor.css",
     "/assets/site/js/vendor.js": "/assets/site/js/vendor.js",
     "/assets/site/images/logo.png": "/assets/site/images/logo.png",
@@ -47,5 +46,6 @@
     "/assets/admin/images/banner.jpg": "/assets/admin/images/banner.jpg",
     "/assets/admin/images/favicon.png": "/assets/admin/images/favicon.png",
     "/assets/admin/images/logo-nomad.png": "/assets/admin/images/logo-nomad.png",
-    "/assets/admin/images/logo.png": "/assets/admin/images/logo.png"
+    "/assets/admin/images/logo.png": "/assets/admin/images/logo.png",
+    "/assets/site/css/main.css": "/assets/site/css/main.css"
 }

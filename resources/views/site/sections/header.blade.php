@@ -298,7 +298,6 @@
                             placeholder="Confirme sua senha">
                     </div>
                     <button type="submit" class="submit-btn" id="registerSubmitBtn">Cadastrar</button>
-                    {{-- Adicionado ID aqui --}}
                     <div id="registerFeedback" class="feedback-message" style="display: none;"></div>
                 </form>
             </div>
@@ -329,7 +328,6 @@
                             placeholder="Digite sua senha">
                     </div>
                     <button type="submit" class="submit-btn" id="loginSubmitBtn">Entrar</button>
-                    {{-- Adicionado ID aqui --}}
                     <div id="loginFeedback" class="feedback-message" style="display: none;"></div>
                 </form>
             </div>

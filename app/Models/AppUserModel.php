@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Importar a classe Authenticatable
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class AppUserModel extends Authenticatable // Mude aqui para estender Authenticatable
+class AppUserModel extends Authenticatable
 {
     protected $table = 'app_users';
 

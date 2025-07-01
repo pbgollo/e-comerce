@@ -40,9 +40,10 @@ mix.js(
     "public/assets/site/js/pages/product.js"
 );
 
+
 mix.js(
-    "resources/assets/site/js/pages/shopping-cart.js",
-    "public/assets/site/js/pages/shopping-cart.js"
+    "resources/assets/site/js/services/appUserService.js",
+    "public/assets/site/js/services/appUserService.js"
 );
 
 mix.js(
