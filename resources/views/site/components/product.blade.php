@@ -18,9 +18,9 @@
                             </svg>
                         @endfor
                     </div>
-                    <div class = "product__top__reviews__amount">
+                    {{-- <div class = "product__top__reviews__amount">
                         <p>{{ '(' . $product['review_amount'] . ')' }}</p>
-                    </div>
+                    </div> --}}
                 </div>
             @endif
         </div>

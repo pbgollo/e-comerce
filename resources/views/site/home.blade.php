@@ -28,8 +28,8 @@
         </div>
         <div class = "home__listing">
             <div class = "home__listing__label">
-                <h1>Mega maio</h1>
-                <div class = "home__listing__label__counter">
+                <h1>Mega Julho</h1>
+                {{-- <div class = "home__listing__label__counter">
                     <p>Termina em:</p>
                     <svg width="22" height="24" viewBox="0 0 22 24" fill="#FFFFFF" xmlns="https://www.w3.org/2000/svg"
                         aria-hidden="true">
@@ -38,7 +38,7 @@
                             fill="#FFFFFF" height="24" aria-hidden="true"></path>
                     </svg>
                     <h1>31d 16 : 57 : 18</h1>
-                </div>
+                </div> --}}
             </div>
             <div class = "home__listing__items">
                 @include ('site.components.product', [$products])

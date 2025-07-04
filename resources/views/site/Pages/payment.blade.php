@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="payment-summary__actions">
-                    <button class="payment-summary__button payment-summary__button--continue">CONTINUAR</button>
+                    <button class="payment-summary__button payment-summary__button--continue">CRIAR PEDIDO</button>
                     <button class="payment-summary__button payment-summary__button--back">VOLTAR</button>
                 </div>
             </aside>

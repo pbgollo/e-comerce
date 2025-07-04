@@ -358,6 +358,10 @@
                                             },
                                             "type": "object"
                                         }
+                                    },
+                                    "isPix": {
+                                        "type": "boolean",
+                                        "example": true
                                     }
                                 },
                                 "type": "object"
@@ -420,73 +424,6 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/api/orders/calculate": {
-            "post": {
-                "tags": [
-                    "Pedidos"
-                ],
-                "summary": "Calcula o valor total de um pedido",
-                "operationId": "67724b00d69a8f642150dcaa2668bde4",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "items"
-                                ],
-                                "properties": {
-                                    "items": {
-                                        "type": "array",
-                                        "items": {
-                                            "required": [
-                                                "product_id",
-                                                "quantity"
-                                            ],
-                                            "properties": {
-                                                "product_id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "quantity": {
-                                                    "type": "integer",
-                                                    "example": 2
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Total calculado com sucesso",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "success": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "total": {
-                                            "type": "number",
-                                            "format": "float",
-                                            "example": 59.9
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         },
         "/api/orders/{id}/status": {

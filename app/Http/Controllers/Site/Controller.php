@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Models\CategoryModel;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -30,6 +31,8 @@ class Controller extends BaseController
 
         // BASE INFO
         $this->vm['general'] = GeneralModel::first()->toArray();
+
+        $this->vm['categories'] = CategoryModel::get()->toArray();
 
         $url = request()->path();
         if ($url == null){

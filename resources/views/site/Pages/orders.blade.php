@@ -81,7 +81,7 @@
             </div>
 
             <h3 class="admin-orders__carousel-title">Fotos dos Produtos no Pedido</h3>
-            <div class="admin-orders__carousel products_pics-embla"> {{-- Mantido 'products_pics-embla' para consistência se você usar a biblioteca --}}
+            <div class="admin-orders__carousel products_pics-embla">
                 <div class="admin-orders__carousel-drag products_pics-embla__drag" id="productImageCarousel">
                 </div>
                 <button class="admin-orders__carousel-prev products_pics-embla-prev">

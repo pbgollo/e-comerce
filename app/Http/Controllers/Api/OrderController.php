@@ -43,7 +43,8 @@ class OrderController extends Controller
      *                     @OA\Property(property="product_id", type="integer", example=1),
      *                     @OA\Property(property="quantity", type="integer", example=2)
      *                 )
-     *             )
+     *             ),
+     *             @OA\Property(property="isPix", type="boolean", example=true)
      *         )
      *     ),
      *     @OA\Response(
@@ -68,10 +69,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $this->getAuthenticatedUserFromToken($request);
+
         $validator = Validator::make($request->all(), [
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
+            'isPix' => 'sometimes|boolean',
         ]);
 
         if ($validator->fails()) {
@@ -82,7 +86,7 @@ class OrderController extends Controller
             ], 422);
         }
 
-        $user = auth()->user();
+        $isPix = $request->boolean('isPix', false);
 
         $total = 0;
         $itensValidados = [];
@@ -116,6 +120,10 @@ class OrderController extends Controller
             ];
         }
 
+        if ($isPix) {
+            $total *= 0.85;
+        }
+
         $order = OrderModel::create([
             'app_user_id' => $user->id,
             'data_pedido' => now(),
@@ -137,60 +145,11 @@ class OrderController extends Controller
             'success' => true,
             'message' => 'Pedido realizado com sucesso!',
             'order_id' => $order->id,
-            'total' => $total
+            'total' => round($total, 2)
         ]);
     }
 
     /**
-     * @OA\Post(
-     *     path="/api/orders/calculate",
-     *     summary="Calcula o valor total de um pedido",
-     *     tags={"Pedidos"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"items"},
-     *             @OA\Property(
-     *                 property="items",
-     *                 type="array",
-     *                 @OA\Items(
-     *                     type="object",
-     *                     required={"product_id", "quantity"},
-     *                     @OA\Property(property="product_id", type="integer", example=1),
-     *                     @OA\Property(property="quantity", type="integer", example=2)
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Total calculado com sucesso",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="success", type="boolean", example=true),
-     *             @OA\Property(property="total", type="number", format="float", example=59.90)
-     *         )
-     *     )
-     * )
-     */
-    public function calculateTotal(Request $request)
-    {
-        $total = 0;
-
-        foreach ($request->items as $item) {
-            $stock = StockModel::where('product_id', $item['product_id'])->first();
-            if (!$stock) continue;
-
-            $price = $stock->promotion_active ? $stock->promotion_price : $stock->price;
-            $total += $item['quantity'] * $price;
-        }
-
-        return response()->json([
-            'success' => true,
-            'total' => $total
-        ]);
-    }
-
-        /**
      * @OA\Get(
      *     path="/api/orders",
      *     summary="Lista os pedidos com filtro por número ou nome do cliente",
@@ -222,9 +181,9 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthenticatedUserFromToken($request);
 
-        $query = OrderModel::with('user:id,name')->orderBy('id', 'desc');
+        $query = OrderModel::with(['itens.product'])->orderBy('id', 'desc');
 
         if (!$user->admin) {
             $query->where('app_user_id', $user->id);
@@ -286,9 +245,9 @@ class OrderController extends Controller
      */
     public function updateStatus(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $this->getAuthenticatedUserFromToken($request);
 
-        if (!$user->admin) {
+        if (!$user->role == 1) {
             return response()->json([
                 'success' => false,
                 'message' => 'Acesso negado'
@@ -336,4 +295,36 @@ class OrderController extends Controller
         ]);
     }
 
+    private function getAuthenticatedUserFromToken(Request $request)
+    {
+        $token = $request->header('Authorization');
+
+        if (!$token) {
+            abort(response()->json([
+                'success' => false,
+                'message' => 'Token não fornecido'
+            ], 401));
+        }
+
+        $token = str_replace('Bearer ', '', $token);
+
+        try {
+            $decoded = JWT::decode($token, new Key("5XwLWBbAHTu1JlJ0SosDt1liLBwiD8FDpL3G8DAe58YyA46AUGJpEdC5ogsAwm7c", 'HS256'));
+            $user = AppUserModel::find($decoded->data->id);
+
+            if (!$user) {
+                abort(response()->json([
+                    'success' => false,
+                    'message' => 'Usuário não encontrado'
+                ], 404));
+            }
+
+            return $user;
+        } catch (Exception $e) {
+            abort(response()->json([
+                'success' => false,
+                'message' => 'Token inválido ou expirado'
+            ], 401));
+        }
+    }
 }

@@ -2,111 +2,35 @@
     @php
         $header_items = [
             [
-                'title' => 'departamentos',
+                'title' => 'categorias',
 
                 'link' => '',
 
-                'subcat' => [
-                    [
-                        'title' => 'Hardware',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Periféricos',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Computadores',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Games',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Celular & smartphone',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'TV',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Áudio',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Projetores',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Espaço Gamer',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Escritório',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Casa Inteligente',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Tablets, Ipads e E-readers',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Cameras e Drones',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Energia',
-                        'link' => '',
-                    ],
-                    [
-                        'title' => 'Conectividade',
-                        'link' => '',
-                    ],
-                ],
+                'subcat' => $categories,
             ],
             [
                 'title' => 'monte seu pc',
-
-                'link' => '',
             ],
             [
                 'title' => 'cupons',
-
-                'link' => '',
             ],
             [
                 'title' => 'hardware',
-
-                'link' => '',
             ],
             [
                 'title' => 'pc gamer',
-
-                'link' => '',
             ],
             [
                 'title' => 'computadores',
-
-                'link' => '',
             ],
             [
                 'title' => 'periféricos',
-
-                'link' => '',
             ],
             [
                 'title' => 'escritório',
-
-                'link' => '',
             ],
             [
                 'title' => 'venda no kabum!',
-                'link' => '',
             ],
         ];
 
@@ -197,7 +121,7 @@
                         fill="#ffffffcc"></path>
                 </svg>
             </a>
-            <a href="" class = "header__top__navbar__item">
+            {{-- <a href="" class = "header__top__navbar__item">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="https://www.w3.org/2000/svg" class="IconHeaderSupport" size="24">
                     <g opacity="0.8">
@@ -206,8 +130,8 @@
                             fill="white"></path>
                     </g>
                 </svg>
-            </a>
-            <a href="" class = "header__top__navbar__item">
+            </a> --}}
+            {{-- <a href="" class = "header__top__navbar__item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                     xmlns="https://www.w3.org/2000/svg" class="IconHeaderFavorites" size="20">
                     <g opacity="0.8">
@@ -216,7 +140,7 @@
                             fill="white"></path>
                     </g>
                 </svg>
-            </a>
+            </a> --}}
             <a href="" class = "header__top__navbar__item">
                 <svg width="20" height="20" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg"
                     class="IconHeaderCart" size="20" aria-hidden="true">
@@ -250,7 +174,7 @@
                     @if (isset($item['subcat']))
                         @foreach ($item['subcat'] as $subcat)
                             <div class = "header__bottom__item__nav__option">
-                                <a href="{{ $subcat['link'] }}">{{ $subcat['title'] }}</a>
+                                <a href="#">{{ $subcat['name'] }}</a>
                                 <svg width="0.75rem" height="0.75rem" viewBox="0 0 25 24" fill="none"
                                     xmlns="https://www.w3.org/2000/svg" class="IconCollapseHeader">
                                     <path fill-rule="evenodd" clip-rule="evenodd"

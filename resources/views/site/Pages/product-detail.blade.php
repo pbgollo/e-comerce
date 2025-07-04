@@ -129,18 +129,21 @@
                     <div class = "details__item__right__sale-banner">
                         {{-- <img src="" alt=""> --}}
                         <div class = "details__item__right__sale-banner__left">
-                            <span>
-                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                    xmlns="https://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M13.7559 0.93144L11.3455 3.33976C11.1508 3.53448 10.887 3.64416 10.6117 3.6448H6.81893C5.06548 3.6448 3.6448 5.06548 3.6448 6.81893V10.6117C3.6448 10.889 3.53388 11.1514 3.33976 11.3476L0.929307 13.7559C0.334271 14.3512 0 15.1584 0 16C0 16.8416 0.334271 17.6488 0.929307 18.2441L3.33976 20.6545C3.53448 20.8492 3.64416 21.113 3.6448 21.3883V25.1811C3.6448 26.9345 5.06548 28.3552 6.81893 28.3552H10.6117C10.889 28.3552 11.1514 28.4661 11.3476 28.6602L13.7559 31.0707C14.3512 31.6657 15.1584 32 16 32C16.8416 32 17.6488 31.6657 18.2441 31.0707L20.6545 28.6602C20.8492 28.4655 21.113 28.3558 21.3883 28.3552H25.1811C26.9345 28.3552 28.3552 26.9345 28.3552 25.1811V21.3883C28.3552 21.111 28.4661 20.8486 28.6602 20.6524L31.0707 18.2441C31.6657 17.6488 32 16.8416 32 16C32 15.1584 31.6657 14.3512 31.0707 13.7559L28.6602 11.3455C28.4655 11.1508 28.3558 10.887 28.3552 10.6117V6.81893C28.3552 5.06548 26.9345 3.6448 25.1811 3.6448H21.3883C21.1123 3.64473 20.8476 3.535 20.6524 3.33976L18.2441 0.929307C17.6488 0.334271 16.8416 0 16 0C15.1584 0 14.3512 0.334271 13.7559 0.929307V0.93144ZM9.91199 20.5777L20.5777 9.91199L22.088 11.4223L11.4223 22.088L9.91199 20.5777ZM10.6671 10.6671V12.8003H12.8003V10.6671H10.6671ZM19.1997 21.3329H21.3329V19.1997H19.1997V21.3329Z"
-                                        fill="#fff"></path>
-                                </svg>
-                            </span>
-                            <p>Desconto:
-                            </p>
-                            <p><strong>20%</strong>
-                            </p>
+                            @if ($product['stock']['promotion_active'])
+                                <span>
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+                                        xmlns="https://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M13.7559 0.93144L11.3455 3.33976C11.1508 3.53448 10.887 3.64416 10.6117 3.6448H6.81893C5.06548 3.6448 3.6448 5.06548 3.6448 6.81893V10.6117C3.6448 10.889 3.53388 11.1514 3.33976 11.3476L0.929307 13.7559C0.334271 14.3512 0 15.1584 0 16C0 16.8416 0.334271 17.6488 0.929307 18.2441L3.33976 20.6545C3.53448 20.8492 3.64416 21.113 3.6448 21.3883V25.1811C3.6448 26.9345 5.06548 28.3552 6.81893 28.3552H10.6117C10.889 28.3552 11.1514 28.4661 11.3476 28.6602L13.7559 31.0707C14.3512 31.6657 15.1584 32 16 32C16.8416 32 17.6488 31.6657 18.2441 31.0707L20.6545 28.6602C20.8492 28.4655 21.113 28.3558 21.3883 28.3552H25.1811C26.9345 28.3552 28.3552 26.9345 28.3552 25.1811V21.3883C28.3552 21.111 28.4661 20.8486 28.6602 20.6524L31.0707 18.2441C31.6657 17.6488 32 16.8416 32 16C32 15.1584 31.6657 14.3512 31.0707 13.7559L28.6602 11.3455C28.4655 11.1508 28.3558 10.887 28.3552 10.6117V6.81893C28.3552 5.06548 26.9345 3.6448 25.1811 3.6448H21.3883C21.1123 3.64473 20.8476 3.535 20.6524 3.33976L18.2441 0.929307C17.6488 0.334271 16.8416 0 16 0C15.1584 0 14.3512 0.334271 13.7559 0.929307V0.93144ZM9.91199 20.5777L20.5777 9.91199L22.088 11.4223L11.4223 22.088L9.91199 20.5777ZM10.6671 10.6671V12.8003H12.8003V10.6671H10.6671ZM19.1997 21.3329H21.3329V19.1997H19.1997V21.3329Z"
+                                            fill="#fff"></path>
+                                    </svg>
+                                </span>
+
+                                <p>Desconto:
+                                </p>
+                                <p><strong>{{ $product['stock']['promotion_active'] }}</strong>
+                                </p>
+                            @endif
                         </div>
                         <div class = "details__item__right__sale-banner__right">
                             <span>
@@ -176,8 +179,8 @@
                         <div class = "details__item__right__actions__texts">
                             <div class = "details__item__right__actions__texts__left">
                                 @if ($product['stock']['promotion_active'] == '1')
-                                    <p class="sale">{{ $product['stock']['price'] }}</p>
-                                    <h1>{{ $product['stock']['promotion_price'] }}</h1>
+                                    <p class="sale">{{ number_format($product['stock']['price'], 2, ',', '.') }}</p>
+                                    <h1>{{ number_format($product['stock']['promotion_price'], 2, ',', '.') }}</h1>
                                     <p>{!! $product['stock']['payment_methods'] !!}</p>
                                 @else
                                     <h1>{{ number_format($product['stock']['price'], 2, ',', '.') }}</h1>
@@ -186,8 +189,8 @@
                             </div>
 
                             <div class = "details__item__right__actions__texts__right">
-                                <a href = "{{ 'product/' . $product['slug'] . '/cart' }}"
-                                    class = "details__item__right__actions__texts__right__buy">
+                                <a href="{{ $product['stock']['quantity'] > 0 ? url('product/' . $product['slug'] . '/cart') : 'javascript:void(0);' }}"
+                                    class="details__item__right__actions__texts__right__buy {{ $product['stock']['quantity'] > 0 ? '' : 'disabled' }}">
                                     <svg width="23" height="22" viewBox="0 0 23 22" fill="none"
                                         xmlns="https://www.w3.org/2000/svg">
                                         <path
@@ -196,7 +199,8 @@
                                     </svg>
                                     <h1>comprar</h1>
                                 </a>
-                                <a class = "details__item__right__actions__texts__right__cart">
+                                <a href="{{ $product['stock']['quantity'] > 0 ? url('product/' . $product['slug'] . '/cart') : 'javascript:void(0);' }}"
+                                    class = "details__item__right__actions__texts__right__cart {{ $product['stock']['quantity'] > 0 ? '' : 'disabled' }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="https://www.w3.org/2000/svg" class="IconAddToCart">
                                         <path
@@ -236,7 +240,7 @@
                                     @foreach ($related_products as $rp)
                                         <div class = "details__item__right__related-products__carousel__drag__item">
                                             <img src="{{ resize($rp['image']) }}" alt="">
-                                            <h1>{{ $rp['stock']['price'] }}</h1>
+                                            <h1>{{ number_format($rp['stock']['price'], 2, ',', '.') }}</h1>
                                         </div>
                                     @endforeach
                                 </div>
