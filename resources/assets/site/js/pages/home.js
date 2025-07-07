@@ -3,22 +3,25 @@ import Autoplay from "embla-carousel-autoplay";
 
 function init() {
     homeBanner();
+
 }
+
 
 function homeBanner() {
     const emblaNode = $(".home-embla");
-    const prevBtn = $('.home-embla-prev');
-    const nextBtn = $('.home-embla-next');
+    const prevBtn = $(".home-embla-prev");
+    const nextBtn = $(".home-embla-next");
 
     if (emblaNode.length === 0) {
-        console.warn('Embla carousel node not found. Skipping homeBanner initialization.');
+        console.warn(
+            "Embla carousel node not found. Skipping homeBanner initialization."
+        );
         return;
     }
 
-    prevBtn.on('click', () => emblaApi.scrollPrev());
-    nextBtn.on('click', () => {
-        emblaApi.scrollNext()
-        console.log('pegou o click')
+    prevBtn.on("click", () => emblaApi.scrollPrev());
+    nextBtn.on("click", () => {
+        emblaApi.scrollNext();
     });
 
     const options = {
@@ -32,14 +35,17 @@ function homeBanner() {
     const emblaApi = EmblaCarousel(emblaNode[0], options, plugins);
 
     //DOTS:
-    const $dotsContainer = $('.home-embla-dots');
-    console.log('Dots Container:', $dotsContainer, 'Length:', $dotsContainer.length);
+    const $dotsContainer = $(".home-embla-dots");
+    // console.log(
+    //     "Dots Container:",
+    //     $dotsContainer,
+    //     "Length:",
+    //     $dotsContainer.length
+    // );
 
     if (emblaApi && $dotsContainer.length) {
-
-        const $slides = $('.offers-banner__slides__item');
-        console.log('Slides Found:', $slides, 'Length:', $slides.length);
-
+        const $slides = $(".offers-banner__slides__item");
+        // console.log("Slides Found:", $slides, "Length:", $slides.length);
 
         // Limpar dots existentes para evitar duplicação
         $dotsContainer.empty();
@@ -47,10 +53,10 @@ function homeBanner() {
         // Criar um dot para cada slide
         const $dots = [];
         $slides.each((index) => {
-            const $dot = $('<button>')
-                .addClass('home-embla-dot')
-                .attr('aria-label', `Go to slide ${index + 1}`);
-            $dot.on('click', () => emblaApi.scrollTo(index));
+            const $dot = $("<button>")
+                .addClass("home-embla-dot")
+                .attr("aria-label", `Go to slide ${index + 1}`);
+            $dot.on("click", () => emblaApi.scrollTo(index));
             $dotsContainer.append($dot);
             $dots.push($dot);
         });
@@ -58,24 +64,24 @@ function homeBanner() {
         const updateDots = () => {
             const selectedIndex = emblaApi.selectedScrollSnap();
             $dots.forEach(($dot, index) => {
-                $dot.toggleClass('is-selected', index === selectedIndex);
+                $dot.toggleClass("is-selected", index === selectedIndex);
             });
         };
 
-        emblaApi.on('init', () => {
-            console.log('emblaApi initialized with options:', options);
+        emblaApi.on("init", () => {
+            // console.log("emblaApi initialized with options:", options);
             updateDots();
         });
-        emblaApi.on('select', updateDots);
+        emblaApi.on("select", updateDots);
         updateDots();
 
         // Revalida após 1 segundo para conteúdo dinâmico
         setTimeout(() => {
             emblaApi.reInit();
-            console.log('Embla re-initialized');
+            // console.log("Embla re-initialized");
         }, 1000);
     } else {
-        console.warn('Dots container not found or Embla not initialized.');
+        console.warn("Dots container not found or Embla not initialized.");
     }
 }
 

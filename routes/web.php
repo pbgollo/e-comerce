@@ -17,6 +17,7 @@ use App\Http\Controllers\Site\ShoppingCartController;
 use App\Http\Controllers\Admin\CKEditorController;
 use App\Http\Controllers\Api\AppUserController;
 use App\Http\Controllers\Site\ProductDetailController;
+use App\Http\Controllers\Site\SearchController;
 use App\Http\Controllers\Site\TranslateController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,10 +26,25 @@ Route::get('translate/{language}', [TranslateController::class, 'index'])->name(
 Route::middleware('localization')->group(function () {
 
     Route::get('', [HomeController::class, 'index'])->name("home");
-    Route::get('/admin/orders', [OrdersController::class, 'index'])->name("admin-orders");
+
+
+    //Rota para ver pedidos de um determinado cliente
+    Route::get('/admin/pedidos', [OrdersController::class, 'admin'])->name('admin.orders');
+
+
+
+    //Rota para ver detalhes do produto:
     Route::get('product/{slug}', [ProductDetailController::class, 'show'])->name("product-detail");
-    Route::get('product/{slug}/cart', [ProductDetailController::class, 'cart'])->name("product-cart");
-    Route::get('product/{slug}/cart/payment', [ProductDetailController::class, 'payment'])->name("product-payment");
+
+    // Alterar e melhorar rotas abaixo:
+    Route::get('/cart', [OrdersController::class, 'cart'])->name("admin.cart");
+
+    // Rotas para pesquisa de produtos na página inicial:
+    Route::get('/busca', [SearchController::class, 'search'])->name("product-search");
+    Route::get('/filtra', [SearchController::class, 'filter'])->name("product-filter");
+
+
+
 
     Route::post('ck/upload', [CKEditorController::class, 'ckUpload'])->name('ck.upload');
 

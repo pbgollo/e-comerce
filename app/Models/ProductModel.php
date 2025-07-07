@@ -12,7 +12,7 @@ class ProductModel extends BaseModel
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('id')
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
 

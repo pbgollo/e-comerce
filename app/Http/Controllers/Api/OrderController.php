@@ -115,8 +115,8 @@ class OrderController extends Controller
 
             $itensValidados[] = [
                 'product_id' => $item['product_id'],
-                'quantity'   => $item['quantity'],
-                'price'      => $preco
+                'quantity' => $item['quantity'],
+                'price' => $preco
             ];
         }
 
@@ -127,15 +127,15 @@ class OrderController extends Controller
         $order = OrderModel::create([
             'app_user_id' => $user->id,
             'data_pedido' => now(),
-            'situacao'    => 'novo'
+            'situacao' => 'novo'
         ]);
 
         foreach ($itensValidados as $item) {
             OrderItemModel::create([
-                'order_id'   => $order->id,
+                'order_id' => $order->id,
                 'product_id' => $item['product_id'],
-                'quantity'   => $item['quantity'],
-                'price'      => $item['price']
+                'quantity' => $item['quantity'],
+                'price' => $item['price']
             ]);
 
             StockModel::where('product_id', $item['product_id'])->decrement('quantity', $item['quantity']);
@@ -183,7 +183,7 @@ class OrderController extends Controller
     {
         $user = $this->getAuthenticatedUserFromToken($request);
 
-        $query = OrderModel::with(['itens.product'])->orderBy('id', 'desc');
+        $query = OrderModel::with(['itens.product', 'itens.product.supplier', 'itens.product.supplier.address', 'itens.product.stock', 'itens.product.images', 'user'])->orderBy('id', 'desc');
 
         if (!$user->admin) {
             $query->where('app_user_id', $user->id);

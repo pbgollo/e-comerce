@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Models\ProductModel;
-use App\Models\TranslateModel;
+use App\Models\OrderModel;
+use App\Models\AppUserModel;
+
 
 class OrdersController extends Controller
 {
 
-    public function index()
+    public function admin()
     {
-        $this->vm['products'] = ProductModel::with(['supplier', 'stock'])->where('active', '1')->orderBy('position')->get()->toArray();
+        return view("site.pages.admin-orders", $this->vm);
+    }
 
-        return view("site.pages.orders", $this->vm);
+    public function cart()
+    {
+        return view("site.pages.checkout", $this->vm);
     }
 }

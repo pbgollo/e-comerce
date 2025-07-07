@@ -12,15 +12,15 @@ class HomeController extends Controller
     {
         $this->vm['products'] = ProductModel::with(['supplier', 'stock'])->where('active', '1')->orderBy('position')->get()->toArray();
 
-        foreach ($this->vm['products'] as &$product) {
-            $product = array_merge(
-                [
-                    'review_amount' => '254',
-                    'review_stars_average' => '4',
-                ],
-                $product,
-            );
-        }
+        // foreach ($this->vm['products'] as &$product) {
+        //     $product = array_merge(
+        //         [
+        //             'review_amount' => '254',
+        //             'review_stars_average' => '4',
+        //         ],
+        //         $product,
+        //     );
+        // }
 
         return view("site.home", $this->vm);
     }

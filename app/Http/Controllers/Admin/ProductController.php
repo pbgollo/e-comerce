@@ -60,6 +60,8 @@ class ProductController extends GenericController
                         'name' => 'category_id',
                         'data' => $categories,
                         'size' => 7,
+                        'validators' => 'required',
+
                     ],
                     [
                         'label' => 'Imagem principal',

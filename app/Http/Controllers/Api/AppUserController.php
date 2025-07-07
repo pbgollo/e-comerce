@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Validator;
  *     description="Endpoints de autenticação e cadastro de usuários do aplicativo"
  * )
  */
-class AppUserController extends Controller {
+class AppUserController extends Controller
+{
 
     /**
      * @OA\Post(
@@ -73,7 +74,7 @@ class AppUserController extends Controller {
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -81,7 +82,7 @@ class AppUserController extends Controller {
             return response()->json([
                 'success' => false,
                 'message' => 'Erro de validação',
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
@@ -115,7 +116,7 @@ class AppUserController extends Controller {
 
         return response()->json([
             'success' => true,
-            'token'   => $token
+            'token' => $token
         ]);
     }
 
@@ -158,8 +159,8 @@ class AppUserController extends Controller {
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:app_users,email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:app_users,email',
             'password' => 'required|string|min:3',
         ]);
 
@@ -167,16 +168,16 @@ class AppUserController extends Controller {
             return response()->json([
                 'success' => false,
                 'message' => 'Erro de validação',
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
         try {
             $user = new AppUserModel();
-            $user->name     = $request->input('name');
-            $user->email    = $request->input('email');
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
-            $user->active   = true;
+            $user->active = true;
             $user->save();
 
             return response()->json([
@@ -234,7 +235,7 @@ class AppUserController extends Controller {
         $token = str_replace('Bearer ', '', $token);
 
         try {
-            $decoded =  JWT::decode($token, new Key("5XwLWBbAHTu1JlJ0SosDt1liLBwiD8FDpL3G8DAe58YyA46AUGJpEdC5ogsAwm7c", 'HS256'));
+            $decoded = JWT::decode($token, new Key("5XwLWBbAHTu1JlJ0SosDt1liLBwiD8FDpL3G8DAe58YyA46AUGJpEdC5ogsAwm7c", 'HS256'));
 
             $user = AppUserModel::find($decoded->data->id);
 
@@ -257,7 +258,33 @@ class AppUserController extends Controller {
         }
     }
 
-    private function generateToken($user){
+    // /**
+    //  * @OA\Post(
+    //  *     path="/api/app-user/logout",
+    //  *     summary="Logout do usuário",
+    //  *     description="Encerra a sessão do usuário (frontend deve remover o token).",
+    //  *     tags={"Usuários"},
+    //  *     security={{"bearerAuth":{}}},
+    //  *     @OA\Response(
+    //  *         response=200,
+    //  *         description="Logout realizado com sucesso",
+    //  *         @OA\JsonContent(
+    //  *             @OA\Property(property="success", type="boolean", example=true),
+    //  *             @OA\Property(property="message", type="string", example="Logout efetuado com sucesso")
+    //  *         )
+    //  *     )
+    //  * )
+    //  */
+    // public function logout(Request $request)
+    // {
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => 'Logout efetuado com sucesso'
+    //     ]);
+    // }
+
+    private function generateToken($user)
+    {
 
         $token = array(
             "iat" => time(),
@@ -269,4 +296,6 @@ class AppUserController extends Controller {
 
         return JWT::encode($token, "5XwLWBbAHTu1JlJ0SosDt1liLBwiD8FDpL3G8DAe58YyA46AUGJpEdC5ogsAwm7c", 'HS256');
     }
+
+
 }

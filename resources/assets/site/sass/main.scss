@@ -1,3 +1,4 @@
+
 /**
  * Arquivo base do SCSS
  * @version 1.1.0
@@ -5,9 +6,9 @@
 
 /* ============= BASE ============= */
 
+@import "base/reset";
 @import "base/variables";
 @import "base/mixins";
-@import "base/reset";
 @import "base/typography";
 
 /* ============= FONTS ============ */
@@ -23,9 +24,8 @@
 
 @import "pages/home";
 @import "pages/product-detail";
-@import "pages/shopping-cart";
-@import "pages/payment";
-@import "pages/orders";
+@import "pages/admin-orders";
+@import "pages/checkout";
 
 /* ========= COMPONENTES ========== */
 
@@ -35,56 +35,88 @@
 @import "components/offersBanner";
 @import "components/product";
 
+
 body {
-    font-family: "Fira Sans", sans-serif;
+    font-family: $default-font;
+    margin: 0;
+    padding: 0;
+    background-color: $main-background;
+    color: $main-text-color;
+    line-height: 1.6;
+    font-size: $default-font-size;
 }
 
-.cms-bar{
+a {
+    text-decoration: none;
+    color: $link-color;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
+
+    &.button--primary {
+        background-color: $button-primary-bg;
+        color: $pure-white;
+
+        &:hover {
+            background-color: $button-primary-hover-bg;
+        }
+    }
+
+    &.button--secondary {
+        background-color: $button-secondary-bg;
+        color: $button-secondary-text;
+        border: 1px solid $button-secondary-border;
+
+        &:hover {
+            background-color: $button-secondary-hover-bg;
+        }
+    }
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid $form-default-border;
+    border-radius: 4px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    &:focus {
+        outline: none;
+        border-color: $form-focus-border;
+        box-shadow: 0 0 0 2px $form-focus-shadow;
+    }
+}
+
+.form-group {
+    margin-bottom: 15px;
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: $medium-grey;
+        font-size: $small-font-size;
+    }
+}
+
+
+.cms-bar {
     display: none;
-    height: 50px;
-
-    &__row{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        background: #9700f6;
-        height: 50px;
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-        align-items: center;
-        font-family: Arial, Helvetica, sans-serif;
-
-        .text{
-            color: #FFF;
-            margin-right: 15px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .btn{
-            background: #FFF;
-            padding: 5px 20px;
-            border-radius: 15px;
-            margin-right: 15px;
-            font-size: 14px;
-            font-weight: bold;
-            text-decoration: none;
-            color: #000;
-
-            &:hover{
-                background: #000;
-                color: #FFF;
-            }
-        }
-    }
-}
-
-
-@include mobile{
-    .cms-bar__row{
-        .text{
-            display: none;
-        }
-    }
 }

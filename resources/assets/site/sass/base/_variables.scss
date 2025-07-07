@@ -1,20 +1,25 @@
 $primary-color: #000000;
 $secondary-color: #ffffff;
+$pure-white:  #ffffff;
 
 $default-font-color: #000000;
 $default-font: "Roboto", sans-serif;
-$default-font-size: 1.5rem;
 
+$default-font-size: 1.5rem;
+$small-font-size: 1rem;
 $default-title-font-color: #000000;
 $default-title-font: "Fira Sans", sans-serif;
 $default-title-font-size: 4rem;
 
-// margin e padding
-// Relativo a texto - em
-// Div interna (card) - rem
-// Banner ou section - vw
+$kabum-blue: #005ce6;
+$kabum-orange: #ff6600;
 
-$color-primary: #ff6500;
+$brand-blue: #0060b1;
+$brand-blue-border: #347bbe;
+$brand-orange: #ff6500;
+$brand-orange-dark: #e75d00;
+$brand-orange-hover: #bd4d02;
+
 $color-secondary: #007bff;
 $color-text-dark: #333;
 $color-text-light: #fff;
@@ -22,12 +27,44 @@ $color-border: #ddd;
 $color-background-light: #f5f6f5;
 $color-success: #008000;
 $color-danger: #ff0000;
-
-$primary-orange: #ff6500;
 $dark-grey: #42464d;
 $medium-grey: #7f858d;
 $light-grey: #e5e5e5;
 $white: #ffffff;
-$background-light: #f8f8f8;
 $border-color: #dcdcdc;
-$error-red: #DC3545;
+
+$input-border-color: #ccc;
+$input-text-color: #42464d;
+$input-placeholder-color: #adadad;
+
+$dropdown-shadow-light: rgba(40, 41, 61, 0.04);
+$dropdown-shadow-dark: rgba(96, 97, 112, 0.16);
+$dropdown-option-hover-bg: #abacae;
+$dropdown-option-text: #565c69;
+
+$home-background: #fafafb;
+$slider-background: #eaeaea;
+$listing-label-background: #f17a28;
+
+$modal-overlay-color: rgba(0, 0, 0, 0.8);
+$modal-close-button-bg: #0056b3;
+$modal-border-radius: 12px;
+$form-input-focus-border: #007bff;
+
+$feedback-error-bg: #fdd;
+$feedback-error-text: #d00;
+$feedback-success-bg: #dfd;
+$feedback-success-text: #0d0;
+
+$main-background: #f8f8f8;
+$main-text-color: $color-text-dark;
+$link-color: $brand-blue;
+$button-primary-bg: $brand-blue;
+$button-primary-hover-bg: darken($brand-blue, 10%);
+$button-secondary-bg: $pure-white;
+$button-secondary-text: $main-text-color;
+$button-secondary-border: $border-color;
+$button-secondary-hover-bg: lighten(#f8f8f8, 3%);
+$form-default-border: $border-color;
+$form-focus-border: $color-secondary;
+$form-focus-shadow: rgba($color-secondary, 0.2);

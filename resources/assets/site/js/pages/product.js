@@ -10,7 +10,7 @@ function init() {
 }
 
 function productSlider_01() {
-    console.log("função 1");
+    // console.log("função 1");
     const emblaNode = $(".products_pics-embla");
     const prevBtn = $(".products_pics-embla-prev");
     const nextBtn = $(".products_pics-embla-next");
@@ -18,7 +18,7 @@ function productSlider_01() {
     prevBtn.on("click", () => emblaApi.scrollPrev());
     nextBtn.on("click", () => {
         emblaApi.scrollNext();
-        console.log("pegou o click");
+        // console.log("pegou o click");
     });
 
     const options = {
@@ -36,20 +36,20 @@ function productSlider_01() {
 
 
     emblaApi.on("init", () => {
-        console.log("emblaApi initialized with options:", options);
+        // console.log("emblaApi initialized with options:", options);
     });
 
     // Revalida após 1 segundo para conteúdo dinâmico
     setTimeout(() => {
         emblaApi.reInit();
-        console.log("Embla re-initialized");
+        // console.log("Embla re-initialized");
     }, 1000);
 }
 
 
 
 function productSlider_02() {
-    console.log("função 2");
+    // console.log("função 2");
     const emblaNode = $(".related_pics-embla");
     const prevBtn = $(".related_pics-embla-prev");
     const nextBtn = $(".related_pics-embla-next");
@@ -57,7 +57,7 @@ function productSlider_02() {
     prevBtn.on("click", () => emblaApi.scrollPrev());
     nextBtn.on("click", () => {
         emblaApi.scrollNext();
-        console.log("pegou o click");
+        // console.log("pegou o click");
     });
 
     const options = {
@@ -77,7 +77,7 @@ function productSlider_02() {
     // Revalida após 1 segundo para conteúdo dinâmico
     setTimeout(() => {
         emblaApi.reInit();
-        console.log("Embla re-initialized");
+        // console.log("Embla re-initialized");
     }, 1000);
 }
 
@@ -87,7 +87,7 @@ function detailsAccordion() {
     var title = item.find('.details__desc__item__up');
 
     title.on('click', function () {
-        console.log('clicou');
+        // console.log('clicou');
         $(this).siblings('.details__desc__item__down').toggleClass('off');
     });
 }

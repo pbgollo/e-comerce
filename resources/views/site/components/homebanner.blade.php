@@ -10,16 +10,14 @@
         ['path' => 'assets/site/images/offer_8.webp', 'link' => ''],
     ];
 @endphp
-
 <div class = "offers-banner home-embla">
     <div class = "offers-banner__slides">
         @foreach ($offers_images as $offer)
             <div class = "offers-banner__slides__item">
                 <div class = "offers-banner__slides__item__image">
-                    <a href="{{ $offer['link']!='' ? $offer['link'] : 'javascript:void(0);' }}">
+                    <a>
                         <img src="{{ $offer['path'] }}" alt="">
                     </a>
-
                     <div class = "offers-banner__slides__item__image__arrow home-embla-prev">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                             xmlns="https://www.w3.org/2000/svg" class="IconCarouselPrev" aria-hidden="true">

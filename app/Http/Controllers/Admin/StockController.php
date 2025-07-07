@@ -104,7 +104,6 @@ class StockController extends GenericController
                         'label' => 'Percentual',
                         'name' => 'promotion_percentage',
                         'size' => 7,
-                        'validators' => 'integer',
                         'hint' => 'Apenas o valor numérico'
                     ],
                     [

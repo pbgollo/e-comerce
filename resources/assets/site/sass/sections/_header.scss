@@ -1,3 +1,4 @@
+/* Header Styles */
 .header {
     width: max(100%, 100vw);
     position: relative;
@@ -5,15 +6,17 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+
     &__top {
         height: 110px;
-        background: rgb(0, 96, 177);
+        background: $brand-blue; // Using specific RGB from your original header background
         width: 100%;
-        padding: 0 10%;
+        padding: 0 10%; // This padding will make it responsive, adjust if needed
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding-left: 6%;
+
         &__hamburger {
             &__button {
                 cursor: pointer;
@@ -22,6 +25,7 @@
                 }
             }
         }
+
         &__logo {
             display: flex;
             align-items: center;
@@ -40,6 +44,7 @@
                 }
             }
         }
+
         &__searchbar {
             display: flex;
             align-items: center;
@@ -54,25 +59,27 @@
                     height: 2.25rem;
                     padding: 0.75rem 1rem;
                     box-shadow: none;
-                    border: 1px solid #ccc;
+                    border: 1px solid $input-border-color; // #ccc
                     outline: none;
-                    background: #fff;
-                    color: rgb(66, 70, 77);
+                    background: $pure-white; // #fff
+                    color: $input-text-color; // rgb(66, 70, 77)
                     border-radius: 0.25rem;
                 }
                 input::placeholder {
-                    color: #adadad;
+                    color: $input-placeholder-color; // #adadad
                     opacity: 1;
-                  }
+                }
                 button {
                     margin-left: -30px;
                     transform: scale(1.1);
                     margin-top: 7px;
-                    svg {
-                    }
+                    background: transparent; // Ensure button background is transparent if not primary
+                    border: none; // Remove default button border
+                    padding: 0; // Remove default button padding
                 }
             }
         }
+
         &__signin {
             display: flex;
             align-items: center;
@@ -86,9 +93,10 @@
                 border-radius: 50%;
                 height: 36px;
                 width: 36px;
-                border: 3px solid rgb(52, 123, 190);
+                border: 3px solid $brand-blue-border; // rgb(52, 123, 190)
                 svg {
                     flex-shrink: 0;
+                    fill: $pure-white; // Assuming sign-in icon is white
                 }
             }
             &__text {
@@ -105,16 +113,17 @@
                 p {
                     font-size: 0.75rem;
                     line-height: 1.125rem;
-                    color: rgba(255, 255, 255, 0.8);
-                    a{
+                    color: rgba($pure-white, 0.8);
+                    a {
                         text-decoration: none;
                         font-size: 0.75rem;
                         line-height: 1.125rem;
-                        color: rgba(255, 255, 255, 0.8);
+                        color: rgba($pure-white, 0.8);
                     }
                 }
             }
         }
+
         &__navbar {
             display: flex;
             align-items: center;
@@ -132,18 +141,21 @@
                     height: 2.25rem;
                     svg {
                         flex-shrink: 0;
+                        fill: $pure-white; // Assuming navbar icons are white
                     }
                 }
             }
         }
     }
+
     &__bottom {
         height: 2rem;
-        background-color: rgb(255, 101, 0);
+        background-color: $brand-orange; // rgb(255, 101, 0)
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+
         &__item {
             position: relative;
             display: flex;
@@ -153,20 +165,19 @@
             -webkit-box-align: center;
             align-items: center;
             padding: 0 2rem;
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 1px solid rgba($pure-white, 0.2);
 
             &:last-child {
-                border-right: 1px solid rgba(255, 255, 255, 0.2);
+                border-right: 1px solid rgba($pure-white, 0.2);
             }
 
             &:hover {
-                background-color: rgb(231, 93, 0);
+                background-color: $brand-orange-dark; // rgb(231, 93, 0)
             }
 
             cursor: pointer;
             &__title {
                 position: relative;
-
                 display: flex;
                 a {
                     display: flex;
@@ -178,31 +189,36 @@
                         line-height: 1.125rem;
                         font-weight: 700;
                         text-transform: uppercase;
-                        color: rgb(255, 255, 255);
+                        color: $pure-white; // rgb(255, 255, 255)
                     }
                     svg {
                         rotate: 180deg;
+                        fill: $pure-white; // Assuming SVG for title is white
                     }
                 }
             }
+
             &__nav {
                 position: absolute;
                 z-index: 999;
                 top: 32px;
                 left: 0;
                 width: 16.375rem;
-                background-color: rgb(255, 255, 255);
+                background-color: $pure-white; // rgb(255, 255, 255)
                 border-radius: 0px 0.25rem 0.25rem;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
                 justify-content: flex-start;
                 box-shadow:
-                    rgba(40, 41, 61, 0.04) 0px 0px 1px,
-                    rgba(96, 97, 112, 0.16) 0px 2px 4px;
+                    $dropdown-shadow-light 0px 0px 1px,
+                    $dropdown-shadow-dark 0px 2px 4px; // Using defined shadow colors
+
                 &.nav-off {
                     display: none;
                 }
+                // No nav-on as per your current structure, it's just 'display: flex' if not off.
+
                 &__option {
                     width: 100%;
                     padding: 0.25rem 1rem;
@@ -210,27 +226,265 @@
                     align-items: center;
                     justify-content: space-between;
                     cursor: pointer;
-                    a {
+                    p {
                         text-decoration: none;
                         font-size: 0.875rem;
                         line-height: 1.5rem;
                         font-weight: 400;
                         border: 0px;
-                        color: rgb(86, 92, 105);
+                        color: $dropdown-option-text; // rgb(86, 92, 105)
                     }
                     svg {
                         flex-shrink: 0;
                         rotate: 90deg;
+                        fill: $dropdown-option-text; // Assuming SVG for nav option is this color
                     }
 
                     &:hover {
-                        background: rgb(171, 172, 174);
+                        background: $dropdown-option-hover-bg; // rgb(171, 172, 174)
                     }
                 }
             }
-            &:hover{
-                background-color: rgb(189, 77, 2);
+            &:hover {
+                background-color: $brand-orange-hover; // rgb(189, 77, 2)
             }
         }
     }
 }
+
+// .header {
+//     width: max(100%, 100vw);
+//     position: relative;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     justify-content: flex-start;
+//     &__top {
+//         height: 110px;
+//         background: rgb(0, 96, 177);
+//         width: 100%;
+//         padding: 0 10%;
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+//         padding-left: 6%;
+//         &__hamburger {
+//             &__button {
+//                 cursor: pointer;
+//                 svg {
+//                     flex-shrink: 0;
+//                 }
+//             }
+//         }
+//         &__logo {
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             transform: scale(0.8);
+//             a {
+//                 display: flex;
+//                 align-items: center;
+//                 justify-content: center;
+//                 height: max(50px, 70px);
+//                 img {
+//                     width: 100%;
+//                     height: 100%;
+//                     vertical-align: center;
+//                     object-fit: cover;
+//                 }
+//             }
+//         }
+//         &__searchbar {
+//             display: flex;
+//             align-items: center;
+
+//             form {
+//                 display: flex;
+//                 align-items: center;
+//                 input {
+//                     font-size: 0.9rem;
+//                     line-height: 1.3125rem;
+//                     width: min(660px, 46vw);
+//                     height: 2.25rem;
+//                     padding: 0.75rem 1rem;
+//                     box-shadow: none;
+//                     border: 1px solid #ccc;
+//                     outline: none;
+//                     background: #fff;
+//                     color: rgb(66, 70, 77);
+//                     border-radius: 0.25rem;
+//                 }
+//                 input::placeholder {
+//                     color: #adadad;
+//                     opacity: 1;
+//                   }
+//                 button {
+//                     margin-left: -30px;
+//                     transform: scale(1.1);
+//                     margin-top: 7px;
+//                     svg {
+//                     }
+//                 }
+//             }
+//         }
+//         &__signin {
+//             display: flex;
+//             align-items: center;
+//             justify-content: space-between;
+//             &__icon {
+//                 display: flex;
+//                 -webkit-box-align: center;
+//                 align-items: center;
+//                 -webkit-box-pack: center;
+//                 justify-content: center;
+//                 border-radius: 50%;
+//                 height: 36px;
+//                 width: 36px;
+//                 border: 3px solid rgb(52, 123, 190);
+//                 svg {
+//                     flex-shrink: 0;
+//                 }
+//             }
+//             &__text {
+//                 width: max(85px, 0.55vw);
+//                 display: flex;
+//                 flex-direction: column;
+//                 -webkit-box-pack: center;
+//                 justify-content: center;
+//                 align-items: flex-start;
+//                 -webkit-box-flex: 1;
+//                 flex-grow: 1;
+//                 margin-left: 0.375rem;
+//                 position: relative;
+//                 p {
+//                     font-size: 0.75rem;
+//                     line-height: 1.125rem;
+//                     color: rgba(255, 255, 255, 0.8);
+//                     a{
+//                         text-decoration: none;
+//                         font-size: 0.75rem;
+//                         line-height: 1.125rem;
+//                         color: rgba(255, 255, 255, 0.8);
+//                     }
+//                 }
+//             }
+//         }
+//         &__navbar {
+//             display: flex;
+//             align-items: center;
+//             gap: min(1rem, 1.5rem);
+//             a {
+//                 &.header__top__navbar__item {
+//                     background: transparent;
+//                     cursor: pointer;
+//                     display: flex;
+//                     -webkit-box-pack: center;
+//                     justify-content: center;
+//                     -webkit-box-align: center;
+//                     align-items: center;
+//                     width: 2.25rem;
+//                     height: 2.25rem;
+//                     svg {
+//                         flex-shrink: 0;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     &__bottom {
+//         height: 2rem;
+//         background-color: rgb(255, 101, 0);
+//         width: 100%;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         &__item {
+//             position: relative;
+//             display: flex;
+//             height: 100%;
+//             -webkit-box-pack: center;
+//             justify-content: center;
+//             -webkit-box-align: center;
+//             align-items: center;
+//             padding: 0 2rem;
+//             border-left: 1px solid rgba(255, 255, 255, 0.2);
+
+//             &:last-child {
+//                 border-right: 1px solid rgba(255, 255, 255, 0.2);
+//             }
+
+//             &:hover {
+//                 background-color: rgb(231, 93, 0);
+//             }
+
+//             cursor: pointer;
+//             &__title {
+//                 position: relative;
+
+//                 display: flex;
+//                 a {
+//                     display: flex;
+//                     align-items: center;
+//                     gap: 1rem;
+//                     text-decoration: none;
+//                     h1 {
+//                         font-size: 0.875rem;
+//                         line-height: 1.125rem;
+//                         font-weight: 700;
+//                         text-transform: uppercase;
+//                         color: rgb(255, 255, 255);
+//                     }
+//                     svg {
+//                         rotate: 180deg;
+//                     }
+//                 }
+//             }
+//             &__nav {
+//                 position: absolute;
+//                 z-index: 999;
+//                 top: 32px;
+//                 left: 0;
+//                 width: 16.375rem;
+//                 background-color: rgb(255, 255, 255);
+//                 border-radius: 0px 0.25rem 0.25rem;
+//                 display: flex;
+//                 flex-direction: column;
+//                 align-items: flex-start;
+//                 justify-content: flex-start;
+//                 box-shadow:
+//                     rgba(40, 41, 61, 0.04) 0px 0px 1px,
+//                     rgba(96, 97, 112, 0.16) 0px 2px 4px;
+//                 &.nav-off {
+//                     display: none;
+//                 }
+//                 &__option {
+//                     width: 100%;
+//                     padding: 0.25rem 1rem;
+//                     display: flex;
+//                     align-items: center;
+//                     justify-content: space-between;
+//                     cursor: pointer;
+//                     p {
+//                         text-decoration: none;
+//                         font-size: 0.875rem;
+//                         line-height: 1.5rem;
+//                         font-weight: 400;
+//                         border: 0px;
+//                         color: rgb(86, 92, 105);
+//                     }
+//                     svg {
+//                         flex-shrink: 0;
+//                         rotate: 90deg;
+//                     }
+
+//                     &:hover {
+//                         background: rgb(171, 172, 174);
+//                     }
+//                 }
+//             }
+//             &:hover{
+//                 background-color: rgb(189, 77, 2);
+//             }
+//         }
+//     }
+// }

@@ -15,6 +15,8 @@ class AppUserController extends GenericController
 
         $this->title = 'Usuários do Sistema';
 
+        $this->translate = false;
+
         $this->search = ['name'];
 
         $this->table = [

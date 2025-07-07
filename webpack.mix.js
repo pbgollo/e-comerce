@@ -1,11 +1,10 @@
 const mix = require("laravel-mix");
 
-mix.browserSync('http://127.0.0.1:8000');
+mix.browserSync("http://127.0.0.1:8000");
 
 if (mix.inProduction()) mix.version();
 
 mix.disableNotifications();
-
 
 /**
  * SITE
@@ -17,22 +16,25 @@ mix.sass(
 );
 
 mix.copy(
-    [
-        "node_modules/slick-carousel/slick/slick.css"
-    ],
+    ["node_modules/slick-carousel/slick/slick.css"],
     "public/assets/site/css/vendor.css"
 );
 
-mix.js(
-    [
-        "resources/assets/site/js/main.js",
-    ],
-    "public/assets/site/js/main.js"
-);
+mix.js(["resources/assets/site/js/main.js"], "public/assets/site/js/main.js");
 
 mix.js(
     "resources/assets/site/js/pages/home.js",
     "public/assets/site/js/pages/home.js"
+);
+
+mix.js(
+    "resources/assets/site/js/pages/adminOrders.js",
+    "public/assets/site/js/pages/adminOrders.js"
+);
+
+mix.js(
+    "resources/assets/site/js/pages/checkout.js",
+    "public/assets/site/js/pages/checkout.js"
 );
 
 mix.js(
@@ -41,39 +43,21 @@ mix.js(
 );
 
 mix.js(
-    "resources/assets/site/js/pages/shopping-cart.js",
-    "public/assets/site/js/pages/shopping-cart.js"
-);
-
-mix.js(
     "resources/assets/site/js/services/appUserService.js",
     "public/assets/site/js/services/appUserService.js"
 );
 
-mix.js(
-    "resources/assets/site/js/pages/payment.js",
-    "public/assets/site/js/pages/payment.js"
-);
-
-
 mix.scripts(
     [
         "node_modules/jquery/dist/jquery.js",
-        "node_modules/slick-carousel/slick/slick.js"
+        "node_modules/slick-carousel/slick/slick.js",
     ],
     "public/assets/site/js/vendor.js"
 );
 
-mix.copyDirectory(
-    "resources/assets/site/images",
-    "public/assets/site/images"
-);
+mix.copyDirectory("resources/assets/site/images", "public/assets/site/images");
 
-mix.copyDirectory(
-    "resources/assets/site/fonts",
-    "public/assets/site/fonts"
-);
-
+mix.copyDirectory("resources/assets/site/fonts", "public/assets/site/fonts");
 
 /**
  * ADMIN
@@ -85,16 +69,12 @@ mix.sass(
 );
 
 mix.styles(
-    [
-        "resources/assets/admin/vendor/argon/css/argon.min.css"
-    ],
+    ["resources/assets/admin/vendor/argon/css/argon.min.css"],
     "public/assets/admin/css/vendor.css"
 );
 
 mix.scripts(
-    [
-        "resources/assets/admin/vendor/argon/js/argon.min.js"
-    ],
+    ["resources/assets/admin/vendor/argon/js/argon.min.js"],
     "public/assets/admin/js/vendor.js"
 );
 
@@ -114,20 +94,14 @@ mix.scripts(
 );
 
 mix.scripts(
-    [
-        "resources/assets/admin/js/vendor/plugin.js",
-    ],
+    ["resources/assets/admin/js/vendor/plugin.js"],
     "public/assets/admin/js/vendor.js"
 );
 
 mix.scripts(
-    [
-        "resources/assets/admin/js/admin-orders.js",
-    ],
+    ["resources/assets/admin/js/admin-orders.js"],
     "public/assets/admin/js/admin-orders.js"
 );
-
-
 
 mix.copyDirectory(
     "resources/assets/admin/images",

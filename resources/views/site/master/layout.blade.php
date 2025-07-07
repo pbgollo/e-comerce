@@ -82,8 +82,7 @@
     <script src="assets/site/js/main.js?v=<?= filemtime('assets/site/js/main.js') ?>" type="module"></script>
     <script src="assets/site/js/services/appUserService.js?v=<?= filemtime('assets/site/js/services/appUserService.js') ?>"
         type="module"></script>
-    <script src="assets/site/js/pages/home.js?v=<?= filemtime('assets/site/js/pages/home.js') ?>" type="module"></script>
-    <script src="assets/site/js/pages/product.js?v=<?= filemtime('assets/site/js/pages/product.js') ?>" type="module">
+
     </script>
 
     @yield('js')
