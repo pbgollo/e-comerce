@@ -13,6 +13,7 @@ function init() {
     setupAddToCartButtons();
     productSearch();
     productFilter();
+    initializeHeaderScripts();
 }
 
 function productSearch() {
@@ -253,21 +254,24 @@ async function loadUserInfo() {
 // }
 
 function toggleHeaderNav() {
-    $(".header__bottom__item").on("mouseenter", function () {
-        var navItem = $(this);
-        navItem.children(".header__bottom__item__nav").removeClass("nav-off");
-        $(window).on("click", function (e) {
-            if (e.target != $(navItem)[0]) {
-                $(navItem)
-                    .children(".header__bottom__item__nav")
-                    .addClass("nav-off");
-            }
+    if ($(window).innerWidth() > 900) {
+        $(".header__bottom__item").on("mouseenter", function () {
+            var navItem = $(this);
+            navItem.children(".header__bottom__item__nav").removeClass("nav-off");
+            $(window).on("click", function (e) {
+                if (e.target != $(navItem)[0]) {
+                    $(navItem)
+                        .children(".header__bottom__item__nav")
+                        .addClass("nav-off");
+                }
+            });
         });
-    });
 
-    $(".header__bottom__item__nav").on("mouseleave", function () {
-        $(this).addClass("nav-off");
-    });
+        $(".header__bottom__item__nav").on("mouseleave", function () {
+            $(this).addClass("nav-off");
+        });
+    }
+
 }
 
 function authModal() {
@@ -365,6 +369,212 @@ async function getLoggedUserOrderInfo() {
     } catch (e) {
         console.log(`erro: ${e}`);
     }
+}
+
+// Function to handle opening/closing the mobile menu (hamburger)
+function setupMobileMenuToggle() {
+    const hamburgerButton = document.querySelector('.header__top__hamburger__button');
+    const mobileMenu = document.querySelector('.header__bottom');
+    const headerItems = document.querySelectorAll('.header__bottom__item'); // Used to close sub-menus
+
+    if (hamburgerButton && mobileMenu) {
+        hamburgerButton.addEventListener('click', function () {
+            mobileMenu.classList.toggle('mobile-menu-active');
+            // Close any open sub-menus when the main menu is toggled
+            headerItems.forEach(item => {
+                const nav = item.querySelector('.header__bottom__item__nav');
+                const svg = item.querySelector('.IconCollapseHeader');
+                if (nav && !nav.classList.contains('nav-off')) {
+                    nav.classList.add('nav-off');
+                    if (svg) {
+                        svg.classList.remove('rotated');
+                    }
+                }
+            });
+        });
+    }
+}
+
+// Function to handle accordion behavior for header bottom items (sub-menus)
+function setupAccordionMenus() {
+    const headerItems = document.querySelectorAll('.header__bottom__item');
+
+    headerItems.forEach(item => {
+        const title = item.querySelector('.header__bottom__item__title');
+        const nav = item.querySelector('.header__bottom__item__nav'); // The sub-menu container
+        const svg = item.querySelector('.IconCollapseHeader'); // The arrow icon for the main title
+
+        if (title && nav) { // Only add listener if sub-menu exists
+            title.addEventListener('click', function (event) {
+                // Prevent default link behavior only if this item has a sub-menu
+                if (item.querySelector('.header__bottom__item__nav') && item.querySelector('.header__bottom__item__nav').children.length > 0) {
+                    event.preventDefault();
+                }
+
+                // Toggle 'nav-off' class for the current item's sub-navigation
+                nav.classList.toggle('nav-off');
+
+                // Toggle rotation of the SVG icon for the current item
+                if (svg) {
+                    svg.classList.toggle('rotated');
+                }
+
+                // Close other open sub-menus
+                headerItems.forEach(otherItem => {
+                    const otherNav = otherItem.querySelector('.header__bottom__item__nav');
+                    const otherSvg = otherItem.querySelector('.IconCollapseHeader');
+                    // Ensure it's a different item and its nav is not off
+                    if (otherNav && otherNav !== nav && !otherNav.classList.contains('nav-off')) {
+                        otherNav.classList.add('nav-off');
+                        if (otherSvg) {
+                            otherSvg.classList.remove('rotated');
+                        }
+                    }
+                });
+            });
+        }
+    });
+}
+
+// Function to handle opening and closing modals
+function setupModals() {
+    const registerButton = document.getElementById('register');
+    const loginButton = document.getElementById('login');
+    const registerModal = document.getElementById('registerModal');
+    const loginModal = document.getElementById('loginModal');
+    const closeModalButtons = document.querySelectorAll('.modal__item__close');
+
+    function openModal(modal) {
+        if (modal) {
+            modal.classList.remove('off');
+            modal.classList.add('on');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        }
+    }
+
+    function closeModal(modal) {
+        if (modal) {
+            modal.classList.remove('on');
+            modal.classList.add('off');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+    }
+
+    if (registerButton) {
+        registerButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            closeModal(loginModal); // Close login if open
+            openModal(registerModal);
+        });
+    }
+
+    if (loginButton) {
+        loginButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            closeModal(registerModal); // Close register if open
+            openModal(loginModal);
+        });
+    }
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            closeModal(registerModal);
+            closeModal(loginModal);
+        });
+    });
+
+    // Close modal if clicking outside the modal content
+    if (registerModal) {
+        registerModal.addEventListener('click', function (e) {
+            if (e.target === registerModal) {
+                closeModal(registerModal);
+            }
+        });
+    }
+    if (loginModal) {
+        loginModal.addEventListener('click', function (e) {
+            if (e.target === loginModal) {
+                closeModal(loginModal);
+            }
+        });
+    }
+}
+
+// Function to handle form submissions (Register and Login)
+function setupFormSubmissions() {
+    const registerForm = document.getElementById('registerForm');
+    const loginForm = document.getElementById('loginForm');
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const feedback = document.getElementById('registerFeedback');
+            if (feedback) {
+                feedback.style.display = 'block';
+                feedback.style.color = 'green';
+                feedback.textContent = 'Cadastro enviado! (Aguardando implementação do backend)';
+            }
+            // In a real application, you would send an AJAX request here
+            // and handle success/failure messages from the server.
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const feedback = document.getElementById('loginFeedback');
+            if (feedback) {
+                feedback.style.display = 'block';
+                feedback.style.color = 'green';
+                feedback.textContent = 'Login enviado! (Aguardando implementação do backend)';
+            }
+            // In a real application, you would send an AJAX request here
+            // and handle success/failure messages from the server.
+        });
+    }
+}
+
+// Function to manage user login/logout status display
+function setupUserStatus() {
+    function checkUserStatusDisplay() {
+        const userName = localStorage.getItem('userName'); // Simulate user login
+        const userStatusContainer = document.getElementById('userStatusContainer');
+        const userGuestContainer = document.getElementById('userGuestContainer');
+        const userNameDisplay = document.getElementById('userNameDisplay');
+
+        if (userName) {
+            if (userStatusContainer) userStatusContainer.style.display = 'block';
+            if (userGuestContainer) userGuestContainer.style.display = 'none';
+            if (userNameDisplay) userNameDisplay.textContent = userName;
+        } else {
+            if (userStatusContainer) userStatusContainer.style.display = 'none';
+            if (userGuestContainer) userGuestContainer.style.display = 'block';
+        }
+    }
+
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            localStorage.removeItem('userName'); // Simulate logout
+            checkUserStatusDisplay();
+        });
+    }
+
+    // Example: To simulate a login after form submission (replace with actual backend response)
+    // localStorage.setItem('userName', 'Nome do Usuário Logado');
+    // checkUserStatusDisplay();
+
+    checkUserStatusDisplay(); // Initial check on page load
+}
+
+// Main function to initialize all scripts
+function initializeHeaderScripts() {
+    setupMobileMenuToggle();
+    setupAccordionMenus();
+    setupModals();
+    setupFormSubmissions();
+    setupUserStatus();
 }
 
 $(function () {

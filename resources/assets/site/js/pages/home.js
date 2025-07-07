@@ -3,7 +3,6 @@ import Autoplay from "embla-carousel-autoplay";
 
 function init() {
     homeBanner();
-
 }
 
 

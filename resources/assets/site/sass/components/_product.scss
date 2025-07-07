@@ -47,20 +47,15 @@
                 gap: 2px;
                 svg {
                     flex-shrink: 0;
-                    &:nth-of-type(1){
-
+                    &:nth-of-type(1) {
                     }
-                    &:nth-of-type(2){
-
+                    &:nth-of-type(2) {
                     }
-                    &:nth-of-type(3){
-
+                    &:nth-of-type(3) {
                     }
-                    &:nth-of-type(4){
-
+                    &:nth-of-type(4) {
                     }
-                    &:nth-of-type(5){
-
+                    &:nth-of-type(5) {
                     }
                 }
             }
@@ -218,6 +213,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap:1rem;
             background: rgb(255, 101, 0);
             border-radius: 0.25rem;
             width: 100%;
@@ -232,19 +228,118 @@
                 font-weight: 700;
                 color: rgb(255, 255, 255);
             }
-
-
         }
-        &:hover{
-            .product__buy__button{
-                svg{
+        &:hover {
+            .product__buy__button {
+                svg {
                     display: inline-block;
                 }
             }
-
         }
     }
-    &:hover{
+    &:hover {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+}
+
+@include mobile {
+    .product {
+        width: 100%;
+        height: auto;
+
+        &__top {
+            height: auto;
+
+            &__promo-label {
+                p {
+                    font-size: 9px;
+                }
+            }
+
+            &__reviews {
+                &__stars {
+                    svg {
+                        width: 12px;
+                        height: 12px;
+                    }
+                }
+                &__amount {
+                    p {
+                        font-size: 9px;
+                    }
+                }
+            }
+        }
+        &__middle {
+            &__image {
+                height: 8rem;
+                img {
+                    width: 100%;
+                    object-fit: contain;
+                }
+            }
+            &__sale-label {
+                &__bg {
+                    svg {
+                        width: 8px;
+                        height: 8px;
+                    }
+                    p {
+                        font-size: 9px;
+                    }
+                }
+            }
+            &__name {
+                min-height: 3rem;
+                margin-top: 4px;
+                h1 {
+                    font-size: 0.75rem;
+                    line-height: 1rem;
+                }
+            }
+        }
+        &__bottom {
+            padding: 0.25rem 0px;
+
+            &__sale-price {
+                p {
+                    font-size: 0.65rem;
+                }
+            }
+            &__current-price {
+                margin-top: 2px;
+                h1 {
+                    font-size: 1.5rem;
+                    line-height: 1.5rem;
+                    margin-bottom: 4px;
+                }
+                &__discount {
+                    p {
+                        font-size: 0.65rem;
+                    }
+                }
+            }
+            &__payment-methods {
+                p {
+                    font-size: 0.65rem;
+                    line-height: 0.9rem;
+                }
+            }
+        }
+        &__buy {
+            height: 32px;
+            &__button {
+                p {
+                    font-size: 0.65rem;
+                }
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+        &:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
     }
 }

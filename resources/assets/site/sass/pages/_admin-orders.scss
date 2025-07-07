@@ -150,7 +150,7 @@
         flex-direction: column;
         gap: 15px;
         font-size: 0.8em;
-        width: 60%;
+        width: 50%;
 
         &-title {
             font-size: 1.1em;
@@ -208,7 +208,7 @@
     }
 
     &__carousel {
-        width: 60%;;
+        width: 100%;
         position: relative;
         overflow: hidden;
         padding: 10px 0;
@@ -218,12 +218,10 @@
 
         &-drag {
             display: flex;
-            touch-action: pan-y;
-            margin-left: -10px;
 
             .products_pics-embla__slide {
-                flex: 0 0 150px;
-                min-width: 0;
+                flex: 0 0 auto;
+                min-width: 20vw;
                 margin-left: 10px;
                 padding: 10px;
                 background-color: $white;
@@ -317,3 +315,96 @@
     }
 }
 
+@include mobile {
+    .admin-orders {
+        &__header {
+        }
+        &__title {
+        }
+        &__search {
+            &-input {
+                &:focus {
+                }
+            }
+            &-button {
+            }
+        }
+        &__list-container {
+            &__header {
+                &-item {
+                }
+            }
+            &__body {
+            }
+            &__empty-message {
+            }
+            &__row {
+                &:last-child {
+                }
+                // &:hover {}
+                &--expanded {
+                }
+                .admin-orders__list-summary {
+                    .admin-orders__list-item {
+                        &:first-child {
+                        }
+                        &.status {
+                        }
+                    }
+                }
+            }
+        }
+        &__details-inline {
+        }
+        &__status-update {
+            width: 100%;
+            &-title {
+            }
+            .form-group {
+            }
+            &-button {
+            }
+        }
+        &__items-title {
+        }
+        &__carousel-title {
+        }
+        &__items-list {
+            &__item {
+                p {
+                    strong {
+                    }
+                }
+            }
+        }
+        &__carousel {
+            width: 100%;
+            &-drag {
+                .products_pics-embla__slide {
+                    img {
+                    }
+                }
+            }
+            &-prev {
+                .IconArrowCarousel {
+                }
+                &:hover {
+                }
+            }
+            &-next {
+                .IconArrowCarousel {
+                }
+                &:hover {
+                }
+            }
+        }
+        &__pagination {
+            &-button {
+                &:disabled {
+                }
+            }
+            &-info {
+            }
+        }
+    }
+}

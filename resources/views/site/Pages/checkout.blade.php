@@ -17,13 +17,11 @@
                 </nav>
             </header>
 
-            {{-- Cart Page Section --}}
             <div id="cartPageSection" class="checkout-main-content">
                 <div class="cart-section">
                     <h2 class="section-title">Seu Carrinho</h2>
                     <p id="emptyCartMessage" class="empty-cart-message">Seu carrinho está vazio.</p>
                     <div id="cartItemsList" class="cart-items-list">
-                        {{-- Cart items will be injected here by JS --}}
                     </div>
                 </div>
 
@@ -56,7 +54,6 @@
                 </aside>
             </div>
 
-            {{-- Payment Page Section --}}
             <div id="paymentPageSection" class="checkout-main-content hidden">
                 <main class="payment-section">
                     <h2 class="section-title">FORMA DE PAGAMENTO</h2>
