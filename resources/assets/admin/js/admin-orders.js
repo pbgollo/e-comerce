@@ -125,11 +125,9 @@ function formatDate(dateString) {
 // Função para obter o texto e a classe do badge de status
 function getStatusDisplay(status) {
     switch (status) {
-        case 'pending': return { text: 'Pendente', class: 'order-item__status-badge--pending' };
-        case 'processing': return { text: 'Em Processamento', class: 'order-item__status-badge--processing' };
-        case 'shipped': return { text: 'Enviado', class: 'order-item__status-badge--shipped' };
-        case 'delivered': return { text: 'Entregue', class: 'order-item__status-badge--delivered' };
-        case 'canceled': return { text: 'Cancelado', class: 'order-item__status-badge--canceled' };
+        case 'novo': return { text: 'Novo', class: 'order-item__status-badge--shipped' };
+        case 'enviado': return { text: 'Enviado', class: 'order-item__status-badge--delivered' };
+        case 'cancelado': return { text: 'Cancelado', class: 'order-item__status-badge--canceled' };
         default: return { text: status, class: '' };
     }
 }
@@ -260,9 +258,9 @@ function toggleDateFields(status) {
     $('#shippingDateGroup').hide();
     $('#cancellationDateGroup').hide();
 
-    if (status === 'shipped' || status === 'delivered') {
+    if (status === 'enviado') {
         $('#shippingDateGroup').show();
-    } else if (status === 'canceled') {
+    } else if (status === 'cancelado') {
         $('#cancellationDateGroup').show();
     }
 }

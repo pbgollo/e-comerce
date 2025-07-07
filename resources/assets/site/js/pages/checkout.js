@@ -3,7 +3,7 @@ import OrderService from "../services/orderService.js";
 import ProductService from "../services/productService.js";
 import CartManager from "../services/cartManager.js";
 
-let currentStep = "cart";
+let currentStep = "cart"; // "cart" or "payment"
 let cartItemsDetailed = [];
 
 function formatCurrency(value) {
@@ -62,9 +62,9 @@ function calculateCartTotals() {
         }
     });
 
-    const pixPrice = subtotal * 0.85;
+    const pixPrice = subtotal * 0.85; // Assumindo 15% de desconto no PIX
     const economy = subtotal - pixPrice;
-    const installments = 8;
+    const installments = 8; // Assumindo 8 parcelas fixas
     const installmentValue = subtotal / installments;
 
     return { subtotal, pixPrice, economy, installments, installmentValue };
@@ -72,18 +72,38 @@ function calculateCartTotals() {
 
 // --- Render Functions ---
 
-async function renderCartPage() {
-    await loadCartDetails();
+async function updateCartDisplay() {
+    await loadCartDetails(); // Garante que cartItemsDetailed está atualizado
 
-    const container = document.getElementById("checkoutContainer");
+    const cartItemsList = document.getElementById("cartItemsList");
+    const emptyCartMessage = document.getElementById("emptyCartMessage");
+    const goToPaymentButton = document.getElementById("goToPaymentButton");
+
     const { subtotal, pixPrice, economy, installments, installmentValue } =
         calculateCartTotals();
 
-    let cartItemsHtml = "";
+    // Limpa os itens existentes ANTES de adicionar os novos
+    cartItemsList.innerHTML = '';
+
+    // Remove listeners antigos antes de potencialmente adicionar novos
+    // Isso evita duplicação de eventos.
+    document.querySelectorAll(".quantity-select").forEach((select) => {
+        select.removeEventListener("change", handleQuantityChange);
+    });
+    document.querySelectorAll(".remove-item-button").forEach((button) => {
+        button.removeEventListener("click", handleRemoveItem);
+    });
+
     if (cartItemsDetailed.length === 0) {
-        cartItemsHtml =
-            '<p class="text-center text-gray-600">Seu carrinho está vazio.</p>';
+        emptyCartMessage.classList.remove("hidden");
+        if (goToPaymentButton) {
+            goToPaymentButton.disabled = true;
+        }
     } else {
+        emptyCartMessage.classList.add("hidden");
+        if (goToPaymentButton) {
+            goToPaymentButton.disabled = false;
+        }
         cartItemsDetailed.forEach((item) => {
             const product = item.product;
             if (!product || !product.stock) return;
@@ -96,31 +116,31 @@ async function renderCartPage() {
 
             const maxQuantityOptions = Math.min(product.stock.quantity, 5); // Limita a 5 ou ao estoque
 
-            cartItemsHtml += `
-                <div class="flex items-center space-x-4 py-4 border-b border-gray-200 last:border-b-0">
-                    <div class="flex-shrink-0">
-                        <img class="w-24 h-24 object-cover rounded-lg" src="/storage/${
+            const itemHtml = `
+                <div class="order-item">
+                    <div class="order-item-image">
+                        <img src="/storage/${
                             product.image
                         }" alt="${product.image_alt || product.name}">
                     </div>
-                    <div class="flex-grow">
-                        <p class="text-sm text-gray-500">Vendido e entregue por: <span class="font-medium text-gray-700">${
+                    <div class="order-item-info">
+                        <p class="order-item-supplier">Vendido e entregue por: <span>${
                             product.supplier ? product.supplier.name : "N/A"
                         }</span></p>
-                        <p class="text-lg font-semibold text-gray-900">${
+                        <p class="order-item-name">${
                             product.name
                         }</p>
-                        <p class="text-sm text-gray-700 mt-1">Com desconto no PIX: <span class="font-bold text-green-600">${formatCurrency(
+                        <p class="order-item-price-pix">Com desconto no PIX: <span>${formatCurrency(
                             displayPixPrice
                         )}</span></p>
-                        <p class="text-sm text-gray-700">Parcela de cartão sem juros: <span class="font-bold">${formatCurrency(
+                        <p class="order-item-price-installments">Parcela de cartão sem juros: <span>${formatCurrency(
                             price
                         )}</span></p>
                     </div>
-                    <div class="flex flex-col items-end space-y-2">
+                    <div class="order-item-actions">
                         <select data-product-id="${
                             product.id
-                        }" class="quantity-select border border-gray-300 rounded-md py-1 px-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                        }" class="quantity-select">
                             ${Array.from(
                                 { length: maxQuantityOptions },
                                 (_, i) => i + 1
@@ -136,210 +156,104 @@ async function renderCartPage() {
                         </select>
                         <button data-product-id="${
                             product.id
-                        }" class="remove-item-button text-red-600 hover:text-red-800 text-sm font-medium">REMOVER</button>
+                        }" class="remove-item-button">REMOVER</button>
                     </div>
                 </div>
             `;
+            cartItemsList.insertAdjacentHTML('beforeend', itemHtml);
         });
     }
 
-    container.innerHTML = `
-        <header class="mb-6">
-            <nav class="flex justify-center space-x-4 text-gray-500 text-lg font-medium">
-                <a class="cart-steps__item ${
-                    currentStep === "cart" ? "cart-steps__item--active" : ""
-                }">Carrinho</a>
-                <a class="cart-steps__item ${
-                    currentStep === "payment" ? "cart-steps__item--active" : ""
-                }">Pagamento</a>
-                <a class="cart-steps__item">Confirmação</a>
-            </nav>
-        </header>
+    // Update summary values
+    document.getElementById("summarySubtotal").textContent = formatCurrency(subtotal);
+    document.getElementById("summaryTotalInstallments").textContent = formatCurrency(subtotal);
+    document.getElementById("summaryInstallmentDetails").textContent = `(em até ${installments}x de ${formatCurrency(installmentValue)} sem juros)`;
+    document.getElementById("summaryPixPrice").textContent = formatCurrency(pixPrice);
+    document.getElementById("summaryEconomy").textContent = `(Economize ${formatCurrency(economy)})`;
 
-        <div class="flex flex-col lg:flex-row gap-8">
-            <div class="flex-1">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Seu Carrinho</h2>
-                <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
-                    ${cartItemsHtml}
-                </div>
-            </div>
-
-            <aside class="w-full lg:w-80 bg-gray-50 p-6 rounded-lg shadow-inner flex flex-col justify-between">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800 mb-4">RESUMO</h2>
-                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                        <p class="text-gray-700">Valor dos Produtos:</p>
-                        <p class="font-semibold text-gray-900">${formatCurrency(
-                            subtotal
-                        )}</p>
-                    </div>
-                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                        <p class="text-gray-700">Frete:</p>
-                        <p class="font-semibold text-gray-900">R$ 0,00</p>
-                    </div>
-                    <div class="py-2 border-b border-gray-200">
-                        <p class="text-gray-700 font-bold">Total a prazo:</p>
-                        <p class="text-xl font-bold text-gray-900 mt-1">${formatCurrency(
-                            subtotal
-                        )}</p>
-                        <p class="text-sm text-gray-500">(em até ${installments}x de ${formatCurrency(
-        installmentValue
-    )} sem juros)</p>
-                    </div>
-                    <div class="py-2">
-                        <p class="text-gray-700 font-bold">Valor à vista no PIX:</p>
-                        <p class="text-xl font-bold text-green-600 mt-1">${formatCurrency(
-                            pixPrice
-                        )}</p>
-                        <p class="text-sm text-green-500">(Economize ${formatCurrency(
-                            economy
-                        )})</p>
-                    </div>
-                </div>
-                <div class="mt-6 space-y-3">
-                    <button id="goToPaymentButton" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-md hover:bg-blue-700 transition-colors shadow-md">IR PARA PAGAMENTO</button>
-                    <button onclick= "window.location.href = ''" class="w-full border border-gray-300 text-gray-700 font-semibold py-3 rounded-md hover:bg-gray-200 transition-colors">CONTINUAR COMPRANDO</button>
-                </div>
-            </aside>
-        </div>
-    `;
-    attachCartEventListeners();
+    // Re-attach event listeners after DOM update
+    // Agora, os listeners são adicionados apenas uma vez por elemento.
+    document.querySelectorAll(".quantity-select").forEach((select) => {
+        select.addEventListener("change", handleQuantityChange);
+    });
+    document.querySelectorAll(".remove-item-button").forEach((button) => {
+        button.addEventListener("click", handleRemoveItem);
+    });
 }
 
-function renderPaymentPage() {
-    const container = document.getElementById("checkoutContainer");
+function updatePaymentDisplay() {
     const { subtotal, pixPrice, economy } = calculateCartTotals();
 
-    container.innerHTML = `
-        <header class="mb-6">
-            <nav class="flex justify-center space-x-4 text-gray-500 text-lg font-medium">
-                <a class="cart-steps__item ${
-                    currentStep === "cart" ? "cart-steps__item--active" : ""
-                }">Carrinho</a>
-                <a class="cart-steps__item ${
-                    currentStep === "payment" ? "cart-steps__item--active" : ""
-                }">Pagamento</a>
-                <a class="cart-steps__item">Confirmação</a>
-            </nav>
-        </header>
+    document.getElementById("paymentSubtotal").textContent = formatCurrency(subtotal);
+    document.getElementById("paymentPixPrice").textContent = formatCurrency(pixPrice);
+    document.getElementById("paymentEconomy").textContent = `(Economize ${formatCurrency(economy)})`;
 
-        <div class="flex flex-col lg:flex-row gap-8">
-            <main class="flex-1 bg-gray-50 p-6 rounded-lg shadow-inner">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">FORMA DE PAGAMENTO</h2>
-
-                <div class="space-y-4">
-                    <div class="border border-gray-300 rounded-lg p-4 flex items-center cursor-pointer hover:bg-gray-100 transition-colors">
-                        <label class="flex items-center w-full">
-                            <input type="radio" name="payment_method" value="pix" class="form-radio h-5 w-5 text-blue-600" checked>
-                            <span class="ml-3 text-lg font-medium text-gray-800">PIX</span>
-                            <span class="payment-option__icon payment-option__icon--pix"></span>
-                        </label>
-                        <div class="ml-8 text-sm text-gray-600">
-                            <p>Até 15% de desconto com aprovação imediata que torna a expedição mais rápida do pedido.</p>
-                        </div>
-                    </div>
-
-                    <div class="border border-gray-300 rounded-lg p-4 flex items-center cursor-pointer hover:bg-gray-100 transition-colors">
-                        <label class="flex items-center w-full">
-                            <input type="radio" name="payment_method" value="boleto" class="form-radio h-5 w-5 text-blue-600">
-                            <span class="ml-3 text-lg font-medium text-gray-800">BOLETO BANCÁRIO</span>
-                            <span class="payment-option__icon payment-option__icon--barcode"></span>
-                        </label>
-                    </div>
-
-                    <div class="border border-gray-300 rounded-lg p-4 flex items-center cursor-pointer hover:bg-gray-100 transition-colors">
-                        <label class="flex items-center w-full">
-                            <input type="radio" name="payment_method" value="credit_card" class="form-radio h-5 w-5 text-blue-600">
-                            <span class="ml-3 text-lg font-medium text-gray-800">CARTÃO DE CRÉDITO</span>
-                            <span class="payment-option__icon payment-option__icon--credit-card"></span>
-                        </label>
-                    </div>
-                </div>
-            </main>
-
-            <aside class="w-full lg:w-80 bg-gray-50 p-6 rounded-lg shadow-inner flex flex-col justify-between">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800 mb-4">VALOR DA COMPRA</h2>
-                    <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                        <p class="text-gray-700">Total da compra:</p>
-                        <p class="font-semibold text-gray-900">${formatCurrency(
-                            subtotal
-                        )}</p>
-                    </div>
-                    <div class="py-2">
-                        <p class="text-gray-700 font-bold">Pagamento via Pix:</p>
-                        <p class="text-xl font-bold text-green-600 mt-1">${formatCurrency(
-                            pixPrice
-                        )}</p>
-                        <p class="text-sm text-green-500">(Economize ${formatCurrency(
-                            economy
-                        )})</p>
-                    </div>
-                </div>
-                <div class="mt-6 space-y-3">
-                    <button id="createOrderButton" class="w-full bg-green-600 text-white font-semibold py-3 rounded-md hover:bg-green-700 transition-colors shadow-md">CRIAR PEDIDO</button>
-                    <button onclick= "window.location.href = ''" id="backToCartButton" class="w-full border border-gray-300 text-gray-700 font-semibold py-3 rounded-md hover:bg-gray-200 transition-colors">VOLTAR</button>
-                </div>
-            </aside>
-        </div>
-    `;
-    attachPaymentEventListeners();
+    // Não é necessário re-anexar listeners aqui, pois os botões desta tela são estáticos.
+    // attachPaymentEventListeners(); // Removido para evitar redundância, pois já é chamado no DOMContentLoaded
 }
+
+function showCartPage() {
+    currentStep = "cart";
+    document.getElementById("cartPageSection").classList.remove("hidden");
+    document.getElementById("paymentPageSection").classList.add("hidden");
+    document.getElementById("cartStepLink").classList.add("checkout-step-item--active");
+    document.getElementById("paymentStepLink").classList.remove("checkout-step-item--active");
+    updateCartDisplay(); // Chamada para re-renderizar o carrinho
+}
+
+function showPaymentPage() {
+    currentStep = "payment";
+    document.getElementById("cartPageSection").classList.add("hidden");
+    document.getElementById("paymentPageSection").classList.remove("hidden");
+    document.getElementById("cartStepLink").classList.remove("checkout-step-item--active");
+    document.getElementById("paymentStepLink").classList.add("checkout-step-item--active");
+    updatePaymentDisplay();
+}
+
 
 // --- Event Listeners ---
 
-function attachCartEventListeners() {
-    document
-        .getElementById("goToPaymentButton")
-        ?.addEventListener("click", () => {
-            if (cartItemsDetailed.length === 0) {
-                alert(
-                    "Seu carrinho está vazio. Adicione itens antes de prosseguir para o pagamento."
-                );
-                return;
-            }
-            currentStep = "payment";
-            renderPaymentPage();
-        });
+// Função auxiliar para inicializar listeners que não mudam frequentemente
+function initializeStaticListeners() {
+    // Listeners do cabeçalho
+    document.getElementById("cartStepLink")?.addEventListener("click", showCartPage);
+    document.getElementById("paymentStepLink")?.addEventListener("click", showPaymentPage);
 
-    document.querySelectorAll(".quantity-select").forEach((select) => {
-        select.addEventListener("change", async (event) => {
-            const productId = parseInt(event.target.dataset.productId);
-            const newQuantity = parseInt(event.target.value);
-
-            CartManager.updateItemQuantity(productId, newQuantity);
-
-            await renderCartPage();
-        });
+    // Listeners da página de carrinho
+    document.getElementById("goToPaymentButton")?.addEventListener("click", () => {
+        if (cartItemsDetailed.length === 0) {
+            alert("Seu carrinho está vazio. Adicione itens antes de prosseguir para o pagamento.");
+            return;
+        }
+        showPaymentPage();
     });
 
-    document.querySelectorAll(".remove-item-button").forEach((button) => {
-        button.addEventListener("click", async (event) => {
-            const productId = parseInt(event.target.dataset.productId);
-
-            CartManager.removeItem(productId);
-
-            await renderCartPage();
-        });
-    });
+    // Listeners da página de pagamento
+    document.getElementById("createOrderButton")?.addEventListener("click", handleCreateOrder);
+    document.getElementById("backToCartButton")?.addEventListener("click", showCartPage);
 }
 
-function attachPaymentEventListeners() {
-    document
-        .getElementById("createOrderButton")
-        ?.addEventListener("click", handleCreateOrder);
-    document
-        .getElementById("backToCartButton")
-        ?.addEventListener("click", async () => {
-            currentStep = "cart";
-            await renderCartPage();
-        });
+
+async function handleQuantityChange(event) {
+    const productId = parseInt(event.target.dataset.productId);
+    const newQuantity = parseInt(event.target.value);
+
+    CartManager.updateItemQuantity(productId, newQuantity);
+    await updateCartDisplay(); // Re-renderiza o carrinho
 }
+
+async function handleRemoveItem(event) {
+    const productId = parseInt(event.target.dataset.productId);
+
+    CartManager.removeItem(productId);
+    await updateCartDisplay(); // Re-renderiza o carrinho
+}
+
 
 // --- Checkout Logic ---
 
 async function handleCreateOrder() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
     if (!token) {
         alert(
             "Autenticação necessária para criar o pedido. Por favor, faça login."
@@ -371,7 +285,6 @@ async function handleCreateOrder() {
     }
 
     try {
-        // Passar o token de autenticação para o OrderService se ele precisar
         const response = await OrderService.createOrder(
             itemsPayload,
             isPix,
@@ -386,8 +299,7 @@ async function handleCreateOrder() {
             CartManager.clearCart();
             cartItemsDetailed = [];
 
-            currentStep = "cart";
-            await renderCartPage();
+            showCartPage(); // Go back to cart page after order creation
         } else {
             const errorMessage =
                 response.message || "Erro desconhecido ao criar pedido.";
@@ -417,5 +329,12 @@ async function handleCreateOrder() {
 
 // --- Initial Load ---
 document.addEventListener("DOMContentLoaded", async () => {
-    await renderCartPage();
+    initializeStaticListeners(); // Anexa listeners que não mudam apenas uma vez
+
+    // Initial display based on currentStep (defaulting to cart)
+    if (currentStep === "cart") {
+        showCartPage();
+    } else {
+        showPaymentPage();
+    }
 });
