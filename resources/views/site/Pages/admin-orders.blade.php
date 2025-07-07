@@ -29,7 +29,6 @@
             <div id="ordersList" class="admin-orders__list-body">
                 <p class="admin-orders__list-empty-message">Nenhum pedido encontrado. Tente uma busca.</p>
             </div>
-            {{-- Falta implementar paginação --}}
             <div class="admin-orders__pagination">
                 <button id="prevPage" class="admin-orders__pagination-button button button--secondary"
                     disabled>Anterior</button>

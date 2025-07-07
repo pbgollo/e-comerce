@@ -7,11 +7,15 @@ let currentStep = "cart"; // "cart" or "payment"
 let cartItemsDetailed = [];
 
 function formatCurrency(value) {
-    return `R$ ${value.toFixed(2).replace(".", ",")}`;
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(value);
 }
 
 async function loadCartDetails() {
     const simpleCartItems = CartManager.getCartItems();
+    console.log("Carrinho simples:", simpleCartItems);
 
     if (simpleCartItems.length === 0) {
         cartItemsDetailed = [];
@@ -94,16 +98,17 @@ async function updateCartDisplay() {
         button.removeEventListener("click", handleRemoveItem);
     });
 
-    if (cartItemsDetailed.length === 0) {
-        emptyCartMessage.classList.remove("hidden");
-        if (goToPaymentButton) {
-            goToPaymentButton.disabled = true;
-        }
-    } else {
-        emptyCartMessage.classList.add("hidden");
-        if (goToPaymentButton) {
-            goToPaymentButton.disabled = false;
-        }
+        if (cartItemsDetailed.length === 0) {
+            console.log("Carrinho vazio, renderizando mensagem de carrinho vazio.");
+            console.log(emptyCartMessage);
+            if (emptyCartMessage) emptyCartMessage.classList.remove("hidden");
+            if (goToPaymentButton) goToPaymentButton.disabled = true;
+            cartItemsList.innerHTML = '';
+        } else {
+            if (emptyCartMessage) emptyCartMessage.classList.add("hidden");
+            if (goToPaymentButton) goToPaymentButton.disabled = false;
+            cartItemsList.innerHTML = '';
+
         cartItemsDetailed.forEach((item) => {
             const product = item.product;
             if (!product || !product.stock) return;
@@ -299,7 +304,7 @@ async function handleCreateOrder() {
             CartManager.clearCart();
             cartItemsDetailed = [];
 
-            showCartPage(); // Go back to cart page after order creation
+            window.location.href = "/admin/pedidos";
         } else {
             const errorMessage =
                 response.message || "Erro desconhecido ao criar pedido.";

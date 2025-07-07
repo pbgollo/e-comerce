@@ -21,9 +21,9 @@
             <div id="cartPageSection" class="checkout-main-content">
                 <div class="cart-section">
                     <h2 class="section-title">Seu Carrinho</h2>
+                    <p id="emptyCartMessage" class="empty-cart-message">Seu carrinho está vazio.</p>
                     <div id="cartItemsList" class="cart-items-list">
                         {{-- Cart items will be injected here by JS --}}
-                        <p id="emptyCartMessage" class="empty-cart-message hidden">Seu carrinho está vazio.</p>
                     </div>
                 </div>
 

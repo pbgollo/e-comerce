@@ -1,15 +1,27 @@
 import OrderService from "../services/orderService.js";
 
-async function loadOrders(searchTerm = "") {
+let currentPage = 1;
+let lastPage = 1;
+let searchTermGlobal = "";
+
+function formatCurrency(value) {
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(value);
+}
+
+async function loadOrders(searchTerm = "", page = 1) {
     const token = localStorage.getItem("token");
     if (!token) {
-        console.error("No token found. User not authenticated.");
         document.getElementById("ordersList").innerHTML =
             '<p class="admin-orders__list-empty-message">Por favor, faça login para ver os pedidos.</p>';
         return;
     }
 
-    const filters = {};
+    const filters = { page };
+    searchTermGlobal = searchTerm;
+
     if (searchTerm) {
         if (!isNaN(searchTerm) && !isNaN(parseFloat(searchTerm))) {
             filters.numero = searchTerm;
@@ -20,15 +32,20 @@ async function loadOrders(searchTerm = "") {
 
     try {
         const response = await OrderService.getOrders(token, filters);
-        if (
-            response.success &&
-            response.pedidos &&
-            response.pedidos.length > 0
-        ) {
-            renderOrderList(response.pedidos);
+        const data = response.pedidos;
+
+        if (response.success && data.data && data.data.length > 0) {
+            renderOrderList(data.data);
+
+            currentPage = data.current_page;
+            lastPage = data.last_page;
+
+            updatePaginationUI();
         } else {
             document.getElementById("ordersList").innerHTML =
                 '<p class="admin-orders__list-empty-message">Nenhum pedido encontrado.</p>';
+            document.getElementById("pageInfo").innerText = "Página 0 de 0";
+            togglePaginationButtons(true, true);
         }
     } catch (error) {
         console.error("Erro ao carregar pedidos:", error);
@@ -36,6 +53,29 @@ async function loadOrders(searchTerm = "") {
             '<p class="admin-orders__list-empty-message">Ocorreu um erro ao carregar os pedidos.</p>';
     }
 }
+
+function updatePaginationUI() {
+    document.getElementById("pageInfo").innerText = `Página ${currentPage} de ${lastPage}`;
+    togglePaginationButtons(currentPage === 1, currentPage === lastPage);
+}
+
+function togglePaginationButtons(prevDisabled, nextDisabled) {
+    document.getElementById("prevPage").disabled = prevDisabled;
+    document.getElementById("nextPage").disabled = nextDisabled;
+}
+
+document.getElementById("prevPage").addEventListener("click", () => {
+    if (currentPage > 1) {
+        loadOrders(searchTermGlobal, currentPage - 1);
+    }
+});
+
+document.getElementById("nextPage").addEventListener("click", () => {
+    if (currentPage < lastPage) {
+        loadOrders(searchTermGlobal, currentPage + 1);
+    }
+});
+
 
 function renderOrderList(orders) {
     const container = document.getElementById("ordersList");
@@ -58,12 +98,8 @@ function renderOrderList(orders) {
                 <p class="admin-orders__list-item">${
                     order.user.name ?? "Desconhecido"
                 }</p>
-                <p class="admin-orders__list-item">${formatDate(
-                    order.data_pedido
-                )}</p>
-                <p class="admin-orders__list-item">R$ ${total
-                    .toFixed(2)
-                    .replace(".", ",")}</p>
+                <p class="admin-orders__list-item">${getFormattedStatusDate(order)}</p>
+                <p class="admin-orders__list-item">${formatCurrency(total)}</p>
                 <p class="admin-orders__list-item status">${order.situacao}</p>
             </div>
             <div class="admin-orders__details-inline">
@@ -73,6 +109,18 @@ function renderOrderList(orders) {
         container.appendChild(row);
     });
 }
+
+function getFormattedStatusDate(order) {
+    switch (order.situacao) {
+        case "enviado":
+            return `Enviado em ${formatDate(order.data_envio)}`;
+        case "cancelado":
+            return `Cancelado em ${formatDate(order.data_cancelamento)}`;
+        default:
+            return `Criado em ${formatDate(order.data_pedido)}`;
+    }
+}
+
 
 function generateOrderDetailsHtml(order) {
     let itemsHtml =
@@ -88,12 +136,8 @@ function generateOrderDetailsHtml(order) {
                     product?.name ?? "Produto Desconhecido"
                 }</p>
                 <p><strong>Quantidade:</strong> ${item.quantity}</p>
-                <p><strong>Valor Unitário:</strong> R$ ${price
-                    .toFixed(2)
-                    .replace(".", ",")}</p>
-                <p><strong>Valor Total:</strong> R$ ${totalItem
-                    .toFixed(2)
-                    .replace(".", ",")}</p>
+                <p><strong>Valor Unitário:</strong> ${formatCurrency(price)}</p>
+                <p><strong>Valor Total:</strong> ${formatCurrency(totalItem)}</p>
             </div>
         `;
     });

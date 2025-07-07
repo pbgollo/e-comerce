@@ -59,13 +59,14 @@
 
     &__list-header {
         display: grid;
-        grid-template-columns: 0.8fr 1.5fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(5, 1fr);
         background-color: $kabum-blue;
         color: $white;
         padding: 12px 20px;
         font-weight: bold;
         font-size: 0.95em;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
 
         &-item {
             margin: 0;
@@ -103,13 +104,14 @@
 
         .admin-orders__list-summary {
             display: grid;
-            grid-template-columns: 0.8fr 1.5fr 1fr 1fr 1fr;
+            grid-template-columns: repeat(5, 1fr);
             gap: 10px;
             width: 100%;
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px dashed $border-color;
+            text-align: center;
         }
 
         .admin-orders__list-item {
@@ -136,6 +138,7 @@
         gap: 25px;
         padding-top: 15px;
         margin-top: -15px;
+        justify-content: center;
     }
 
     &__status-update {
@@ -147,7 +150,7 @@
         flex-direction: column;
         gap: 15px;
         font-size: 0.8em;
-        width: 50%;
+        width: 60%;
 
         &-title {
             font-size: 1.1em;
@@ -205,11 +208,13 @@
     }
 
     &__carousel {
+        width: 60%;;
         position: relative;
         overflow: hidden;
         padding: 10px 0;
         background-color: #f9f9f9;
         border-radius: 8px;
+        justify-content: center;
 
         &-drag {
             display: flex;
