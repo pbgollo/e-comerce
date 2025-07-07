@@ -14,7 +14,7 @@
 
         <div class="admin-orders__search">
             <input type="text" id="orderSearchInput" class="admin-orders__search-input"
-                placeholder="Buscar por Nº do Pedido ou Nome do Cliente">
+                placeholder="Buscar por nº do pedido ou nome do cliente">
             <button id="searchButton" class="admin-orders__search-button button button--primary">Buscar</button>
         </div>
 

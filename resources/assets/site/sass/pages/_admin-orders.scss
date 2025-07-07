@@ -1,22 +1,24 @@
 .admin-orders {
-    margin: 30px auto;
+    margin: auto;
     padding: 20px;
-    background-color: var(--bg-white);
+    padding-right: 40px;
+    background-color: $white;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 
     &__header {
-        border-bottom: 2px solid var(--border-color);
+        border-bottom: 2px solid $border-color;
         padding-bottom: 15px;
         margin-bottom: 25px;
-        display: flex;
         justify-content: space-between;
         align-items: center;
+        text-align: center;
     }
 
     &__title {
-        font-size: 1.8em;
-        color: var(--kabum-blue);
+        padding-top: 20px;
+        font-size: 1.6em;
+        color: $kabum-blue;
         margin: 0;
         font-weight: 500;
     }
@@ -25,30 +27,31 @@
         display: flex;
         gap: 10px;
         margin-bottom: 30px;
+        font-size: 0.8em;
 
         &-input {
             flex-grow: 1;
             padding: 12px 15px;
-            border: 1px solid var(--border-color);
+            border: 1px solid $border-color;
             border-radius: 6px;
-            font-size: 1.05em;
+            font-size: 0.8em;
 
             &:focus {
                 outline: none;
-                border-color: var(--kabum-blue);
-                box-shadow: 0 0 0 2px rgba(var(--kabum-blue), 0.2);
+                border-color: $kabum-blue;
+                box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
             }
         }
 
         &-button {
             padding: 12px 25px;
-            font-size: 1.05em;
+            font-size: 0.9em;
             border-radius: 6px;
         }
     }
 
     &__list-container {
-        border: 1px solid var(--border-color);
+        border: 1px solid $border-color;
         border-radius: 8px;
         overflow: hidden;
         margin-bottom: 30px;
@@ -57,8 +60,8 @@
     &__list-header {
         display: grid;
         grid-template-columns: 0.8fr 1.5fr 1fr 1fr 1fr;
-        background-color: var(--kabum-blue);
-        color: var(--bg-white);
+        background-color: $kabum-blue;
+        color: $white;
         padding: 12px 20px;
         font-weight: bold;
         font-size: 0.95em;
@@ -70,20 +73,20 @@
     }
 
     &__list-body {
-        background-color: var(--bg-white);
+        background-color: $white;
     }
 
     &__list-empty-message {
         text-align: center;
         padding: 40px 20px;
-        color: var(--text-medium);
+        color: $text-medium;
         font-size: 1.1em;
     }
 
     &__list-row {
         display: flex;
         flex-wrap: wrap;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid $border-color;
         padding: 20px;
         transition: background-color 0.2s ease;
 
@@ -91,9 +94,9 @@
             border-bottom: none;
         }
 
-        &:hover {
-            background-color: var(--bg-light-gray);
-        }
+        // &:hover {
+        //     background-color: $lighter-grey;
+        // }
 
         &--expanded {
         }
@@ -106,18 +109,23 @@
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 15px;
-            border-bottom: 1px dashed var(--border-color);
+            border-bottom: 1px dashed $border-color;
         }
 
         .admin-orders__list-item {
             font-size: 0.9em;
-            color: var(--text-dark);
+            color: $text-dark;
             margin: 0;
 
             &:first-child {
                 font-weight: bold;
-                color: var(--kabum-blue);
+                color: $kabum-blue;
             }
+        }
+
+        .status {
+            text-transform: capitalize;
+            color: $kabum-orange;
         }
     }
 
@@ -138,10 +146,13 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
+        font-size: 0.8em;
+        width: 50%;
 
         &-title {
-            font-size: 1.2em;
-            color: var(--kabum-blue);
+            font-size: 1.1em;
+            font-weight: 500;
+            color: $kabum-blue;
             margin-top: 0;
             margin-bottom: 10px;
         }
@@ -152,15 +163,18 @@
 
         &-button {
             align-self: flex-start;
+            font-size: 0.8em;
         }
     }
 
     &__items-title,
     &__carousel-title {
-        font-size: 1.2em;
-        color: var(--text-dark);
-        margin-bottom: 15px;
-        border-bottom: 1px solid var(--border-color);
+        font-size: 1em;
+        font-weight: 450;
+        color: $text-dark;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid $border-color;
         padding-bottom: 10px;
     }
 
@@ -171,19 +185,21 @@
     }
 
     &__item {
-        background-color: var(--bg-white);
-        border: 1px solid var(--border-color);
+        background-color: $white;
+        border: 1px solid $border-color;
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        font-size: 0.85em;
 
         p {
             margin: 5px 0;
             font-size: 0.9em;
-            color: var(--text-medium);
+            color: $text-medium;
 
             strong {
-                color: var(--text-dark);
+                font-weight: bold;
+                color: $text-dark;
             }
         }
     }
@@ -192,7 +208,7 @@
         position: relative;
         overflow: hidden;
         padding: 10px 0;
-        background-color: #f0f0f0;
+        background-color: #f9f9f9;
         border-radius: 8px;
 
         &-drag {
@@ -205,8 +221,8 @@
                 min-width: 0;
                 margin-left: 10px;
                 padding: 10px;
-                background-color: var(--bg-white);
-                border: 1px solid var(--border-color);
+                background-color: $white;
+                border: 1px solid $border-color;
                 border-radius: 5px;
                 display: flex;
                 align-items: center;
@@ -228,7 +244,7 @@
             top: 50%;
             transform: translateY(-50%);
             background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid var(--border-color);
+            border: 1px solid $border-color;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -245,7 +261,7 @@
             }
 
             &:hover {
-                background-color: var(--bg-white);
+                background-color: $white;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
         }
@@ -271,13 +287,15 @@
         align-items: center;
         gap: 15px;
         padding-top: 20px;
-        border-top: 1px solid var(--border-color);
+        border-top: 1px solid $border-color;
         margin-top: 20px;
+        padding-bottom: 15px;
+        font-size: 0.8em;
 
         &-button {
             padding: 8px 15px;
-            font-size: 0.9em;
-            color: var(--text-medium);
+            font-size: 0.8em;
+            color: $text-medium;
             background-color: #f0f0f0;
             border: 1px solid #ddd;
 
@@ -289,7 +307,8 @@
 
         &-info {
             font-size: 0.95em;
-            color: var(--text-dark);
+            color: $text-dark;
         }
     }
 }
+

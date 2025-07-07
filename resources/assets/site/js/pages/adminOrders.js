@@ -64,7 +64,7 @@ function renderOrderList(orders) {
                 <p class="admin-orders__list-item">R$ ${total
                     .toFixed(2)
                     .replace(".", ",")}</p>
-                <p class="admin-orders__list-item">${order.situacao}</p>
+                <p class="admin-orders__list-item status">${order.situacao}</p>
             </div>
             <div class="admin-orders__details-inline">
                 ${orderDetailsHtml}
@@ -186,9 +186,9 @@ function generateOrderDetailsHtml(order) {
     `;
 
     return `
-        ${statusUpdateHtml}
         ${itemsHtml}
         ${imagesHtml}
+        ${statusUpdateHtml}
     `;
 }
 
