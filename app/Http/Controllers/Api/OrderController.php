@@ -155,6 +155,21 @@ class OrderController extends Controller
      *     summary="Lista os pedidos com filtro por número ou nome do cliente",
      *     tags={"Pedidos"},
      *     security={{"bearerAuth":{}}},
+     *
+     * @OA\Parameter(
+     *     name="page",
+     *     in="query",
+     *     description="Número da página para paginação",
+     *     required=false,
+     *     @OA\Schema(type="integer", default=1)
+     * ),
+     *     @OA\Parameter(
+     *       name="per_page",
+     *       in="query",
+     *       description="Quantidade de registros por página",
+     *       required=false,
+     *       @OA\Schema(type="integer", default=3)
+     *     ),
      *     @OA\Parameter(
      *         name="numero",
      *         in="query",
@@ -183,7 +198,14 @@ class OrderController extends Controller
     {
         $user = $this->getAuthenticatedUserFromToken($request);
 
-        $query = OrderModel::with(['itens.product', 'itens.product.supplier', 'itens.product.supplier.address', 'itens.product.stock', 'itens.product.images', 'user'])->orderBy('id', 'desc');
+        $query = OrderModel::with([
+            'itens.product',
+            'itens.product.supplier',
+            'itens.product.supplier.address',
+            'itens.product.stock',
+            'itens.product.images',
+            'user'
+        ])->orderBy('id', 'desc');
 
         if (!$user->admin) {
             $query->where('app_user_id', $user->id);
@@ -199,7 +221,9 @@ class OrderController extends Controller
             });
         }
 
-        $pedidos = $query->get();
+        // Paginação: por padrão 15 por página, pode customizar com ?per_page=10
+        $perPage = $request->get('per_page', 3);
+        $pedidos = $query->paginate($perPage);
 
         return response()->json([
             'success' => true,
